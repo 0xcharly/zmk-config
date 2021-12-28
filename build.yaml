@@ -17,3 +17,7 @@ include:
     shield: lily58_left
   - board: nice_nano
     shield: lily58_right
+  - board: nice_nano
+    shield: bastyl_left
+  - board: nice_nano
+    shield: bastyl_right
