@@ -83,7 +83,7 @@
 &kp TAB   &kp G     &kp Q   &kp W     &kp E     &kp R            &kp Y     &kp U     &kp I     &kp O     &kp P    &kp LBKT
 &kp T     &kp LSHFT &kp A   &kp S     &kp D     &kp F            &kp H     &kp J     &kp K     &kp L     &kp SEMI &kp SQT
 &kp LSHFT &kp B     &kp Z   &kp X     &kp C     &kp V            &kp N     &kp M     &kp COMMA &kp DOT   &kp FSLH &kp LSHFT
-                            &kp SPACE &kp LALT  &mo 1            &trans    &kp RCMD  &kp ENTER 
+                            &kp SPACE &kp LALT  &tog 3           &trans    &kp RCMD  &kp ENTER 
                                       &kp LCTRL &kp LALT         &trans    &trans
 			>;
 		};
