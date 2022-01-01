@@ -37,7 +37,7 @@
 // | TILDE |  !   |  @    |  #    |  $   |  %   |                   |  ^   |  &    |  *    |  (   |   )   |  DEL  |
 // | RESET |      |       |       |      |  [   |                   |  ]   |  7    |  8    |  9   |       |   +   |
 // |       | HOME | PG UP | PG DN | END  |  (   |                   |  )   |  4    |  5    |  6   |   -   |  "|"  |
-// |       |      |       |       |      |GAME_L|                   |      |  1    |  2    |  3   |   =   |   _   |
+// |       |      |       |       | CLMK |GAME_L|                   |      |  1    |  2    |  3   |   =   |   _   |
 //                        |  SPCE | BKSP |      |                   |      | RCMD  | ENTR  |
 //                                | CTRL | ALT  |                   |      |       | 
 
@@ -45,7 +45,7 @@
 &kp TILDE &kp EXCL  &kp AT    &kp HASH  &kp DLLR  &kp PRCNT                 &kp CARET &kp AMPS   &kp STAR  &kp LPAR  &kp RPAR     &kp DEL
 &reset    &trans    &trans    &trans    &trans    &kp LBKT                  &kp RBKT  &kp KP_N7  &kp KP_N8 &kp N9    &trans       &kp PLUS
 &trans    &kp HOME  &kp PG_UP &kp PG_DN &kp END   &kp LPAR                  &kp RPAR  &kp KP_N4  &kp KP_N5 &kp KP_N6 &kp KP_MINUS &kp PIPE
-&trans    &trans    &trans    &trans    &trans    &tog 3                    &trans    &kp KP_N1  &kp KP_N2 &kp KP_N3 &kp KP_EQUAL &kp UNDER
+&trans    &trans    &trans    &trans    &tog 4    &tog 3                    &trans    &kp KP_N1  &kp KP_N2 &kp KP_N3 &kp KP_EQUAL &kp UNDER
                               &kp SPACE &kp BSPC  &trans                    &trans    &kp RCMD   &kp ENTER 
                                         &kp LCTRL &kp LALT                  &trans    &trans
             >;
@@ -85,6 +85,24 @@
 &kp LSHFT &kp B     &kp Z   &kp X     &kp C     &kp V            &kp N     &kp M     &kp COMMA &kp DOT   &kp FSLH &kp LSHFT
                             &kp SPACE &kp LALT  &tog 3           &trans    &kp RCMD  &kp ENTER 
                                       &kp LCTRL &kp LALT         &trans    &trans
+			>;
+		};
+
+		colemak {
+// ------------------------------------------------------------------------------------------------------------
+// |   `   |  1  |  2  |  3   |  4   |  5   |                   |  6   |  7    |     8      |  9      |   0    |  BKSP |
+// |  TAB  |  Q  |  W  |  F   |  P   |  B   |                   |  J   |  L    |     U      |  Y      |   ;    |   [   |
+// |  ESC  |  A  |  R  |  S   |  T   |  G   |                   |  M   |  N    |     E      |  I      |   O    |   '   |
+// | SHIFT |  Z  |  X  |  C   |  D   |  V   |                   |  K   |  H    |     ,      |  .      |   /    | SHIFT |
+//                     | SPCE | BKSP | LOWR |                   | RAISE| RCMD  |    ENTR    |
+//                            | CTRL | ALT  |                   | none | none | 
+			bindings = <
+&kp GRAVE &kp N1    &kp N2   &kp N3    &kp N4    &kp N5          &kp N6  &kp N7    &kp N8    &kp N9    &kp N0   &kp BSPC
+&kp TAB   &kp Q     &kp W    &kp F     &kp P     &kp B           &kp J   &kp L     &kp U     &kp Y     &kp SEMI &kp LBKT
+&kp ESC   &kp A     &kp R    &kp S     &kp T     &kp G           &kp H   &kp J     &kp K     &kp L     &kp O    &kp SQT
+&kp LSHFT &kp Z     &kp X    &kp C     &kp D     &kp V           &kp K   &kp H     &kp COMMA &kp DOT   &kp FSLH &kp LSHFT
+                             &kp SPACE &kp BSPC  &tog 4          &mo 2   &kp RCMD  &kp ENTER 
+                                       &kp LCTRL &kp LALT        &none   &none
 			>;
 		};
 	};
