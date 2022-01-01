@@ -14,6 +14,6 @@
 ---
 include:
   - board: nice_nano
-    shield: bastyl_left
+    shield: scylla_left
   - board: nice_nano
-    shield: bastyl_right
+    shield: scylla_right
