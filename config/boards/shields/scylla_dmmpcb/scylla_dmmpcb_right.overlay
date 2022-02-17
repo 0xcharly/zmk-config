@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: MIT
  */
  
-#include "scylla.dtsi"
+#include "scylla_dmmpcb.dtsi"
 
 &default_transform {
 	col-offset = <6>;
