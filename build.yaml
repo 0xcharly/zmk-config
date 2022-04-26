@@ -26,6 +26,6 @@ include:
   - board: nice_nano_v2
     shield: bastyl_right
   - board: nice_nano_v2
-    shield: skeletyl_left
+    shield: skeletyl_v2_elitec_left
   - board: nice_nano_v2
-    shield: skeletyl_right
+    shield: skeletyl_v2_elitec_right
