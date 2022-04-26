@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: MIT
 
 config SHIELD_SKELETYL_LEFT
-	def_bool $(shields_list_contains,skeletyl_left)
+	def_bool $(shields_list_contains,skeletyl_v2_elitec_left)
 
 config SHIELD_SKELETYL_RIGHT
-	def_bool $(shields_list_contains,skeletyl_right)
+	def_bool $(shields_list_contains,skeletyl_v2_elitec_right)
