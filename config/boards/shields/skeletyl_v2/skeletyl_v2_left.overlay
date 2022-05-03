@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-#include "skeletyl_v2_elitec.dtsi"
+#include "skeletyl_v2.dtsi"
 
 &kscan0 {
 	col-gpios
