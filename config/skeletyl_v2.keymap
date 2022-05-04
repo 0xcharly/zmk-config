@@ -25,6 +25,11 @@
 #define SNEXT (LC(LA(RIGHT)))
 #define ELLPS (LA(SCLN))
 
+&sk {
+  release-after-ms = <2000>;
+  quick-release;
+};
+
 / { 
 
   chosen {
