@@ -1,0 +1,106 @@
+/*
+ * Copyright (c) 2020 The ZMK Contributors
+ *
+ * SPDX-License-Identifier: MIT
+ */
+
+#include <behaviors.dtsi>
+#include <dt-bindings/zmk/keys.h>
+#include <dt-bindings/zmk/bt.h>
+
+#define BASE 0
+#define NAV 1
+#define SYM 2
+#define NUM 3
+#define WNAV 4
+#define SPEC 5
+
+#define LNCHR (LG(SPC))
+#define NTAB (LG(T))
+#define NWIN (LG(N))
+#define CLOSE (LG(W))
+#define CTAB (LC(TAB))
+#define CSTAB (LC(LS(TAB)))
+#define SPREV (LC(LA(LEFT)))
+#define SNEXT (LC(LA(RIGHT)))
+#define ELLPS (LA(SCLN))
+
+/ { 
+
+  chosen {
+    zmk,battery = &vbatt;
+  };
+
+  vbatt: vbatt {
+      compatible = "zmk,battery-nrf-vddh";
+      label = "VBATT";
+  };
+
+  conditional_layers {
+      compatible = "zmk,conditional-layers";
+      tri_layer {
+          if-layers = <1 2>;
+          then-layer = <3>;
+      };
+  };
+
+  keymap {
+    compatible = "zmk,keymap";
+                
+    default_layer {
+      bindings = <
+      &kp  APOS &kp  CMMA &kp   DOT &kp     P &kp     Y                  &kp     F &kp     G &kp     C &kp     R &kp     L 
+      &kp     A &kp     O &kp     E &kp     U &kp     I                  &kp     D &kp     H &kp     T &kp     N &kp     S
+      &kp UNDER &kp     Q &kp     J &kp     K &kp     X                  &kp     B &kp     M &kp     W &kp     V &kp     Z
+                                    &mo   NAV &sk  LSFT &none     &none  &kp   SPC &mo   SYM
+      >;
+    };
+    
+    lower_layer {
+      bindings = <
+      &sl  SPEC &kp CSTAB &kp   TAB &kp  CTAB &none                      &none     &kp  HOME &kp    UP &kp   END &kp  BKSP 
+      &sk  LALT &sk  LSFT &sk  LCTL &sk  LGUI &none                      &none     &kp  LEFT &kp  DOWN &kp RIGHT &kp   RET
+      &sk SPREV &sk SNEXT &kp LG(C) &kp LG(V) &kp LNCHR                  &none     &none     &none     &none     &none 
+                                    &mo   NAV &kp LSFT &none      &none  &kp   SPC &mo   SYM
+      >;
+    };  
+
+    raise_layer {
+      bindings = <
+      &kp   ESC &kp  PRCT &kp QMARK &kp  COLN &kp    AT                  &kp CARET &kp  LPRN &kp  RPRN &kp  SCLN &sl  SPEC 
+      &kp  EXCL &kp  PLUS &kp MINUS &kp   EQL &kp  HASH                  &kp ELLPS &sk  LGUI &sk  LCTL &sk  LSFT &sk  LALT 
+      &kp TILDE &kp  DLLR &kp ASTRK &kp SLASH &kp  AMPS                  &kp  PIPE &kp  LBRC &kp  RBRC &kp  BSLH &kp GRAVE 
+                                    &trans    &trans              &none  &trans    &trans   
+      >;
+    };
+    
+    num_layer {
+      bindings = <
+      &kp NUM_7 &kp NUM_5 &kp NUM_3 &kp NUM_1 &kp NUM_9                  &kp NUM_8 &kp NUM_0 &kp NUM_2 &kp NUM_4 &kp NUM_6
+      &kp  LALT &kp  LSFT &kp  LCTL &kp  LGUI &none                      &none     &kp  LGUI &kp  LCTL &kp  LSFT &kp  LALT
+      &none     &none     &kp  CMMA &kp   DOT &none                      &none     &kp  LBKT &kp  RBKT &none     &none    
+                                    &trans    &trans    &none     &none  &trans    &trans 
+      >;
+    };  
+    
+    wnav_layer {
+      bindings = <
+      &none     &none     &none     &none     &none                      &none     &none     &none     &none     &none    
+      &none     &none     &none     &none     &none                      &none     &none     &none     &none     &none    
+      &none     &none     &none     &none     &none                      &none     &none     &none     &none     &none    
+                                    &none     &kp LSFT  &none     &none  &kp LSFT  &none 
+      >;
+    };  
+    
+    special_layer {
+      bindings = <
+      &none     &none     &none     &none     &none                      &none     &none     &none     &none     &none    
+      &none     &kp  NWIN &kp  NTAB &none     &none                      &none     &none     &kp  NTAB &kp  NWIN &none    
+      &none     &none     &kp CLOSE &none     &bootloader           &bootloader    &none     &kp CLOSE &none     &none    
+                                    &kp LNCHR &none     &none     &none  &none     &kp LNCHR
+      >;
+    };  
+        
+  };
+
+};
