@@ -10,27 +10,27 @@
 
 #define BASE 0
 #define NAV 1
-#define SYM 2
-#define NUM 3
-#define WNAV 4
-#define SPEC 5
+#define SYMBOLS 2
+#define NUMBERS 3
+#define SPC_NAV 4
+#define SPECIAL 5
 
-#define LNCHR (LG(SPC))
-#define NTAB (LG(T))
-#define NWIN (LG(N))
+#define LAUNCHER (LG(SPC))
+#define NEW_TAB (LG(T))
+#define NEW_WIN (LG(N))
 #define CLOSE (LG(W))
-#define CTAB (LC(TAB))
-#define CSTAB (LC(LS(TAB)))
-#define SPREV (LC(LA(LEFT)))
-#define SNEXT (LC(LA(RIGHT)))
-#define ELLPS (LA(SCLN))
+#define CTL_TAB (LC(TAB))
+#define C_S_TAB (LC(LS(TAB)))
+#define SPC_PREV (LC(LA(LEFT)))
+#define SPC_NEXT (LC(LA(RIGHT)))
+#define ELLIPSIS (LA(SCLN))
 
 &sk {
   release-after-ms = <2000>;
   quick-release;
 };
 
-/ { 
+/ {
 
   chosen {
     zmk,battery = &vbatt;
@@ -51,61 +51,61 @@
 
   keymap {
     compatible = "zmk,keymap";
-                
+
     default_layer {
       bindings = <
-      &kp  APOS &kp  CMMA &kp   DOT &kp     P &kp     Y                  &kp     F &kp     G &kp     C &kp     R &kp     L 
-      &kp     A &kp     O &kp     E &kp     U &kp     I                  &kp     D &kp     H &kp     T &kp     N &kp     S
-      &kp UNDER &kp     Q &kp     J &kp     K &kp     X                  &kp     B &kp     M &kp     W &kp     V &kp     Z
-                                    &mo   NAV &sk  LSFT &none     &none  &kp   SPC &mo   SYM
+      &kp     APOS &kp    COMMA &kp   PERIOD &kp        P &kp        Y                   &kp        F &kp        G &kp        C &kp        R &kp        L
+      &kp        A &kp        O &kp        E &kp        U &kp        I                   &kp        D &kp        H &kp        T &kp        N &kp        S
+      &kp    UNDER &kp        Q &kp        J &kp        K &kp        X                   &kp        B &kp        M &kp        W &kp        V &kp        Z
+                                             &mo      NAV &sk     LSFT &none      &none  &kp    SPACE &mo  SYMBOLS
       >;
     };
-    
+
     lower_layer {
       bindings = <
-      &sl  SPEC &kp CSTAB &kp   TAB &kp  CTAB &none                      &none     &kp  HOME &kp    UP &kp   END &kp  BKSP 
-      &sk  LALT &sk  LSFT &sk  LCTL &sk  LGUI &none                      &none     &kp  LEFT &kp  DOWN &kp RIGHT &kp   RET
-      &sk SPREV &sk SNEXT &kp LG(C) &kp LG(V) &kp LNCHR                  &none     &none     &none     &none     &none 
-                                    &mo   NAV &kp LSFT &none      &none  &kp   SPC &mo   SYM
+      &sl  SPECIAL &kp  C_S_TAB &kp      TAB &kp  CTL_TAB &none                          &none        &kp     HOME &kp       UP &kp      END &kp     BSPC
+      &sk     LALT &sk   LSHIFT &sk    LCTRL &sk     LGUI &none                          &none        &kp     LEFT &kp     DOWN &kp    RIGHT &kp    ENTER
+      &sk SPC_PREV &sk SPC_NEXT &kp  LGUI(C) &kp  LGUI(V) &kp LAUNCHER                   &none        &none        &none        &none        &none
+                                             &mo      NAV &kp     LSFT &none      &none  &kp    SPACE &mo  SYMBOLS
       >;
-    };  
+    };
 
     raise_layer {
       bindings = <
-      &kp   ESC &kp  PRCT &kp QMARK &kp  COLN &kp    AT                  &kp CARET &kp  LPRN &kp  RPRN &kp  SCLN &sl  SPEC 
-      &kp  EXCL &kp  PLUS &kp MINUS &kp   EQL &kp  HASH                  &kp ELLPS &sk  LGUI &sk  LCTL &sk  LSFT &sk  LALT 
-      &kp TILDE &kp  DLLR &kp ASTRK &kp SLASH &kp  AMPS                  &kp  PIPE &kp  LBRC &kp  RBRC &kp  BSLH &kp GRAVE 
-                                    &trans    &trans              &none  &trans    &trans   
+      &kp   ESCAPE &kp  PERCENT &kp    QMARK &kp    COLON &kp       AT                   &kp    CARET &kp     LPAR &kp     RPAR &kp     SEMI &sl  SPECIAL
+      &kp     EXCL &kp     PLUS &kp    MINUS &kp    EQUAL &kp     HASH                   &kp ELLIPSIS &sk     LGUI &sk    LCTRL &sk   LSHIFT &sk     LALT
+      &kp    TILDE &kp   DOLLAR &kp ASTERISK &kp    SLASH &kp     AMPS                   &kp     PIPE &kp     LBRC &kp     RBRC &kp     BSLH &kp    GRAVE
+                                             &trans       &trans       &none      &none  &trans       &trans
       >;
     };
-    
+
     num_layer {
       bindings = <
-      &kp NUM_7 &kp NUM_5 &kp NUM_3 &kp NUM_1 &kp NUM_9                  &kp NUM_8 &kp NUM_0 &kp NUM_2 &kp NUM_4 &kp NUM_6
-      &kp  LALT &kp  LSFT &kp  LCTL &kp  LGUI &none                      &none     &kp  LGUI &kp  LCTL &kp  LSFT &kp  LALT
-      &none     &none     &kp  CMMA &kp   DOT &none                      &none     &kp  LBKT &kp  RBKT &none     &none    
-                                    &trans    &trans    &none     &none  &trans    &trans 
+      &kp       N7 &kp       N5 &kp       N3 &kp       N1 &kp       N9                   &kp       N8 &kp       N0 &kp       N2 &kp       N4 &kp       N6
+      &kp     LALT &kp     LSFT &kp     LCTL &kp     LGUI &none                          &none        &kp     LGUI &kp     LCTL &kp     LSFT &kp     LALT
+      &none        &none        &kp    COMMA &kp   PERIOD &none                          &none        &kp     LBKT &kp     RBKT &none        &none
+                                             &trans       &trans       &none      &none  &trans       &trans
       >;
-    };  
-    
+    };
+
     wnav_layer {
       bindings = <
-      &none     &none     &none     &none     &none                      &none     &none     &none     &none     &none    
-      &none     &none     &none     &none     &none                      &none     &none     &none     &none     &none    
-      &none     &none     &none     &none     &none                      &none     &none     &none     &none     &none    
-                                    &none     &kp LSFT  &none     &none  &kp LSFT  &none 
+      &none        &none        &none        &none        &none                          &none        &none        &none        &none        &none
+      &none        &none        &none        &none        &none                          &none        &none        &none        &none        &none
+      &none        &none        &none        &none        &none                          &none        &none        &none        &none        &none
+                                             &none        &kp     LSFT &none      &none  &kp     LSFT &none
       >;
-    };  
-    
+    };
+
     special_layer {
       bindings = <
-      &none     &none     &none     &none     &none                      &none     &none     &none     &none     &none    
-      &none     &kp  NWIN &kp  NTAB &none     &none                      &none     &none     &kp  NTAB &kp  NWIN &none    
-      &none     &none     &kp CLOSE &none     &bootloader           &bootloader    &none     &kp CLOSE &none     &none    
-                                    &kp LNCHR &none     &none     &none  &none     &kp LNCHR
+      &none        &bt BT_SEL 4 &bt BT_SEL 3 &bt BT_SEL 2 &bt BT_SEL 1                   &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4 &none
+      &none        &kp  NEW_WIN &kp  NEW_TAB &none        &bt   BT_PRV                   &bt   BT_NXT &none        &kp  NEW_TAB &kp  NEW_WIN &none
+      &none        &none        &kp    CLOSE &bt   BT_CLR &bootloader                    &bootloader  &bt   BT_CLR &kp    CLOSE &none        &none
+                                             &kp LAUNCHER &none        &none      &none  &none        &kp LAUNCHER
       >;
-    };  
-        
+    };
+
   };
 
 };
