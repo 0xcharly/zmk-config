@@ -109,7 +109,7 @@
 
     special_layer {
       bindings = <
-      &none        &bt BT_SEL 4 &bt BT_SEL 3 &bt BT_SEL 2 &bt BT_SEL 1                   &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4 &none
+      &none        &bt BT_SEL 3 &bt BT_SEL 2 &bt BT_SEL 1 &bt BT_SEL 0                   &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &none
       &none        &kp  NEW_WIN &kp  NEW_TAB &none        &bt   BT_PRV                   &bt   BT_NXT &none        &kp  NEW_TAB &kp  NEW_WIN &none
       &none        &none        &kp    CLOSE &bt   BT_CLR &bootloader                    &bootloader  &bt   BT_CLR &kp    CLOSE &none        &none
                                              &kp LAUNCHER &none        &none      &none  &none        &kp LAUNCHER
