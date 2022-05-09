@@ -21,9 +21,37 @@
 #define CLOSE (LG(W))
 #define CTRL_TAB (LC(TAB))
 #define C_S_TAB (LC(LS(TAB)))
-#define SPC_PREV (LC(LA(LEFT)))
-#define SPC_NEXT (LC(LA(RIGHT)))
 #define ELLIPSIS (LA(SEMICOLON))
+
+#define SPC_PREVIOUS (LC(LA(LEFT)))
+#define S_PRV SPC_PREVIOUS
+
+#define SPC_NEXT (LC(LA(RIGHT)))
+#define S_NXT SPC_NEXT
+
+#define SPC_FOCUS_PREVIOUS (LC(LA(J)))
+#define S_F_PRV SPC_FOCUS_PREVIOUS
+
+#define SPC_FOCUS_NEXT (LC(LA(K)))
+#define S_F_NXT SPC_FOCUS_NEXT
+
+#define SPC_CYCLE_MODE (LC(LA(SPACE)))
+#define S_CYCLE SPC_CYCLE_MODE
+
+#define SPC_PROMOTE (LC(LA(ENTER)))
+#define S_PROMO SPC_PROMOTE
+
+#define SPC_PANE_SHRINK (LC(LA(H)))
+#define S_SHRINK SPC_PANE_SHRINK
+
+#define SPC_PANE_GROW (LC(LA(L)))
+#define S_GROW SPC_PANE_GROW
+
+#define SPC_PANE_COUNT_INCREASE (LC(LA(PERIOD)))
+#define S_PC_INC SPC_PANE_COUNT_INCREASE
+
+#define SPC_PANE_COUNT_DECREASE (LC(LA(COMMA)))
+#define S_PC_DEC SPC_PANE_COUNT_DECREASE
 
 &sk {
   release-after-ms = <2000>;
@@ -73,9 +101,9 @@
 
     nav_layer {
       bindings = <
-      &sl  SPECIAL &kp  C_S_TAB &kp      TAB &kp CTRL_TAB &none                          &none        &kp     HOME &kp       UP &kp      END &kp     BSPC
+      &sl  SPECIAL &kp  C_S_TAB &kp      TAB &kp CTRL_TAB &tog SPC_NAV                   &tog SPC_NAV &kp     HOME &kp       UP &kp      END &kp     BSPC
       &sk     LALT &sk   LSHIFT &sk    LCTRL &sk     LGUI &none                          &none        &kp     LEFT &kp     DOWN &kp    RIGHT &kp    ENTER
-      &sk SPC_PREV &sk SPC_NEXT &kp    LG(C) &kp    LG(V) &kp LAUNCHER                   &none        &none        &none        &none        &none
+      &sk    S_PRV &sk    S_NXT &kp    LG(C) &kp    LG(V) &kp LAUNCHER                   &kp LAUNCHER &none        &none        &none        &none
                                              &mo      NAV &kp   LSHIFT &none      &none  &kp    SPACE &mo  SYMBOLS
       >;
     };
@@ -100,9 +128,9 @@
 
     spc_nav_layer {
       bindings = <
-      &none        &none        &none        &none        &none                          &none        &none        &none        &none        &none
-      &none        &none        &none        &none        &none                          &none        &none        &none        &none        &none
-      &none        &none        &none        &none        &none                          &none        &none        &none        &none        &none
+      &none        &kp  S_CYCLE &kp S_PC_INC &kp S_PC_DEC &tog SPC_NAV                   &tog SPC_NAV &kp S_PC_DEC &kp S_PC_INC &kp  S_CYCLE &none
+      &none        &kp  S_PROMO &kp   S_GROW &kp S_SHRINK &none                          &none        &kp S_SHRINK &kp   S_GROW &kp  S_PROMO &none
+      &none        &none        &kp  S_F_NXT &kp  S_F_PRV &none                          &none        &kp  S_F_PRV &kp  S_F_NXT &none        &none
                                              &none        &kp   LSHIFT &none      &none  &kp   LSHIFT &none
       >;
     };
@@ -111,7 +139,7 @@
       bindings = <
       &none        &bt BT_SEL 3 &bt BT_SEL 2 &bt BT_SEL 1 &bt BT_SEL 0                   &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &none
       &none        &kp  NEW_WIN &kp  NEW_TAB &none        &bt   BT_PRV                   &bt   BT_NXT &none        &kp  NEW_TAB &kp  NEW_WIN &none
-      &none        &none        &kp    CLOSE &bt   BT_CLR &bootloader                    &bootloader  &bt   BT_CLR &kp    CLOSE &none        &none
+      &bt   BT_NXT &bt   BT_PRV &kp    CLOSE &bt   BT_CLR &bootloader                    &bootloader  &bt   BT_CLR &kp    CLOSE &bt   BT_PRV &bt   BT_NXT
                                              &kp LAUNCHER &none        &none      &none  &none        &kp LAUNCHER
       >;
     };
