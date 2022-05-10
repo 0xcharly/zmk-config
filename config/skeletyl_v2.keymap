@@ -103,7 +103,7 @@
       bindings = <
       &sl  SPECIAL &kp  C_S_TAB &kp      TAB &kp CTRL_TAB &tog SPC_NAV                   &tog SPC_NAV &kp     HOME &kp       UP &kp      END &kp     BSPC
       &sk     LALT &sk   LSHIFT &sk    LCTRL &sk     LGUI &none                          &none        &kp     LEFT &kp     DOWN &kp    RIGHT &kp    ENTER
-      &sk    S_PRV &sk    S_NXT &kp    LG(C) &kp    LG(V) &kp LAUNCHER                   &kp LAUNCHER &none        &none        &none        &none
+      &kp    S_PRV &kp    S_NXT &kp    LG(C) &kp    LG(V) &kp LAUNCHER                   &kp LAUNCHER &none        &none        &none        &none
                                              &mo      NAV &kp   LSHIFT &none      &none  &kp    SPACE &mo  SYMBOLS
       >;
     };
