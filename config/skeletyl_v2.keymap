@@ -126,7 +126,7 @@
       bindings = <
       &none        &kp       N7 &kp       N8 &kp       N9 &none                          &none        &none        &none        &none        &none       
       &none        &kp       N4 &kp       N5 &kp       N6 &none                          &none        &kp     LGUI &kp    LCTRL &kp   LSHIFT &kp     LALT
-      &kp       N0 &kp       N1 &kp       N2 &kp       N3 &none                          &none        &kp     LBKT &none        &kp     RBKT &none
+      &none        &kp       N1 &kp       N2 &kp       N3 &none                          &none        &kp     LBKT &kp       N0 &kp     RBKT &none
                                              &trans       &trans       &none      &none  &trans       &trans
       >;
     };
@@ -134,8 +134,8 @@
     special_layer {
       bindings = <
       &none        &bt BT_SEL 3 &bt BT_SEL 2 &bt BT_SEL 1 &bt BT_SEL 0                   &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &none
-      &none        &kp  NEW_WIN &kp  NEW_TAB &none        &bt   BT_PRV                   &bt   BT_NXT &none        &kp  NEW_TAB &kp  NEW_WIN &none
-      &bt   BT_NXT &bt   BT_PRV &kp    CLOSE &bt   BT_CLR &bootloader                    &bootloader  &bt   BT_CLR &kp    CLOSE &bt   BT_PRV &bt   BT_NXT
+      &none        &kp  NEW_WIN &kp  NEW_TAB &none        &none                          &none        &none        &kp  NEW_TAB &kp  NEW_WIN &none
+      &none        &bt   BT_PRV &bt   BT_CLR &bt   BT_NXT &bootloader                    &bootloader  &bt   BT_PRV &bt   BT_CLR &bt   BT_NXT &none
                                              &kp LAUNCHER &none        &none      &none  &none        &kp LAUNCHER
       >;
     };
