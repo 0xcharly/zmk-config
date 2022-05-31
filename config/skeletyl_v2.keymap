@@ -15,9 +15,6 @@
 #define SPECIAL 4
 
 #define LAUNCHER (LG(SPACE))
-#define NEW_TAB (LG(T))
-#define NEW_WIN (LG(N))
-#define CLOSE (LG(W))
 #define CTRL_TAB (LC(TAB))
 #define C_S_TAB (LC(LS(TAB)))
 #define ELLIPSIS (LA(SEMICOLON))
@@ -27,36 +24,6 @@
 
 #define SPC_NEXT (LC(LA(RIGHT)))
 #define S_NXT SPC_NEXT
-
-#define SPC_FOCUS_PREVIOUS (LC(LA(J)))
-#define S_F_PRV SPC_FOCUS_PREVIOUS
-
-#define SPC_FOCUS_NEXT (LC(LA(K)))
-#define S_F_NXT SPC_FOCUS_NEXT
-
-#define SPC_CYCLE_MODE (LC(LA(SPACE)))
-#define S_CYCLE SPC_CYCLE_MODE
-
-#define SPC_PROMOTE (LC(LA(ENTER)))
-#define S_PROMO SPC_PROMOTE
-
-#define SPC_TOGGLE_FLOAT (LC(LA(T)))
-#define S_FLOAT SPC_TOGGLE_FLOAT
-
-#define SPC_TOGGLE_FULLSCREEN (LC(LA(F)))
-#define S_FSCRN SPC_TOGGLE_FULLSCREEN
-
-#define SPC_PANE_SHRINK (LC(LA(H)))
-#define S_SHRINK SPC_PANE_SHRINK
-
-#define SPC_PANE_GROW (LC(LA(L)))
-#define S_GROW SPC_PANE_GROW
-
-#define SPC_PANE_COUNT_INCREASE (LC(LA(PERIOD)))
-#define S_PC_INC SPC_PANE_COUNT_INCREASE
-
-#define SPC_PANE_COUNT_DECREASE (LC(LA(COMMA)))
-#define S_PC_DEC SPC_PANE_COUNT_DECREASE
 
 &sk {
   release-after-ms = <2000>;
@@ -108,7 +75,7 @@
       bindings = <
       &sl  SPECIAL &kp  C_S_TAB &kp      TAB &kp CTRL_TAB &none                          &none        &kp     HOME &kp       UP &kp      END &kp     BSPC
       &sk     LALT &sk   LSHIFT &sk    LCTRL &sk     LGUI &none                          &none        &kp     LEFT &kp     DOWN &kp    RIGHT &kp    ENTER
-      &kp    LG(C) &kp    S_PRV &kp LAUNCHER &kp    S_NXT &kp    LG(V)                   &kp LAUNCHER &none        &none        &none        &none
+      &kp    LG(C) &kp    S_PRV &kp LAUNCHER &kp    S_NXT &kp    LG(V)                   &none        &none        &none        &none        &none
                                              &mo      NAV &kp   LSHIFT &none      &none  &kp    SPACE &mo  SYMBOLS
       >;
     };
@@ -134,7 +101,7 @@
     special_layer {
       bindings = <
       &none        &bt BT_SEL 3 &bt BT_SEL 2 &bt BT_SEL 1 &bt BT_SEL 0                   &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &none
-      &none        &kp  NEW_WIN &kp  NEW_TAB &none        &none                          &none        &none        &kp  NEW_TAB &kp  NEW_WIN &none
+      &none        &none        &none        &none        &none                          &none        &none        &none        &none        &none
       &none        &bt   BT_PRV &bt   BT_CLR &bt   BT_NXT &bootloader                    &bootloader  &bt   BT_PRV &bt   BT_CLR &bt   BT_NXT &none
                                              &kp LAUNCHER &none        &none      &none  &none        &kp LAUNCHER
       >;
