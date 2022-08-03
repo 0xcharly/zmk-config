@@ -59,14 +59,12 @@
           bindings = <&sk LSHIFT>, <&caps_word>;
       };
 
-      flt: global-quick-tap {
+      flt: fast_layer_tap {
         compatible = "zmk,behavior-hold-tap";
         label = "FAST_LAYER_TAP";
         #binding-cells = <2>;
         flavor = "tap-preferred";
-        tapping-term-ms = <125>;
-        quick-tap-ms = <75>;
-        global-quick-tap;
+        tapping-term-ms = <150>;
         bindings = <&mo>, <&kp>;
     };
   };
