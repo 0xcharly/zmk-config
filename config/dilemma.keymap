@@ -59,15 +59,15 @@
           bindings = <&sk LSHIFT>, <&caps_word>;
       };
 
-      nav_space: global-quick-tap {
+      flt: global-quick-tap {
         compatible = "zmk,behavior-hold-tap";
-        label = "LAYER_TAP_NAV_SPACE";
+        label = "FAST_LAYER_TAP";
         #binding-cells = <2>;
         flavor = "tap-preferred";
         tapping-term-ms = <75>;
         quick-tap-ms = <75>;
         global-quick-tap;
-        bindings = <&mo NAV>, <&kp SPACE>;
+        bindings = <&mo>, <&kp>;
     };
   };
 
@@ -79,7 +79,7 @@
       &kp     APOS &kp    COMMA &kp   PERIOD &kp        P &kp        Y           &kp        F &kp        G &kp        C &kp        R &kp        L
       &kp        A &kp        O &kp        E &kp        U &kp        I           &kp        D &kp        H &kp        T &kp        N &kp        S
       &kp    UNDER &kp        Q &kp        J &kp        K &kp        X           &kp        B &kp        M &kp        W &kp        V &kp        Z
-                                             &mo MODS     &nav_space             &mo  SYMBOLS &td_caps
+                                             &mo MODS     &flt NAV SPC           &mo  SYMBOLS &td_caps
       >;
     };
 
