@@ -10,9 +10,10 @@
 
 #define BASE 0
 #define NAV 1
-#define SYMBOLS 2
-#define NUMBERS 3
-#define SPECIAL 4
+#define MODS 2
+#define SYMBOLS 3
+#define NUMBERS 4
+#define SPECIAL 5
 
 #define LAUNCHER (LG(SPACE))
 #define CTRL_TAB (LC(TAB))
@@ -26,7 +27,7 @@
 #define S_NXT SPC_NEXT
 
 &sk {
-  release-after-ms = <2000>;
+  release-after-ms = <1500>;
   quick-release;
 };
 
@@ -50,13 +51,24 @@
   };
 
   behaviors {
-      td0: tap_dance_smart_shift {
+      td_caps: tap_dance_smart_shift {
           compatible = "zmk,behavior-tap-dance";
           label = "TAP_DANCE_SMART_SHIFT";
           #binding-cells = <0>;
           tapping-term-ms = <200>;
           bindings = <&sk LSHIFT>, <&caps_word>;
       };
+
+      nav_space: global-quick-tap {
+        compatible = "zmk,behavior-hold-tap";
+        label = "LAYER_TAP_NAV_SPACE";
+        #binding-cells = <2>;
+        flavor = "tap-preferred";
+        tapping-term-ms = <75>;
+        quick-tap-ms = <75>;
+        global-quick-tap;
+        bindings = <&mo NAV>, <&kp SPACE>;
+    };
   };
 
   keymap {
@@ -67,7 +79,7 @@
       &kp     APOS &kp    COMMA &kp   PERIOD &kp        P &kp        Y           &kp        F &kp        G &kp        C &kp        R &kp        L
       &kp        A &kp        O &kp        E &kp        U &kp        I           &kp        D &kp        H &kp        T &kp        N &kp        S
       &kp    UNDER &kp        Q &kp        J &kp        K &kp        X           &kp        B &kp        M &kp        W &kp        V &kp        Z
-                                             &mo      NAV &td0                   &kp    SPACE &mo  SYMBOLS
+                                             &mo MODS     &nav_space             &mo  SYMBOLS &td_caps
       >;
     };
 
@@ -76,7 +88,16 @@
       &sl  SPECIAL &kp  C_S_TAB &kp      TAB &kp CTRL_TAB &none                  &none        &kp     HOME &kp       UP &kp      END &kp     BSPC
       &sk     LALT &sk   LSHIFT &sk    LCTRL &sk     LGUI &none                  &none        &kp     LEFT &kp     DOWN &kp    RIGHT &kp    ENTER
       &kp    LG(C) &kp    S_PRV &kp LAUNCHER &kp    S_NXT &kp    LG(V)           &none        &none        &none        &none        &none
-                                             &mo      NAV &kp   LSHIFT           &kp    SPACE &mo  SYMBOLS
+                                             &trans       &trans                 &trans       &trans
+      >;
+    };
+
+    mods_layer {
+      bindings = <
+      &none        &none        &none        &none        &none                  &none        &none        &none        &none        &none       
+      &kp     LALT &kp   LSHIFT &kp    LCTRL &kp     LGUI &none                  &none        &none        &none        &none        &none       
+      &none        &none        &none        &none        &none                  &none        &none        &none        &none        &none
+                                             &trans       &trans                 &trans       &trans
       >;
     };
 
