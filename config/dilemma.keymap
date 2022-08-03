@@ -45,8 +45,8 @@
   conditional_layers {
       compatible = "zmk,conditional-layers";
       tri_layer {
-          if-layers = <1 2>;
-          then-layer = <3>;
+          if-layers = <1 3>;
+          then-layer = <4>;
       };
   };
 
@@ -64,7 +64,7 @@
         label = "FAST_LAYER_TAP";
         #binding-cells = <2>;
         flavor = "tap-preferred";
-        tapping-term-ms = <75>;
+        tapping-term-ms = <125>;
         quick-tap-ms = <75>;
         global-quick-tap;
         bindings = <&mo>, <&kp>;
