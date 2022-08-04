@@ -64,7 +64,8 @@
         label = "FAST_LAYER_TAP";
         #binding-cells = <2>;
         flavor = "tap-preferred";
-        tapping-term-ms = <150>;
+        retro-tap;
+        tapping-term-ms = <75>;
         bindings = <&mo>, <&kp>;
     };
   };
