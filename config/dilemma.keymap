@@ -60,13 +60,14 @@
       };
 
       flt: fast_layer_tap {
-        compatible = "zmk,behavior-hold-tap";
-        label = "FAST_LAYER_TAP";
-        #binding-cells = <2>;
-        flavor = "tap-preferred";
-        retro-tap;
-        tapping-term-ms = <75>;
-        bindings = <&mo>, <&kp>;
+          compatible = "zmk,behavior-hold-tap";
+          label = "FAST_LAYER_TAP";
+          #binding-cells = <2>;
+          flavor = "hold-preferred";
+          tapping-term-ms = <175>;
+          quick-tap-ms = <125>;
+          global-quick-tap;
+          bindings = <&mo>, <&kp>;
     };
   };
 
