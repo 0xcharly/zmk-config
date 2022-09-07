@@ -84,19 +84,16 @@
   };
 
   behaviors {
-      td0: tap_dance_smart_shift {
-          compatible = "zmk,behavior-tap-dance";
-          label = "TAP_DANCE_SMART_SHIFT";
-          #binding-cells = <0>;
-          tapping-term-ms = <200>;
-          bindings = <&sk LSHIFT>, <&caps_word>;
-      };
+    
       hm: homerow_mods {
-          compatible = "zmk,behavior-hold-tap";
-          label = "HOMEROW_MODS";
-          tapping-term-ms = <220>;
-          flavor = "tap-preferred";
-          bindings = <&kp>, <&kp>;
+            compatible = "zmk,behavior-hold-tap";
+            label = "HOMEROW_MODS";
+            #binding-cells = <2>;
+            tapping-term-ms = <220>;
+            quick-tap-ms = <125>;
+            flavor = "tap-preferred";
+            bindings = <&kp>, <&kp>;
+        };
           
       };
   };
