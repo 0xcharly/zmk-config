@@ -107,6 +107,7 @@
       &kp        Z &kp        X &kp        C &kp        V &kp        B                   &kp        K &kp        M &kp    COMMA &kp      DOT &kp     FSLH
                                          &mt  LSHFT SPACE &lt SYMNUM ENTER     &none      &none  &lt   SHORTCUT TAB &kp  BSPC
       >;
+      			sensor-bindings = <&inc_dec_kp UP DOWN &inc_dec_kp RIGHT LEFT>;
     };
 
     symnum_layer {
