@@ -30,11 +30,6 @@
   quick-release;
 };
 
-&mt {
-  tapping-term-ms= <220>;
-  flavor = "tap-preferred";
-};
-
 / {
 
   combos {
@@ -96,6 +91,14 @@
           tapping-term-ms = <200>;
           bindings = <&sk LSHIFT>, <&caps_word>;
       };
+      hm: homerow_mods {
+          compatible = "zmk,behavior-hold-tap";
+          label = "HOMEROW_MODS";
+          tapping-term-ms = <220>;
+          flavor = "tap-preferred";
+          bindings = <&kp>, <&kp>;
+          
+      };
   };
 
   keymap {
@@ -104,7 +107,7 @@
     colemak_layer {
       bindings = <
       &kp        Q &kp        W &kp        F &kp        P &kp        G                   &kp        J &kp        L &kp        U &kp        Y &kp     SEMI
-      &mt   LGUI A &mt   LALT R &mt  LSHFT S &mt  LCTRL T &kp        D                   &kp        H &mt  RCTRL N &mt  RSHFT E &mt   LALT I &mt   RGUI O
+      &hm   LGUI A &hm   LALT R &hm  LSHFT S &hm  LCTRL T &kp        D                   &kp        H &hm  RCTRL N &hm  RSHFT E &hm   LALT I &hm   RGUI O
       &kp        Z &kp        X &kp        C &kp        V &kp        B                   &kp        K &kp        M &kp    COMMA &kp      DOT &kp     FSLH
                                          &mt  LSHFT SPACE &lt SYMNUM ENTER     &none      &none  &lt   SHORTCUT TAB &kp  BSPC
       >;
