@@ -11,6 +11,23 @@
         zmk,kscan = &kscan0;
         zmk,matrix_transform = &default_transform;
     };
+    
+    left_encoder: encoder_left {
+        compatible = "alps,ec11";
+        label = "LEFT_ENCODER";
+        resolution = <4>;
+    };
+    
+    right_encoder: encoder_right {
+        compatible = "alps,ec11";
+        label = "RIGHT_ENCODER";
+        resolution = <4>;
+    };
+    
+	sensors {
+		compatible = "zmk,keymap-sensors";
+		sensors = <&left_encoder &right_encoder>;
+	};
 
     default_transform: keymap_transform_0 {
         compatible = "zmk,matrix-transform";
