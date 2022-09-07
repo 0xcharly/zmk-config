@@ -25,6 +25,8 @@
 &kp Z     &kp X    &kp C     &kp V     &kp B                     &kp N     &kp M    &kp COMMA &bt BT_CLR &bt BT_SEL 0 
                    &kp ESC   &kp SPACE &kp TAB                   &kp ENTER &kp BKSP &kp DEL
 			>;
+			
+			sensor-bindings = <&inc_dec_kp UP DOWN &inc_dec_kp RIGHT LEFT>;
 		};
 	};
 };
