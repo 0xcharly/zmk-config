@@ -124,8 +124,8 @@
 
     shortcut_layer {
       bindings = <
-      &kp   ESCAPE &kp  PERCENT &kp    QMARK &kp    COLON &kp       AT                   &kp    CARET &kp     LPAR &kp     UP &kp     RPAR &sl  3
-      &kp     EXCL &kp     PLUS &kp    MINUS &kp    EQUAL &kp     HASH                   &kp ELLIPSIS &kp     LEFT &kp    DOWN &kp   RIGHT &sk     LALT
+      &bt BT_CLR &bt  BT_PREV &bt  BT_NEXT &kp    COLON &kp       AT                   &kp    CARET &kp     LPAR &kp     UP &kp     RPAR &sl  3
+      &bt BT_SEL 4 &bt BT_SEL 3 &bt BT_SEL 2 &bt BT_SEL 1 &bt BT_SEL 0                   &kp ELLIPSIS &kp     LEFT &kp    DOWN &kp   RIGHT &sk     LALT
       &kp    TILDE &kp   DOLLAR &kp ASTERISK &kp    SLASH &kp     AMPS                   &kp     PIPE &kp     LBRC &kp     BSLH &kp     RBRC &kp    GRAVE
                                              &trans       &trans       &none      &none  &trans       &trans
       >;
