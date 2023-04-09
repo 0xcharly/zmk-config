@@ -49,6 +49,16 @@
           key-positions = <2 7>;
           bindings = <&caps_word>;
       };
+      combo_arrow {
+          timeout-ms = <25>;
+          key-positions = <6 7>;
+          bindings = <&kp MINUS &kp GT>;
+      };
+      combo_fat_arrow {
+          timeout-ms = <25>;
+          key-positions = <2 3>;
+          bindings = <&kp EQL &kp GT>;
+      };
   };
 
   keymap {
