@@ -55,7 +55,7 @@
       #binding-cells = <0>;
       bindings = <&macro_tap &kp EQUAL &kp GT>;
     };
-  }
+  };
 
   combos {
       compatible = "zmk,combos";
