@@ -42,6 +42,21 @@
       };
   };
 
+  macros {
+    arrow: arrow {
+      label = "Arrow";
+      compatible = "zmk,behavior-macro";
+      #binding-cells = <0>;
+      bindings = <&macro_tap &kp MINUS &kp GT>;
+    }
+    fat_arrow: fat_arrow {
+      label = "Fat_Arrow";
+      compatible = "zmk,behavior-macro";
+      #binding-cells = <0>;
+      bindings = <&macro_tap &kp EQUAL &kp GT>;
+    }
+  }
+
   combos {
       compatible = "zmk,combos";
       combo_caps_word {
@@ -52,12 +67,12 @@
       combo_arrow {
           timeout-ms = <25>;
           key-positions = <6 7>;
-          bindings = <&kp MINUS &kp GT>;
+          bindings = <&arrow>;
       };
       combo_fat_arrow {
           timeout-ms = <25>;
           key-positions = <2 3>;
-          bindings = <&kp EQL &kp GT>;
+          bindings = <&fat_arrow>;
       };
   };
 
