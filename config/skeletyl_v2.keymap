@@ -9,21 +9,14 @@
 #include <dt-bindings/zmk/bt.h>
 
 #define BASE 0
-#define NAV 1
-#define SYMBOLS 2
-#define NUMBERS 3
-#define SPECIAL 4
+#define LOWER 1
+#define UPPER 2
+#define ADJUST 3
+#define SYSTEM 4
 
 #define LAUNCHER (LG(SPACE))
-#define CTRL_TAB (LC(TAB))
-#define C_S_TAB (LC(LS(TAB)))
-#define ELLIPSIS (LA(SEMICOLON))
-
-#define SPC_PREVIOUS (LC(LA(LEFT)))
-#define S_PRV SPC_PREVIOUS
-
-#define SPC_NEXT (LC(LA(RIGHT)))
-#define S_NXT SPC_NEXT
+#define CTL_TAB (LC(TAB))
+#define RCS_TAB (LC(LS(TAB)))
 
 &sk {
   release-after-ms = <2000>;
@@ -49,13 +42,12 @@
       };
   };
 
-  behaviors {
-      td0: tap_dance_smart_shift {
-          compatible = "zmk,behavior-tap-dance";
-          label = "TAP_DANCE_SMART_SHIFT";
-          #binding-cells = <0>;
-          tapping-term-ms = <200>;
-          bindings = <&sk LSHIFT>, <&caps_word>;
+  combos {
+      compatible = "zmk,combos";
+      combo_caps_word {
+          timeout-ms = <25>;
+          key-positions = <2 7>;
+          bindings = <&caps_word>;
       };
   };
 
@@ -66,34 +58,34 @@
       bindings = <
       &kp     APOS &kp    COMMA &kp   PERIOD &kp        P &kp        Y                   &kp        F &kp        G &kp        C &kp        R &kp        L
       &kp        A &kp        O &kp        E &kp        U &kp        I                   &kp        D &kp        H &kp        T &kp        N &kp        S
-      &kp    UNDER &kp        Q &kp        J &kp        K &kp        X                   &kp        B &kp        M &kp        W &kp        V &kp        Z
-                                             &mo      NAV &td0         &none      &none  &kp    SPACE &mo  SYMBOLS
+      &key_repeat  &kp        Q &kp        J &kp        K &kp        X                   &kp        B &kp        M &kp        W &kp        V &kp        Z
+                                             &mo    LOWER &kp SPACE    &none      &none  &kp   LSHIFT &mo    UPPER
       >;
     };
 
-    nav_layer {
+    lower_layer {
       bindings = <
-      &sl  SPECIAL &kp  C_S_TAB &kp      TAB &kp CTRL_TAB &none                          &none        &kp     HOME &kp       UP &kp      END &kp     BSPC
-      &sk     LALT &sk   LSHIFT &sk    LCTRL &sk     LGUI &none                          &none        &kp     LEFT &kp     DOWN &kp    RIGHT &kp    ENTER
-      &kp    LG(C) &kp    S_PRV &kp LAUNCHER &kp    S_NXT &kp    LG(V)                   &none        &none        &none        &none        &none
-                                             &mo      NAV &kp   LSHIFT &none      &none  &kp    SPACE &mo  SYMBOLS
+      &kp LAUNCHER &kp  RCS_TAB &kp      TAB &kp  CTL_TAB &none                          &none        &none        &kp       UP &kp     BSPC &none
+      &sk     LALT &sk     LGUI &sk    LCTRL &sk   LSHIFT &none                          &none        &kp     LEFT &kp     DOWN &kp    RIGHT &kp    ENTER
+      &kp   LA(N1) &kp   LA(N2) &kp   LA(N3) &kp   LA(N4) &kp   LA(N5)                   &none        &none        &none        &none        &none
+                                             &trans       &sl   SYSTEM &none      &none  &trans       &trans
       >;
     };
 
-    symbols_layer {
+    upper_layer {
       bindings = <
-      &kp   ESCAPE &kp  PERCENT &kp    QMARK &kp    COLON &kp       AT                   &kp    CARET &kp     LPAR &kp     SEMI &kp     RPAR &sl  SPECIAL
-      &kp     EXCL &kp     PLUS &kp    MINUS &kp    EQUAL &kp     HASH                   &kp ELLIPSIS &sk     LGUI &sk    LCTRL &sk   LSHIFT &sk     LALT
-      &kp    TILDE &kp   DOLLAR &kp ASTERISK &kp    SLASH &kp     AMPS                   &kp     PIPE &kp     LBRC &kp     BSLH &kp     RBRC &kp    GRAVE
-                                             &trans       &trans       &none      &none  &trans       &trans
+      &kp    QMARK &kp  PERCENT &kp   ESCAPE &kp    COLON &kp       AT                   &none        &none        &kp    CARET &kp    TILDE &kp    GRAVE
+      &kp     EXCL &kp     PLUS &kp    MINUS &kp    EQUAL &kp     HASH                   &none        &kp     LPAR &kp    UNDER &kp     RPAR &kp     SEMI
+      &none        &kp   DOLLAR &kp ASTERISK &kp    SLASH &none                          &none        &kp     PIPE &kp     AMPS &kp     BSLH &none
+                                             &trans       &trans       &none      &none  &sl   SYSTEM &trans
       >;
     };
 
-    numbers_layer {
+    adjust_layer {
       bindings = <
-      &none        &kp       N7 &kp       N8 &kp       N9 &none                          &none        &none        &none        &none        &none       
-      &none        &kp       N4 &kp       N5 &kp       N6 &none                          &none        &kp     LGUI &kp    LCTRL &kp   LSHIFT &kp     LALT
-      &none        &kp       N1 &kp       N2 &kp       N3 &none                          &none        &kp     LBKT &kp       N0 &kp     RBKT &none
+      &none        &kp       N7 &kp       N8 &kp       N9 &none                          &none        &kp     LBKT &none        &kp     RBKT &none       
+      &none        &kp       N4 &kp       N5 &kp       N6 &none                          &none        &kp   LSHIFT &kp    LCTRL &kp     LGUI &kp     LALT
+      &none        &kp       N1 &kp       N2 &kp       N3 &none                          &none        &kp     LBRC &kp       N0 &kp     RBRC &none
                                              &trans       &trans       &none      &none  &trans       &trans
       >;
     };
@@ -101,9 +93,9 @@
     special_layer {
       bindings = <
       &none        &bt BT_SEL 3 &bt BT_SEL 2 &bt BT_SEL 1 &bt BT_SEL 0                   &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &none
-      &none        &none        &none        &none        &none                          &none        &none        &none        &none        &none
-      &none        &bt   BT_PRV &bt   BT_CLR &bt   BT_NXT &bootloader                    &bootloader  &bt   BT_PRV &bt   BT_CLR &bt   BT_NXT &none
-                                             &kp LAUNCHER &none        &none      &none  &none        &kp LAUNCHER
+      &none        &none        &none        &none        &bt   BT_CLR                   &bt   BT_CLR &none        &none        &none        &none
+      &none        &bt   BT_PRV &none        &bt   BT_NXT &bootloader                    &bootloader  &bt   BT_PRV &none        &bt   BT_NXT &none
+                                             &none        &none        &none      &none  &none        &none
       >;
     };
 
