@@ -8,11 +8,12 @@
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/bt.h>
 
-#define BASE 0
-#define LOWER 1
-#define UPPER 2
-#define ADJUST 3
-#define SYSTEM 4
+#define DVORAK 0
+#define ENGRAM 1
+#define LOWER 2
+#define UPPER 3
+#define ADJUST 4
+#define SYSTEM 5
 
 #define LAUNCHER (LG(SPACE))
 #define CTL_TAB (LC(TAB))
@@ -88,6 +89,15 @@
       >;
     };
 
+    engram_layer {
+      bindings = <
+      &kp        B &kp        Y &kp        O &kp        U &kp     APOS                   &key_repeat  &kp        L &kp        D &kp        W &kp        V
+      &kp        C &kp        I &kp        E &kp        A &kp    COMMA                   &kp   PERIOD &kp        H &kp        T &kp        S &kp        N
+      &key_repeat  &kp        Q &kp        J &kp        K &kp        Z                   &kp        Q &kp        R &kp        M &kp        F &kp        P
+                                             &mo    LOWER &kp SPACE    &none      &none  &kp   LSHIFT &mo    UPPER
+      >;
+    };
+
     lower_layer {
       bindings = <
       &kp LAUNCHER &kp  RCS_TAB &kp      TAB &kp  CTL_TAB &none                          &none        &none        &kp       UP &kp     BSPC &none
@@ -118,7 +128,7 @@
     special_layer {
       bindings = <
       &none        &bt BT_SEL 3 &bt BT_SEL 2 &bt BT_SEL 1 &bt BT_SEL 0                   &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &none
-      &none        &none        &none        &none        &bt   BT_CLR                   &bt   BT_CLR &none        &none        &none        &none
+      &none        &tog  ENGRAM &none        &none        &bt   BT_CLR                   &bt   BT_CLR &none        &none        &tog  ENGRAM &none
       &none        &bt   BT_PRV &none        &bt   BT_NXT &bootloader                    &bootloader  &bt   BT_PRV &none        &bt   BT_NXT &none
                                              &none        &none        &none      &none  &none        &none
       >;
