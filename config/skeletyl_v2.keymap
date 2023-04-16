@@ -109,7 +109,7 @@
 
     upper_layer {
       bindings = <
-      &kp  PERCENT &kp    QMARK &kp   ESCAPE &kp    COLON &kp       AT                   &none        &none        &kp    CARET &kp    TILDE &kp    GRAVE
+      &kp  PERCENT &kp   ESCAPE &kp    QMARK &kp    COLON &kp       AT                   &none        &none        &kp    CARET &kp    TILDE &kp    GRAVE
       &kp     EXCL &kp     PLUS &kp    MINUS &kp    EQUAL &kp     HASH                   &none        &kp     LPAR &kp    UNDER &kp     RPAR &kp     SEMI
       &none        &kp   DOLLAR &kp ASTERISK &kp    SLASH &none                          &none        &kp     PIPE &kp     AMPS &kp     BSLH &none
                                              &trans       &trans       &none      &none  &sl   SYSTEM &trans
