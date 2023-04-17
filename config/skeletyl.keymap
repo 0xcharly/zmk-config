@@ -94,7 +94,7 @@
       bindings = <
       &kp        B &kp        Y &kp        O &kp        U &kp        Z                   &kp        Q &kp        L &kp        D &kp        W &kp        V
       &kp        C &kp        I &kp        E &kp        A &kp     APOS                   &kp    COMMA &kp        H &kp        T &kp        S &kp        N
-      &kp        G &kp        Q &kp        J &kp        K &key_repeat                    &kp   PERIOD &kp        R &kp        M &kp        F &kp        P
+      &kp        G &kp        X &kp        J &kp        K &key_repeat                    &kp   PERIOD &kp        R &kp        M &kp        F &kp        P
                                              &mo    LOWER &kp SPACE    &none      &none  &kp   LSHIFT &mo    UPPER
       >;
     };
