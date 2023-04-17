@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: MIT
  */
  
-#include "skeletyl_v2.dtsi"
+#include "skeletyl.dtsi"
 
 &default_transform {
 	col-offset = <5>;
