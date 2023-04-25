@@ -9,11 +9,12 @@
 #include <dt-bindings/zmk/bt.h>
 
 #define DVORAK 0
-#define ENGRAM 1
-#define LOWER 2
-#define UPPER 3
-#define ADJUST 4
-#define SYSTEM 5
+#define NAV 1
+#define NUM 2
+#define SYM 3
+#define NAV_ADJUST 4
+#define NUM_ADJUST 5
+#define SYSTEM 6
 
 #define LAUNCHER (LG(SPACE))
 #define CTL_TAB (LC(TAB))
@@ -23,6 +24,10 @@
 &sk {
   release-after-ms = <2000>;
   quick-release;
+};
+
+&caps_word {
+    continue-list = <UNDERSCORE MINUS BACKSPACE MINUS>;
 };
 
 / {
@@ -39,8 +44,12 @@
   conditional_layers {
       compatible = "zmk,conditional-layers";
       tri_layer {
-          if-layers = <2 3>;
+          if-layers = <1 2>;
           then-layer = <4>;
+      };
+      tri_layer {
+          if-layers = <1 3>;
+          then-layer = <5>;
       };
   };
 
@@ -62,19 +71,22 @@
   combos {
       compatible = "zmk,combos";
       combo_caps_word {
-          timeout-ms = <25>;
-          key-positions = <2 7>;
+          timeout-ms = <50>;
+          key-positions = <6 7 8>;
           bindings = <&caps_word>;
+          layers = <0>
       };
       combo_arrow {
-          timeout-ms = <25>;
-          key-positions = <6 7>;
+          timeout-ms = <50>;
+          key-positions = <1 2>;
           bindings = <&arrow>;
+          layers = <0>
       };
       combo_fat_arrow {
-          timeout-ms = <25>;
+          timeout-ms = <50>;
           key-positions = <2 3>;
           bindings = <&fat_arrow>;
+          layers = <0>
       };
   };
 
@@ -86,50 +98,59 @@
       &kp     APOS &kp    COMMA &kp   PERIOD &kp        P &kp        Y                   &kp        F &kp        G &kp        C &kp        R &kp        L
       &kp        A &kp        O &kp        E &kp        U &kp        I                   &kp        D &kp        H &kp        T &kp        N &kp        S
       &key_repeat  &kp        Q &kp        J &kp        K &kp        X                   &kp        B &kp        M &kp        W &kp        V &kp        Z
-                                             &mo    LOWER &kp SPACE    &none      &none  &kp   LSHIFT &mo    UPPER
+                                             &mo      NUM &lt  1 SPACE &none      &none  &kp   LSHIFT &mo      SYM
       >;
     };
 
-    engram_layer {
+    nav_layer {
       bindings = <
-      &kp        B &kp        Y &kp        O &kp        U &kp        Z                   &kp        Q &kp        L &kp        D &kp        W &kp        V
-      &kp        C &kp        I &kp        E &kp        A &kp     APOS                   &kp    COMMA &kp        H &kp        T &kp        S &kp        N
-      &kp        G &kp        X &kp        J &kp        K &key_repeat                    &kp   PERIOD &kp        R &kp        M &kp        F &kp        P
-                                             &mo    LOWER &kp SPACE    &none      &none  &kp   LSHIFT &mo    UPPER
-      >;
-    };
-
-    lower_layer {
-      bindings = <
-      &kp LAUNCHER &kp  RCS_TAB &kp      TAB &kp  CTL_TAB &none                          &none        &none        &kp       UP &kp     BSPC &none
-      &sk     LALT &sk     LGUI &sk    LCTRL &sk   LSHIFT &none                          &none        &kp     LEFT &kp     DOWN &kp    RIGHT &kp    ENTER
       &kp   LA(N1) &kp   LA(N2) &kp   LA(N3) &kp   LA(N4) &kp   LA(N5)                   &none        &none        &none        &none        &none
-                                             &trans       &sl   SYSTEM &none      &none  &trans       &trans
+      &sk     LALT &sk     LGUI &sk    LCTRL &sk   LSHIFT &none                          &none        &none        &kp      TAB &kp     BSPC &kp    ENTER
+      &kp  RCS_TAB &kp  CTL_TAB &kp     DOWN &kp       UP &none                          &none        &kp     LEFT &kp    RIGHT &none        &none
+                                             &none        &trans       &none      &none  &kp LAUNCHER &trans
       >;
     };
 
-    upper_layer {
+    num_layer {
       bindings = <
-      &kp  PERCENT &kp   ESCAPE &kp    QMARK &kp    COLON &kp       AT                   &none        &none        &kp    CARET &kp    TILDE &kp    GRAVE
-      &kp     EXCL &kp     PLUS &kp    MINUS &kp    EQUAL &kp     HASH                   &none        &kp     LPAR &kp    UNDER &kp     RPAR &kp     SEMI
-      &none        &kp   DOLLAR &kp ASTERISK &kp    SLASH &none                          &none        &kp     PIPE &kp     AMPS &kp     BSLH &none
+      &none        &kp    COMMA &kp   PERIOD &none        &none                          &none        &kp       N7 &kp       N8 &kp       N9 &none       
+      &kp  PERCENT &kp     PLUS &kp    MINUS &kp    EQUAL &none                          &none        &kp       N4 &kp       N5 &kp       N6 &none       
+      &none        &kp    TILDE &kp ASTERISK &kp    SLASH &none                          &none        &kp       N1 &kp       N2 &kp       N3 &none
+                                             &trans       &sl   SYSTEM &none      &none  &kp       N0 &trans
+      >;
+    };
+
+    sym_layer {
+      bindings = <
+      &none        &kp   ESCAPE &kp    QMARK &kp    COLON &none                          &none        &kp       AT &kp     EXCL &kp     HASH &none       
+      &none        &kp     LPAR &kp    MINUS &kp     RPAR &none                          &none        &kp     LBRC &kp    UNDER &kp     RBRC &kp     SEMI
+      &none        &kp   DOLLAR &kp ASTERISK &kp    SLASH &none                          &none        &none        &kp    CARET &kp    GRAVE &none
                                              &trans       &trans       &none      &none  &sl   SYSTEM &trans
       >;
     };
 
-    adjust_layer {
+    nav_adjust_layer {
       bindings = <
-      &none        &kp       N7 &kp       N8 &kp       N9 &none                          &none        &kp     LBKT &none        &kp     RBKT &none       
-      &none        &kp       N4 &kp       N5 &kp       N6 &none                          &none        &kp   LSHIFT &kp    LCTRL &kp     LGUI &kp     LALT
-      &none        &kp       N1 &kp       N2 &kp       N3 &none                          &none        &kp     LBRC &kp       N0 &kp     RBRC &none
-                                             &trans       &trans       &none      &none  &trans       &trans
+      &none        &none        &none        &none        &none                          &none        &none        &kp    LG(C) &none        &kp      END
+      &none        &none        &none        &none        &none                          &none        &kp     HOME &kp    LG(T) &kp    LG(N) &none
+      &none        &none        &kp    PG_DN &kp    PG_UP &kp    LG(X)                   &none        &kp     LBRC &kp    LG(W) &kp    LG(V) &none
+                                             &none        &trans       &none      &none  &none        &trans
+      >;
+    };
+
+    num_adjust_layer {
+      bindings = <
+      &none        &none        &none        &none        &none                          &none        &none        &none        &none        &none       
+      &none        &kp       LT &kp    MINUS &kp       GT &none                          &none        &kp     LBKT &kp    EQUAL &kp     RBKT &none
+      &none        &none        &none        &none        &none                          &none        &kp     PIPE &kp     BSLH &kp     AMPS &none
+                                             &trans       &none        &none      &none  &none        &trans
       >;
     };
 
     system_layer {
       bindings = <
       &none        &bt BT_SEL 3 &bt BT_SEL 2 &bt BT_SEL 1 &bt BT_SEL 0                   &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &none
-      &none        &to   ENGRAM &to   DVORAK &none        &bt   BT_CLR                   &bt   BT_CLR &none        &to   DVORAK &to   ENGRAM &none
+      &none        &none        &none        &none        &bt   BT_CLR                   &bt   BT_CLR &none        &none        &none        &none
       &none        &bt   BT_PRV &sys_reset   &bt   BT_NXT &bootloader                    &bootloader  &bt   BT_PRV &sys_reset   &bt   BT_NXT &none
                                              &none        &none        &none      &none  &none        &none
       >;
