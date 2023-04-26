@@ -44,11 +44,11 @@
   conditional_layers {
       compatible = "zmk,conditional-layers";
       nav_tri_layer {
-          if-layers = <1 2>;
+          if-layers = <1 3>;
           then-layer = <4>;
       };
       sym_tri_layer {
-          if-layers = <1 3>;
+          if-layers = <2 3>;
           then-layer = <5>;
       };
   };
