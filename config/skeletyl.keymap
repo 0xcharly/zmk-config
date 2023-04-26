@@ -95,64 +95,85 @@
 
     default_layer {
       bindings = <
-      &kp     APOS &kp    COMMA &kp   PERIOD &kp        P &kp        Y                   &kp        F &kp        G &kp        C &kp        R &kp        L
-      &kp        A &kp        O &kp        E &kp        U &kp        I                   &kp        D &kp        H &kp        T &kp        N &kp        S
-      &key_repeat  &kp        Q &kp        J &kp        K &kp        X                   &kp        B &kp        M &kp        W &kp        V &kp        Z
-                                             &mo      NUM &lt  1 SPACE &none      &none  &kp   LSHIFT &mo      SYM
+  /* ╭──────────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────────╮ */
+      &kp     APOS &kp    COMMA &kp   PERIOD &kp        P &kp        Y               &kp        F &kp        G &kp        C &kp        R &kp        L
+      &kp        A &kp        O &kp        E &kp        U &kp        I               &kp        D &kp        H &kp        T &kp        N &kp        S
+      &key_repeat  &kp        Q &kp        J &kp        K &kp        X               &kp        B &kp        M &kp        W &kp        V &kp        Z
+  /* ╰──────────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────────╯ */
+                                             &mo      NUM &lt  1 SPACE &none   &none &kp   LSHIFT &mo      SYM
+  /*                                        ╰───────────────────────────────╯ ╰───────────────────────────────╯                                        */
+
       >;
     };
 
     nav_layer {
       bindings = <
-      &kp   LA(N1) &kp   LA(N2) &kp   LA(N3) &kp   LA(N4) &kp   LA(N5)                   &none        &none        &none        &none        &none
-      &sk     LALT &sk     LGUI &sk    LCTRL &sk   LSHIFT &none                          &none        &none        &kp      TAB &kp     BSPC &kp    ENTER
-      &kp  RCS_TAB &kp  CTL_TAB &kp     DOWN &kp       UP &none                          &none        &kp     LEFT &kp    RIGHT &none        &none
-                                             &none        &trans       &none      &none  &kp LAUNCHER &trans
+  /* ╭──────────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────────╮ */
+      &kp   LA(N1) &kp   LA(N2) &kp   LA(N3) &kp   LA(N4) &kp   LA(N5)               &none        &none        &none        &kp     BSPC &none
+      &sk     LALT &sk     LGUI &sk    LCTRL &sk   LSHIFT &none                      &none        &none        &kp      TAB &none        &kp    ENTER
+      &kp  RCS_TAB &kp  CTL_TAB &kp     DOWN &kp       UP &none                      &none        &kp     LEFT &kp    RIGHT &none        &none
+  /* ╰──────────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────────╯ */
+                                             &none        &trans       &none   &none &kp LAUNCHER &trans
+  /*                                        ╰───────────────────────────────╯ ╰───────────────────────────────╯                                        */
       >;
     };
 
     num_layer {
       bindings = <
-      &none        &kp    COMMA &kp   PERIOD &none        &none                          &none        &kp       N7 &kp       N8 &kp       N9 &none       
-      &kp  PERCENT &kp     PLUS &kp    MINUS &kp    EQUAL &none                          &none        &kp       N4 &kp       N5 &kp       N6 &none       
-      &none        &kp    TILDE &kp ASTERISK &kp    SLASH &none                          &none        &kp       N1 &kp       N2 &kp       N3 &none
-                                             &trans       &sl   SYSTEM &none      &none  &kp       N0 &trans
+  /* ╭──────────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────────╮ */
+      &none        &kp    COMMA &kp   PERIOD &none        &none                      &none        &kp       N7 &kp       N8 &kp       N9 &none       
+      &kp  PERCENT &kp     PLUS &kp    MINUS &kp    EQUAL &none                      &none        &kp       N4 &kp       N5 &kp       N6 &none       
+      &none        &kp    TILDE &kp ASTERISK &kp    SLASH &none                      &none        &kp       N1 &kp       N2 &kp       N3 &none
+  /* ╰──────────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────────╯ */
+                                             &trans       &sl   SYSTEM &none   &none &kp       N0 &trans
+  /*                                        ╰───────────────────────────────╯ ╰───────────────────────────────╯                                        */
       >;
     };
 
     sym_layer {
       bindings = <
-      &none        &kp   ESCAPE &kp    QMARK &kp    COLON &none                          &none        &kp       AT &kp     EXCL &kp     HASH &none       
-      &none        &kp     LPAR &kp    MINUS &kp     RPAR &none                          &none        &kp     LBRC &kp    UNDER &kp     RBRC &kp     SEMI
-      &none        &kp   DOLLAR &kp ASTERISK &kp    SLASH &none                          &none        &none        &kp    CARET &kp    GRAVE &none
-                                             &trans       &trans       &none      &none  &sl   SYSTEM &trans
+  /* ╭──────────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────────╮ */
+      &none        &kp   ESCAPE &kp    QMARK &kp    COLON &none                      &none        &kp       AT &kp     EXCL &kp     HASH &none       
+      &none        &kp     LPAR &kp    MINUS &kp     RPAR &none                      &none        &kp     LBRC &kp    UNDER &kp     RBRC &kp     SEMI
+      &none        &kp   DOLLAR &kp ASTERISK &kp    SLASH &none                      &none        &none        &kp    CARET &kp    GRAVE &none
+  /* ╰──────────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────────╯ */
+                                             &trans       &trans       &none   &none &sl   SYSTEM &trans
+  /*                                        ╰───────────────────────────────╯ ╰───────────────────────────────╯                                        */
       >;
     };
 
     nav_adjust_layer {
       bindings = <
-      &none        &none        &none        &none        &none                          &none        &none        &kp    LG(C) &none        &kp      END
-      &none        &none        &none        &none        &none                          &none        &kp     HOME &kp    LG(T) &kp    LG(N) &none
-      &none        &none        &kp    PG_DN &kp    PG_UP &kp    LG(X)                   &none        &kp     LBRC &kp    LG(W) &kp    LG(V) &none
-                                             &none        &trans       &none      &none  &none        &trans
+  /* ╭──────────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────────╮ */
+      &none        &none        &none        &none        &none                      &none        &none        &kp    LG(C) &kp     BSPC &kp      END
+      &none        &none        &none        &none        &none                      &none        &kp     HOME &kp    LG(T) &kp    LG(N) &none
+      &none        &none        &kp    PG_DN &kp    PG_UP &kp    LG(X)               &none        &none        &kp    LG(W) &kp    LG(V) &none
+  /* ╰──────────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────────╯ */
+                                             &none        &trans       &none   &none &none        &trans
+  /*                                        ╰───────────────────────────────╯ ╰───────────────────────────────╯                                        */
       >;
     };
 
     num_adjust_layer {
       bindings = <
-      &none        &none        &none        &none        &none                          &none        &none        &none        &none        &none       
-      &none        &kp       LT &kp    MINUS &kp       GT &none                          &none        &kp     LBKT &kp    EQUAL &kp     RBKT &none
-      &none        &none        &none        &none        &none                          &none        &kp     PIPE &kp     BSLH &kp     AMPS &none
-                                             &trans       &none        &none      &none  &none        &trans
+  /* ╭──────────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────────╮ */
+      &none        &none        &none        &none        &none                      &none        &none        &none        &kp     BSPC &none       
+      &none        &kp       LT &kp    MINUS &kp       GT &none                      &none        &kp     LBKT &kp    EQUAL &kp     RBKT &kp    ENTER
+      &none        &none        &none        &none        &none                      &none        &kp     PIPE &kp     BSLH &kp     AMPS &none
+  /* ╰──────────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────────╯ */
+                                             &trans       &none        &none   &none &none        &trans
+  /*                                        ╰───────────────────────────────╯ ╰───────────────────────────────╯                                        */
       >;
     };
 
     system_layer {
       bindings = <
-      &none        &bt BT_SEL 3 &bt BT_SEL 2 &bt BT_SEL 1 &bt BT_SEL 0                   &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &none
-      &none        &none        &none        &none        &bt   BT_CLR                   &bt   BT_CLR &none        &none        &none        &none
-      &none        &bt   BT_PRV &sys_reset   &bt   BT_NXT &bootloader                    &bootloader  &bt   BT_PRV &sys_reset   &bt   BT_NXT &none
-                                             &none        &none        &none      &none  &none        &none
+  /* ╭──────────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────────╮ */
+      &none        &bt BT_SEL 3 &bt BT_SEL 2 &bt BT_SEL 1 &bt BT_SEL 0               &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &none
+      &none        &none        &none        &none        &bt   BT_CLR               &bt   BT_CLR &none        &none        &none        &none
+      &none        &bt   BT_PRV &sys_reset   &bt   BT_NXT &bootloader                &bootloader  &bt   BT_PRV &sys_reset   &bt   BT_NXT &none
+                                             &none        &none        &none   &none &none        &none
+  /*                                        ╰───────────────────────────────╯ ╰───────────────────────────────╯                                        */
       >;
     };
 
