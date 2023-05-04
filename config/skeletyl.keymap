@@ -21,10 +21,9 @@
 #define CTL_TAB (LC(TAB))
 #define RCS_TAB (LC(LS(TAB)))
 
-
 &sk {
-  release-after-ms = <2000>;
-  quick-release;
+    release-after-ms = <2000>;
+    quick-release;
 };
 
 &caps_word {
@@ -32,16 +31,6 @@
 };
 
 / {
-
-  chosen {
-    zmk,battery = &vbatt;
-    zmk,underglow = &led_strip;
-  };
-
-  vbatt: vbatt {
-      compatible = "zmk,battery-nrf-vddh";
-      label = "VBATT";
-  };
 
   conditional_layers {
       compatible = "zmk,conditional-layers";
