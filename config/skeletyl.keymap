@@ -151,29 +151,7 @@
     };
 
     /**
-     * Primary symbols layer. Right thumb down.
-     *
-     *   - Primary hand (right):
-     *     - Square and angle brackets.
-     *     - Underscore for symmetry with dash on secondary hand.
-     *   - Secondary hand (left):
-     *     - Vi escape+colon roll for command mode.
-     *     - Most common operators.
-     */
-    symbols_lower {
-      bindings = <
-  /* ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮ */
-       &none        &kp ESCAPE   &kp QMARK    &kp COLON    &none            &none        &none        &none        &kp BSPC     &kp TAB
-       &none        &kp PLUS     &kp MINUS    &kp EQUAL    &none            &none        &kp LBKT     &kp UNDER    &kp RBKT     &kp ENTER
-       &none        &kp GRAVE    &kp ASTERISK &kp SLASH    &none            &none        &kp LT       &none        &kp GT       &none       
-  /* ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯ */
-                                              &trans       &trans           &sl SYSTEM   &trans /*↓*/
-  /*                                        ╰───────────────────────────╯ ╰───────────────────────────╯                                        */
-      >;
-    };
-
-    /**
-     * Secondary symbols layer. Left thumb down.
+     * Primary symbols layer. Left thumb down.
      *
      *   - Primary hand (left):
      *     - Hash and exclamation mark for Gmail shortcuts, and with synergy with right-side curly brackets.
@@ -184,7 +162,7 @@
      *     - Semi-colon for synergy with parenthesis and curly brackets.
      *     - Pipe and ampersand on strong fingers, with synergy with left-side equal.
      */
-    symbols_upper {
+    symbols_lower {
       bindings = <
   /* ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮ */
        &none        &kp HASH     &kp EXCL     &none        &none            &none        &kp PIPE     &kp AMPS     &kp BSPC     &kp TAB
@@ -192,6 +170,28 @@
        &none        &kp TILDE    &kp BSLH     &kp SLASH    &none            &none        &kp LBRC     &none        &kp RBRC     &kp PERCENT
   /* ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯ */
                                               &trans /*↓*/ &sl SYSTEM       &trans       &trans
+  /*                                        ╰───────────────────────────╯ ╰───────────────────────────╯                                        */
+      >;
+    };
+
+    /**
+     * Secondary symbols layer. Right thumb down.
+     *
+     *   - Primary hand (right):
+     *     - Square and angle brackets.
+     *     - Underscore for symmetry with dash on secondary hand.
+     *   - Secondary hand (left):
+     *     - Vi escape+colon roll for command mode.
+     *     - Most common operators.
+     */
+    symbols_upper {
+      bindings = <
+  /* ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮ */
+       &none        &kp ESCAPE   &kp QMARK    &kp COLON    &none            &none        &none        &none        &kp BSPC     &kp TAB
+       &none        &kp PLUS     &kp MINUS    &kp EQUAL    &none            &none        &kp LBKT     &kp UNDER    &kp RBKT     &kp ENTER
+       &none        &kp GRAVE    &kp ASTERISK &kp SLASH    &none            &none        &kp LT       &none        &kp GT       &none       
+  /* ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯ */
+                                              &trans       &trans           &sl SYSTEM   &trans /*↓*/
   /*                                        ╰───────────────────────────╯ ╰───────────────────────────╯                                        */
       >;
     };
