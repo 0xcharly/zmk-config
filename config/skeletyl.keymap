@@ -20,6 +20,11 @@
 #define CTL_TAB (LC(TAB))
 #define RCS_TAB (LC(LS(TAB)))
 
+// Shorthands.
+#define NAV NAVIGATION
+#define SYM_LOW SYMBOLS_LOWER
+#define SYM_UPP SYMBOLS_UPPER
+
 // Adjust sticky-keys configuration.
 &sk {
   release-after-ms = <1500>;
@@ -118,7 +123,7 @@
        &kp A        &kp O        &kp E        &kp U        &kp I            &kp D        &kp H        &kp T        &kp N        &kp S
        &key_repeat  &kp Q        &kp J        &kp K        &kp X            &kp B        &kp M        &kp W        &kp V        &kp Z
   /* ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯ */
-                                              &mo NUM      &lt 1 SPACE      &kp LSHIFT   &mo SYM
+                                              &mo SYM_LOW  &lt NAV SPACE    &kp LSHIFT   &mo SYM_UPP
   /*                                        ╰───────────────────────────╯ ╰───────────────────────────╯                                        */
       >;
     };
