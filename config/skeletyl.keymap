@@ -15,11 +15,13 @@
 #define NUMBERS 4
 #define SYSTEM 5
 
+// Custom keycodes.
 #define LAUNCHER (LG(SPACE))
 #define CTL_TAB (LC(TAB))
 #define RCS_TAB (LC(LS(TAB)))
 
-#define SPC_NAV lt NAVIGATION SPACE
+// Shorthands.
+#define SPC_NAV lt (NAVIGATION) SPACE
 
 // Adjust sticky-keys configuration.
 &sk {
