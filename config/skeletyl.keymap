@@ -43,8 +43,8 @@
 
     // Tri-layer SYML + SYMR = NUM.
     num_tri_layer {
-      if-layers = <2 3>;
-      then-layer = <4>;
+      if-layers = <SYMBOLS_LOWER SYMBOLS_UPPER>;
+      then-layer = <NUMBERS>;
     };
   };
 
@@ -76,7 +76,7 @@
       timeout-ms = <50>;
       key-positions = <6 7 8>;
       bindings = <&caps_word>;
-      layers = <0>;
+      layers = <DVORAK>;
     };
 
     // Right arrow on a 2-key combo.
@@ -84,7 +84,7 @@
       timeout-ms = <50>;
       key-positions = <1 2>;
       bindings = <&right_arrow>;
-      layers = <0>;
+      layers = <DVORAK>;
     };
 
     // Fat right arrow on a 2-key combo.
@@ -92,7 +92,7 @@
       timeout-ms = <50>;
       key-positions = <2 3>;
       bindings = <&fat_right_arrow>;
-      layers = <0>;
+      layers = <DVORAK>;
     };
   };
 
