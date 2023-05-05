@@ -59,7 +59,7 @@
     };
 
     // Fat right arrow macro: =>
-    right_fat_arrow: right_fat_arrow {
+    fat_right_arrow: fat_right_arrow {
       label = "Fat Right Arrow";
       compatible = "zmk,behavior-macro";
       #binding-cells = <0>;
@@ -83,7 +83,7 @@
     combo_arrow {
       timeout-ms = <50>;
       key-positions = <1 2>;
-      bindings = <&arrow>;
+      bindings = <&right_arrow>;
       layers = <0>;
     };
 
@@ -91,7 +91,7 @@
     combo_fat_arrow {
       timeout-ms = <50>;
       key-positions = <2 3>;
-      bindings = <&fat_arrow>;
+      bindings = <&fat_right_arrow>;
       layers = <0>;
     };
   };
