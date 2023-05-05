@@ -9,164 +9,229 @@
 #include <dt-bindings/zmk/keys.h>
 
 #define DVORAK 0
-#define NAV 1
-#define NUM 2
-#define SYM 3
-#define NAV_ADJUST 4
-#define NUM_ADJUST 5
-#define SYSTEM 6
+#define NAVIGATION 1
+#define SYMBOLS_LOWER 2
+#define SYMBOLS_UPPER 3
+#define NUMBERS 4
+#define SYSTEM 5
 
 #define LAUNCHER (LG(SPACE))
 #define CTL_TAB (LC(TAB))
 #define RCS_TAB (LC(LS(TAB)))
 
+// Adjust sticky-keys configuration.
 &sk {
-    release-after-ms = <2000>;
-    quick-release;
+  release-after-ms = <1500>;
+  quick-release;
 };
 
+// Adjust Caps Word configuration.
 &caps_word {
-    continue-list = <UNDERSCORE MINUS BACKSPACE MINUS>;
+  continue-list = <UNDERSCORE MINUS BACKSPACE MINUS>;
 };
 
 / {
-
+  // Conditional layers configuration, specifically tri-layer.
   conditional_layers {
-      compatible = "zmk,conditional-layers";
-      nav_tri_layer {
-          if-layers = <1 3>;
-          then-layer = <4>;
-      };
-      sym_tri_layer {
-          if-layers = <2 3>;
-          then-layer = <5>;
-      };
+    compatible = "zmk,conditional-layers";
+
+    // Tri-layer SYML + SYMR = NUM.
+    num_tri_layer {
+      if-layers = <2 3>;
+      then-layer = <4>;
+    };
   };
 
+  // Macros configuration, specifically character sequences.
   macros {
-    arrow: arrow {
-      label = "Arrow";
+    // Right arrow macro: ->
+    spc_nav: space_navigation_layer {
+      label = "Space/Navigation layer";
+      compatible = "zmk,behavior-macro";
+      #binding-cells = <0>;
+      bindings = <&macro_tap &lt NAVIGATION SPACE>;
+    };
+
+    // Right arrow macro: ->
+    right_arrow: right_arrow {
+      label = "Right Arrow";
       compatible = "zmk,behavior-macro";
       #binding-cells = <0>;
       bindings = <&macro_tap &kp MINUS &kp GT>;
     };
-    fat_arrow: fat_arrow {
-      label = "Fat_Arrow";
+
+    // Fat right arrow macro: =>
+    right_fat_arrow: right_fat_arrow {
+      label = "Fat Right Arrow";
       compatible = "zmk,behavior-macro";
       #binding-cells = <0>;
       bindings = <&macro_tap &kp EQUAL &kp GT>;
     };
   };
 
+  // Combos configuration: only on base layer.
   combos {
-      compatible = "zmk,combos";
-      combo_caps_word {
-          timeout-ms = <50>;
-          key-positions = <6 7 8>;
-          bindings = <&caps_word>;
-          layers = <0>;
-      };
-      combo_arrow {
-          timeout-ms = <50>;
-          key-positions = <1 2>;
-          bindings = <&arrow>;
-          layers = <0>;
-      };
-      combo_fat_arrow {
-          timeout-ms = <50>;
-          key-positions = <2 3>;
-          bindings = <&fat_arrow>;
-          layers = <0>;
-      };
+    compatible = "zmk,combos";
+
+    // Caps Word on a tri-key combo.
+    combo_caps_word {
+      timeout-ms = <50>;
+      key-positions = <6 7 8>;
+      bindings = <&caps_word>;
+      layers = <0>;
+    };
+
+    // Right arrow on a 2-key combo.
+    combo_arrow {
+      timeout-ms = <50>;
+      key-positions = <1 2>;
+      bindings = <&arrow>;
+      layers = <0>;
+    };
+
+    // Fat right arrow on a 2-key combo.
+    combo_fat_arrow {
+      timeout-ms = <50>;
+      key-positions = <2 3>;
+      bindings = <&fat_arrow>;
+      layers = <0>;
+    };
   };
 
+  /**
+   * 34-key keymap, using a Dvorak base layer. Skeletyl is a 36-key keyboard, but only 2 thumb keys are used on each side.
+   *
+   *   - Enter, backspace and tab on all non-base layers.
+   *   - Navigation layer:
+   *     - Direct access desktop shortcuts.
+   *     - Home-row sticky mods.
+   *     - Convenience shortcuts (cut/copy/paste, ctrl+tab, ctrl+shift+tab)
+   *     - Inverted T arrow cluster.
+   *   - Symbols/numbers tri-layer:
+   *     - 2 symbols layers to reduce pinky usage, and favor symbol synergies in most frequently used languages.
+   *     - Numbers tri-layer with left-side numpad.
+   *   - System layer for hardware controls:
+   *     - Bluetooth channels.
+   *     - Reset/bootloader.
+   */
   keymap {
     compatible = "zmk,keymap";
 
-    default_layer {
+    /** Traditional Dvorak layout. */
+    dvorak {
       bindings = <
-  /* ╭──────────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────────╮ */
-      &kp     APOS &kp    COMMA &kp   PERIOD &kp        P &kp        Y               &kp        F &kp        G &kp        C &kp        R &kp        L
-      &kp        A &kp        O &kp        E &kp        U &kp        I               &kp        D &kp        H &kp        T &kp        N &kp        S
-      &key_repeat  &kp        Q &kp        J &kp        K &kp        X               &kp        B &kp        M &kp        W &kp        V &kp        Z
-  /* ╰──────────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────────╯ */
-                                             &mo      NUM &lt  1 SPACE &none   &none &kp   LSHIFT &mo      SYM
-  /*                                        ╰───────────────────────────────╯ ╰───────────────────────────────╯                                        */
-
+  /* ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮ */
+       &kp APOS     &kp COMMA    &kp PERIOD   &kp P        &kp Y            &kp F        &kp G        &kp C        &kp R        &kp L
+       &kp A        &kp O        &kp E        &kp U        &kp I            &kp D        &kp H        &kp T        &kp N        &kp S
+       &key_repeat  &kp Q        &kp J        &kp K        &kp X            &kp B        &kp M        &kp W        &kp V        &kp Z
+  /* ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯ */
+                                              &mo NUM      &spc_nav         &kp LSHIFT   &mo SYM
+  /*                                        ╰───────────────────────────╯ ╰───────────────────────────╯                                        */
       >;
     };
 
-    nav_layer {
+    /**
+     * Navigation layer. Left thumb down (tap-hold on space key).
+     *
+     *   - Primary hand (left):
+     *     - Direct access desktop shortcuts.
+     *     - Home-row sticky mods.
+     *     - Convenience shortcuts (cut/copy/paste, ctrl+tab, ctrl+shift+tab)
+     *   - Secondary hand (right):
+     *     - Inverted T arrow cluster.
+     */
+    navigation {
       bindings = <
-  /* ╭──────────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────────╮ */
-      &kp   LA(N1) &kp   LA(N2) &kp   LA(N3) &kp   LA(N4) &kp   LA(N5)               &none        &none        &none        &kp     BSPC &none
-      &sk     LALT &sk     LGUI &sk    LCTRL &sk   LSHIFT &none                      &none        &none        &kp      TAB &none        &kp    ENTER
-      &kp  RCS_TAB &kp  CTL_TAB &kp     DOWN &kp       UP &none                      &none        &kp     LEFT &kp    RIGHT &none        &none
-  /* ╰──────────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────────╯ */
-                                             &none        &trans       &none   &none &kp LAUNCHER &trans
-  /*                                        ╰───────────────────────────────╯ ╰───────────────────────────────╯                                        */
+  /* ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮ */
+       &kp LA(N1)   &kp LA(N2)   &kp LA(N3)   &kp LA(N4)   &kp LA(N5)       &none        &none        &kp UP       &kp BSPC     &kp TAB
+       &sk LALT     &sk LGUI     &sk LCTRL    &sk LSHIFT   &kp LAUNCHER     &none        &kp LEFT     &kp DOWN     &kp RIGHT    &kp ENTER
+       &kp LG(X)    &kp RCS_TAB  &kp LG(C)    &kp CTL_TAB  &kp LG(V)        &none        &none        &none        &none        &none
+  /* ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯ */
+                                              &none        &trans /*↓*/     &trans       &trans
+  /*                                        ╰───────────────────────────╯ ╰───────────────────────────╯                                        */
       >;
     };
 
-    num_layer {
+    /**
+     * Primary symbols layer. Right thumb down.
+     *
+     *   - Primary hand (right):
+     *     - Square and angle brackets.
+     *     - Underscore for symmetry with dash on secondary hand.
+     *   - Secondary hand (left):
+     *     - Vi escape+colon roll for command mode.
+     *     - Most common operators.
+     */
+    symbols_lower {
       bindings = <
-  /* ╭──────────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────────╮ */
-      &none        &kp    COMMA &kp   PERIOD &none        &none                      &none        &kp       N7 &kp       N8 &kp       N9 &none       
-      &kp  PERCENT &kp     PLUS &kp    MINUS &kp    EQUAL &none                      &none        &kp       N4 &kp       N5 &kp       N6 &none       
-      &none        &kp    TILDE &kp ASTERISK &kp    SLASH &none                      &none        &kp       N1 &kp       N2 &kp       N3 &none
-  /* ╰──────────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────────╯ */
-                                             &trans       &sl   SYSTEM &none   &none &kp       N0 &trans
-  /*                                        ╰───────────────────────────────╯ ╰───────────────────────────────╯                                        */
+  /* ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮ */
+       &none        &kp ESCAPE   &kp QMARK    &kp COLON    &none            &none        &none        &none        &kp BSPC     &kp TAB
+       &none        &kp PLUS     &kp MINUS    &kp EQUAL    &none            &none        &kp LBKT     &kp UNDER    &kp RBKT     &kp ENTER
+       &none        &kp GRAVE    &kp ASTERISK &kp SLASH    &none            &none        &kp LT       &none        &kp GT       &none       
+  /* ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯ */
+                                              &trans       &trans           &sl SYSTEM   &trans /*↓*/
+  /*                                        ╰───────────────────────────╯ ╰───────────────────────────╯                                        */
       >;
     };
 
-    sym_layer {
+    /**
+     * Secondary symbols layer. Left thumb down.
+     *
+     *   - Primary hand (left):
+     *     - Hash and exclamation mark for Gmail shortcuts, and with synergy with right-side curly brackets.
+     *     - Tilde and forward-slash synergy for paths. 
+     *     - Caret and dollar for Vi-motions, and synergy with left-side curly brackets.
+     *   - Secondary hand (right):
+     *     - Parenthesis and curly brackets.
+     *     - Semi-colon for synergy with parenthesis and curly brackets.
+     *     - Pipe and ampersand on strong fingers, with synergy with left-side equal.
+     */
+    symbols_upper {
       bindings = <
-  /* ╭──────────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────────╮ */
-      &none        &kp   ESCAPE &kp    QMARK &kp    COLON &none                      &none        &kp       AT &kp     EXCL &kp     HASH &none       
-      &none        &kp     LPAR &kp    MINUS &kp     RPAR &none                      &none        &kp     LBRC &kp    UNDER &kp     RBRC &kp     SEMI
-      &none        &kp   DOLLAR &kp ASTERISK &kp    SLASH &none                      &none        &none        &kp    CARET &kp    GRAVE &none
-  /* ╰──────────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────────╯ */
-                                             &trans       &trans       &none   &none &sl   SYSTEM &trans
-  /*                                        ╰───────────────────────────────╯ ╰───────────────────────────────╯                                        */
+  /* ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮ */
+       &none        &kp HASH     &kp EXCL     &none        &none            &none        &kp PIPE     &kp AMPS     &kp BSPC     &kp TAB
+       &none        &kp CARET    &kp DOLLAR   &kp EQUAL    &none            &none        &kp LPAR     &kp SEMI     &kp RPAR     &kp ENTER
+       &none        &kp TILDE    &kp BSLH     &kp SLASH    &none            &none        &kp LBRC     &none        &kp RBRC     &kp PERCENT
+  /* ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯ */
+                                              &trans /*↓*/ &sl SYSTEM       &trans       &trans
+  /*                                        ╰───────────────────────────╯ ╰───────────────────────────╯                                        */
       >;
     };
 
-    nav_adjust_layer {
+    /**
+     * Numpad layer. Tri-layer activated with both symbols layers.
+     *
+     * - Left-side numpad, with right-side 0.
+     * - Right-side operators and other symbols frequently used with numbers.
+     */
+    numbers {
       bindings = <
-  /* ╭──────────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────────╮ */
-      &none        &none        &none        &none        &none                      &none        &none        &kp    LG(C) &kp     BSPC &kp      END
-      &none        &none        &none        &none        &none                      &none        &kp     HOME &kp    LG(T) &kp    LG(N) &none
-      &none        &none        &kp    PG_DN &kp    PG_UP &kp    LG(X)               &none        &none        &kp    LG(W) &kp    LG(V) &none
-  /* ╰──────────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────────╯ */
-                                             &none        &trans       &none   &none &none        &trans
-  /*                                        ╰───────────────────────────────╯ ╰───────────────────────────────╯                                        */
+  /* ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮ */
+       &none        &kp N7       &kp N8       &kp N9       &none            &none        &kp COMMA    &kp PERIOD   &kp BSPC     &kp TAB
+       &none        &kp N4       &kp N5       &kp N6       &none            &none        &kp PLUS     &kp EQUAL    &kp MINUS    &kp ENTER
+       &none        &kp N1       &kp N2       &kp N3       &none            &none        &kp ASTERISK &kp N0       &kp SLASH    &kp PERCENT
+  /* ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯ */
+                                              &trans /*↓*/ &none            &none        &trans /*↓*/
+  /*                                        ╰───────────────────────────╯ ╰───────────────────────────╯                                        */
       >;
     };
 
-    num_adjust_layer {
+   /**
+    * System layer for hardware controls. Available as a sticky-layer with a hard-to-mistap thumb hold.
+    *
+    *   - Bluetooth channels.
+    *   - Reset/bootloader.
+    */
+    system {
       bindings = <
-  /* ╭──────────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────────╮ */
-      &none        &none        &none        &none        &none                      &none        &none        &none        &kp     BSPC &none       
-      &none        &kp       LT &kp    MINUS &kp       GT &none                      &none        &kp     LBKT &kp    EQUAL &kp     RBKT &kp    ENTER
-      &none        &none        &none        &none        &none                      &none        &kp     PIPE &kp     BSLH &kp     AMPS &none
-  /* ╰──────────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────────╯ */
-                                             &trans       &none        &none   &none &none        &trans
-  /*                                        ╰───────────────────────────────╯ ╰───────────────────────────────╯                                        */
+  /* ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮ */
+       &none        &bt BT_SEL 3 &bt BT_SEL 2 &bt BT_SEL 1 &bt BT_SEL 0     &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &none
+       &none        &none        &none        &none        &bt BT_CLR       &bt BT_CLR   &none        &none        &none        &none
+       &none        &bt BT_PRV   &sys_reset   &bt BT_NXT   &bootloader      &bootloader  &bt BT_PRV   &sys_reset   &bt BT_NXT   &none
+  /* ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯ */
+                                              &none        &none            &none        &none
+  /*                                        ╰───────────────────────────╯ ╰───────────────────────────╯                                        */
       >;
     };
-
-    system_layer {
-      bindings = <
-  /* ╭──────────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────────╮ */
-      &none        &bt BT_SEL 3 &bt BT_SEL 2 &bt BT_SEL 1 &bt BT_SEL 0               &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &none
-      &none        &none        &none        &none        &bt   BT_CLR               &bt   BT_CLR &none        &none        &none        &none
-      &none        &bt   BT_PRV &sys_reset   &bt   BT_NXT &bootloader                &bootloader  &bt   BT_PRV &sys_reset   &bt   BT_NXT &none
-                                             &none        &none        &none   &none &none        &none
-  /*                                        ╰───────────────────────────────╯ ╰───────────────────────────────╯                                        */
-      >;
-    };
-
   };
-
 };
