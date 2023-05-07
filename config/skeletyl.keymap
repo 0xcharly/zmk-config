@@ -196,7 +196,7 @@
     symbols_upper {
       bindings = <
   /* ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮ */
-       &none        &kp ESCAPE   &kp QMARK    &kp COLON    &none            &none        &none        &none        &kp BSPC     &kp TAB
+       &none        &kp ESCAPE   &kp QMARK    &kp COLON    &none            &none        &none        &kp AT       &kp BSPC     &kp TAB
        &none        &kp PLUS     &kp MINUS    &kp EQUAL    &none            &none        &kp LBKT     &kp UNDER    &kp RBKT     &kp ENTER
        &none        &kp GRAVE    &kp ASTERISK &kp SLASH    &none            &none        &kp LT       &kp DQT      &kp GT       &none       
   /* ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯ */
