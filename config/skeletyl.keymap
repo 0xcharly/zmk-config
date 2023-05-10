@@ -8,6 +8,7 @@
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/ext_power.h>
 #include <dt-bindings/zmk/keys.h>
+#include <dt-bindings/zmk/rgb.h>
 
 #define DVORAK 0
 #define NAVIGATION 1
@@ -27,6 +28,7 @@
 #define SYM_UPP SYMBOLS_UPPER
 
 #define EXTPOW_TOG &ext_power EXT_POWER_TOGGLE_CMD
+#define RGB_TOG &rgb_ug RGB_TOG
 
 // Adjust sticky-keys configuration.
 &sk {
@@ -236,7 +238,7 @@
       bindings = <
   /* ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮ */
        EXTPOW_TOG   &bt BT_SEL 3 &bt BT_SEL 2 &bt BT_SEL 1 &bt BT_SEL 0     &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 EXTPOW_TOG
-       &none        &none        &none        &none        &bt BT_CLR       &bt BT_CLR   &none        &none        &none        &none
+       RGB_TOG      &none        &none        &none        &bt BT_CLR       &bt BT_CLR   &none        &none        &none        RGB_TOG
        &none        &bt BT_PRV   &sys_reset   &bt BT_NXT   &bootloader      &bootloader  &bt BT_PRV   &sys_reset   &bt BT_NXT   &none
   /* ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯ */
                                               &none        &none            &none        &none
