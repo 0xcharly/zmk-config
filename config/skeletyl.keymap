@@ -133,7 +133,7 @@
       key-positions = <11 12>;
       bindings = <&sk LSHIFT>;
     };
-    combo_sticky_shift_lhs {
+    combo_sticky_shift_rhs {
       timeout-ms = <20>;
       key-positions = <17 18>;
       bindings = <&sk RSHIFT>;
