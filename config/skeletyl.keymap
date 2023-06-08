@@ -118,13 +118,13 @@
       timeout-ms = <50>;
       key-positions = <1 2 3>;
       bindings = <&cancel>;
-      layers = <DVORAK, APTMAK>;
+      layers = <DVORAK APTMAK>;
     };
     combo_cancel_rhs {
       timeout-ms = <50>;
       key-positions = <6 7 8>;
       bindings = <&cancel>;
-      layers = <DVORAK, APTMAK>;
+      layers = <DVORAK APTMAK>;
     };
 
     // Sticky shift on a bigram combo, on both sides, on all layers.
@@ -144,13 +144,13 @@
       timeout-ms = <50>;
       key-positions = <11 12 13>;
       bindings = <&caps_word>;
-      layers = <DVORAK, APTMAK>;
+      layers = <DVORAK APTMAK>;
     };
     combo_caps_word_rhs {
       timeout-ms = <50>;
       key-positions = <16 17 18>;
       bindings = <&caps_word>;
-      layers = <DVORAK, APTMAK>;
+      layers = <DVORAK APTMAK>;
     };
 
     // Right arrow on a 2-key combo.
@@ -158,7 +158,7 @@
       timeout-ms = <50>;
       key-positions = <1 2>;
       bindings = <&right_arrow>;
-      layers = <DVORAK, APTMAK>;
+      layers = <DVORAK APTMAK>;
     };
 
     // Fat right arrow on a 2-key combo.
@@ -166,7 +166,7 @@
       timeout-ms = <50>;
       key-positions = <2 3>;
       bindings = <&fat_right_arrow>;
-      layers = <DVORAK, APTMAK>;
+      layers = <DVORAK APTMAK>;
     };
   };
 
