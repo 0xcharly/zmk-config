@@ -106,12 +106,12 @@
       timeout-ms = <50>;
       key-positions = <21 22 23>;
       bindings = <&sys_reset>;
-    }
+    };
     combo_sys_reset_rhs {
       timeout-ms = <50>;
       key-positions = <26 27 28>;
       bindings = <&sys_reset>;
-    }
+    };
 
     // Cancel sticky mods on a tri-key combos, on both sides.
     combo_cancel_lhs {
@@ -119,25 +119,25 @@
       key-positions = <1 2 3>;
       bindings = <&cancel>;
       layers = <DVORAK, APTMAK>;
-    }
+    };
     combo_cancel_rhs {
       timeout-ms = <50>;
       key-positions = <6 7 8>;
       bindings = <&cancel>;
       layers = <DVORAK, APTMAK>;
-    }
+    };
 
     // Sticky shift on a bigram combo, on both sides, on all layers.
     combo_sticky_shift_lhs {
       timeout-ms = <20>;
       key-positions = <11 12>;
       bindings = <&sk LSHIFT>;
-    }
+    };
     combo_sticky_shift_lhs {
       timeout-ms = <20>;
       key-positions = <17 18>;
       bindings = <&sk RSHIFT>;
-    }
+    };
 
     // Caps Word on a tri-key combo, on both sides.
     combo_caps_word_lhs {
