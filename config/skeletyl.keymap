@@ -123,12 +123,12 @@
 
     // Sticky shift on a bigram combo, on both sides, on all layers.
     combo_sticky_shift_lhs {
-      timeout-ms = <20>;
+      timeout-ms = <14>;
       key-positions = <11 12>;
       bindings = <&sk LSHIFT>;
     };
     combo_sticky_shift_rhs {
-      timeout-ms = <20>;
+      timeout-ms = <14>;
       key-positions = <17 18>;
       bindings = <&sk RSHIFT>;
     };
