@@ -104,25 +104,19 @@
     // Failsafe reset on a tri-key combos, on both sides, on all layers.
     combo_sys_reset_lhs {
       timeout-ms = <50>;
-      key-positions = <21 22 23>;
+      key-positions = <20 24>;
       bindings = <&sys_reset>;
     };
     combo_sys_reset_rhs {
       timeout-ms = <50>;
-      key-positions = <26 27 28>;
+      key-positions = <25 29>;
       bindings = <&sys_reset>;
     };
 
-    // Cancel sticky mods on a tri-key combos, on both sides.
-    combo_cancel_lhs {
+    // Cancel sticky mods failsafe.
+    combo_cancel {
       timeout-ms = <50>;
-      key-positions = <1 2 3>;
-      bindings = <&cancel>;
-      layers = <DVORAK APTMAK>;
-    };
-    combo_cancel_rhs {
-      timeout-ms = <50>;
-      key-positions = <6 7 8>;
+      key-positions = <20 29>;
       bindings = <&cancel>;
       layers = <DVORAK APTMAK>;
     };
@@ -139,16 +133,10 @@
       bindings = <&sk RSHIFT>;
     };
 
-    // Caps Word on a tri-key combo, on both sides.
-    combo_caps_word_lhs {
+    // Caps Word on a 2-key combo.
+    combo_caps_word {
       timeout-ms = <50>;
-      key-positions = <11 12 13>;
-      bindings = <&caps_word>;
-      layers = <DVORAK APTMAK>;
-    };
-    combo_caps_word_rhs {
-      timeout-ms = <50>;
-      key-positions = <16 17 18>;
+      key-positions = <2 7>;
       bindings = <&caps_word>;
       layers = <DVORAK APTMAK>;
     };
