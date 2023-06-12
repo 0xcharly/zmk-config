@@ -159,19 +159,9 @@
   };
 
   behaviors {
-    hm: homerow_mods {
+    sk_hold: behavior_sk_shift {
       compatible = "zmk,behavior-hold-tap";
-      label = "HOMEROW_MODS";
-      #binding-cells = <2>;
-      tapping-term-ms = <150>;
-      quick-tap-ms = <0>;
-      flavor = "tap-preferred";
-      bindings = <&kp>, <&kp>;
-    };
-
-    sk_shift: behavior_sk_shift {
-      compatible = "zmk,behavior-hold-tap";
-      label = "sk_shift";
+      label = "sk_hold";
       #binding-cells = <2>;
       tapping-term-ms = <150>;
       flavor = "tap-preferred";
@@ -206,7 +196,7 @@
        &kp A        &kp O        &kp E        &kp U        &kp I            &kp D        &kp H        &kp T        &kp N        &kp S
        &key_repeat  &kp Q        &kp J        &kp K        &kp X            &kp B        &kp M        &kp W        &kp V        &kp Z
   /* ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯ */
-                                              &mo SYM_LOW  &lt NAV SPACE    &sk_shift LSHIFT LSHIFT   &mo SYM_UPP
+                                              &mo SYM_LOW  &lt NAV SPACE    &sk LSHIFT   &mo SYM_UPP
   /*                                        ╰───────────────────────────╯ ╰───────────────────────────╯                                        */
       >;
     };
