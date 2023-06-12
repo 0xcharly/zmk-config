@@ -123,12 +123,12 @@
 
     // Sticky shift on a bigram combo, on both sides, on all layers.
     combo_sticky_shift_lhs {
-      timeout-ms = <14>;
+      timeout-ms = <18>;
       key-positions = <11 12>;
       bindings = <&sk LSHIFT>;
     };
     combo_sticky_shift_rhs {
-      timeout-ms = <14>;
+      timeout-ms = <18>;
       key-positions = <17 18>;
       bindings = <&sk RSHIFT>;
     };
@@ -158,6 +158,27 @@
     };
   };
 
+  behaviors {
+    hm: homerow_mods {
+      compatible = "zmk,behavior-hold-tap";
+      label = "HOMEROW_MODS";
+      #binding-cells = <2>;
+      tapping-term-ms = <150>;
+      quick-tap-ms = <0>;
+      flavor = "tap-preferred";
+      bindings = <&kp>, <&kp>;
+    };
+
+    sk_shift: behavior_sk_shift {
+      compatible = "zmk,behavior-hold-tap";
+      label = "sk_shift";
+      #binding-cells = <0>;
+      tapping-term-ms = <150>;
+      flavor = "tap-preferred";
+      bindings = <&sk LSHIFT>, <&kp LSHIFT>;
+    };
+  };
+
   /**
    * 34-key keymap, using a Dvorak base layer. Skeletyl is a 36-key keyboard, but only 2 thumb keys are used on each side.
    *
@@ -182,10 +203,10 @@
       bindings = <
   /* ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮ */
        &kp APOS     &kp COMMA    &kp PERIOD   &kp P        &kp Y            &kp F        &kp G        &kp C        &kp R        &kp L
-       &kp A        &kp O        &kp E        &kp U        &kp I            &kp D        &kp H        &kp T        &kp N        &kp S
+       &hm LALT A   &hm LGUI O   &hm LCTRL E  &hm LSHIFT U &kp I            &kp D        &hm LSHIFT H &hm LCTRL T  &hm LGUI N   &hm LALT S
        &key_repeat  &kp Q        &kp J        &kp K        &kp X            &kp B        &kp M        &kp W        &kp V        &kp Z
   /* ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯ */
-                                              &mo SYM_LOW  &lt NAV SPACE    &kp LSHIFT   &mo SYM_UPP
+                                              &mo SYM_LOW  &lt NAV SPACE    &sk_shift    &mo SYM_UPP
   /*                                        ╰───────────────────────────╯ ╰───────────────────────────╯                                        */
       >;
     };
