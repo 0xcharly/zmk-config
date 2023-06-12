@@ -158,17 +158,6 @@
     };
   };
 
-  behaviors {
-    sk_hold: behavior_sk_shift {
-      compatible = "zmk,behavior-hold-tap";
-      label = "sk_hold";
-      #binding-cells = <2>;
-      tapping-term-ms = <150>;
-      flavor = "tap-preferred";
-      bindings = <&sk>, <&kp>;
-    };
-  };
-
   /**
    * 34-key keymap, using a Dvorak base layer. Skeletyl is a 36-key keyboard, but only 2 thumb keys are used on each side.
    *
