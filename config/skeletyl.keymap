@@ -172,10 +172,10 @@
     sk_shift: behavior_sk_shift {
       compatible = "zmk,behavior-hold-tap";
       label = "sk_shift";
-      #binding-cells = <0>;
+      #binding-cells = <2>;
       tapping-term-ms = <150>;
       flavor = "tap-preferred";
-      bindings = <&sk LSHIFT>, <&kp LSHIFT>;
+      bindings = <&sk>, <&kp>;
     };
   };
 
@@ -206,7 +206,7 @@
        &hm LALT A   &hm LGUI O   &hm LCTRL E  &hm LSHIFT U &kp I            &kp D        &hm LSHIFT H &hm LCTRL T  &hm LGUI N   &hm LALT S
        &key_repeat  &kp Q        &kp J        &kp K        &kp X            &kp B        &kp M        &kp W        &kp V        &kp Z
   /* ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯ */
-                                              &mo SYM_LOW  &lt NAV SPACE    &sk_shift    &mo SYM_UPP
+                                              &mo SYM_LOW  &lt NAV SPACE    &sk_shift LSHIFT LSHIFT   &mo SYM_UPP
   /*                                        ╰───────────────────────────╯ ╰───────────────────────────╯                                        */
       >;
     };
