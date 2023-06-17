@@ -20,10 +20,11 @@
 #define DVORAK 0
 #define APTMAK 1
 #define NAVIGATION 2
-#define SYMBOLS_LOWER 3
-#define SYMBOLS_UPPER 4
-#define NUMBERS 5
-#define SYSTEM 6
+#define TODO_LAYER 3
+#define SYMBOLS_LOWER 4
+#define SYMBOLS_UPPER 5
+#define NUMBERS 6
+#define SYSTEM 7
 
 // Custom keycodes.
 #define LAUNCHER (LG(SPACE))
@@ -37,7 +38,6 @@
 
 #define EXTPOW_TOG &ext_power EXT_POWER_TOGGLE_CMD
 #define RGB_UG_TOG &rgb_ug RGB_TOG
-#define SFT_UPP &mo_sk SYMBOLS_UPPER LSHIFT
 
 // Adjust sticky-keys configuration.
 &sk {
@@ -62,6 +62,17 @@
     };
   };
 
+  behaviors {
+    mo_sk: behavior_sk_mo {
+        compatible = "zmk,behavior-hold-tap";
+        label = "mo_sk";
+        #binding-cells = <2>;
+        flavor = "hold-preferred";
+        tapping-term-ms = <120>;
+        bindings = <&mo>, <&sk>;
+    };
+  };
+
   // Macros configuration, specifically character sequences.
   macros {
     // Cancel sticky mods.
@@ -71,6 +82,13 @@
       #binding-cells = <0>;
       bindings = <&macro_tap &kp K_CANCEL>, <&macro_pause_for_release>;
     };
+
+    lsft_todo: sticky_lshift_on_tap_mo_layer_on_hold {
+      label = "Sticky left shift on tap, layer on hold";
+      compatible = "zmk,behavior-macro";
+      #binding-cells = <0>;
+      bindings = <&macro_tap &mo_sk TODO_LAYER LSHIFT>
+    }
 
     // Right arrow macro: ->
     right_arrow: right_arrow {
@@ -159,17 +177,6 @@
     };
   };
 
-  behaviors {
-    mo_sk: behavior_sk_mo {
-        compatible = "zmk,behavior-hold-tap";
-        label = "mo_sk";
-        #binding-cells = <2>;
-        flavor = "hold-preferred";
-        tapping-term-ms = <100>;
-        bindings = <&mo>, <&sk>;
-    };
-  };
-
   /**
    * 34-key keymap, using a Dvorak base layer. Skeletyl is a 36-key keyboard, but only 2 thumb keys are used on each side.
    *
@@ -197,7 +204,7 @@
        &kp A        &kp O        &kp E        &kp U        &kp I            &kp D        &kp H        &kp T        &kp N        &kp S
        &sk LSHIFT   &kp Q        &kp J        &kp K        &kp X            &kp B        &kp M        &kp W        &kp V        &kp Z
   /* ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯ */
-                                              &mo SYM_LOW  &lt NAV SPACE    SFT_UPP      &mo SYM_UPP
+                                              &mo SYM_LOW  &lt NAV SPACE    &lsft_todo   &mo SYM_UPP
   /*                                        ╰───────────────────────────╯ ╰───────────────────────────╯                                        */
       >;
     };
@@ -240,6 +247,26 @@
        &kp LG(X)    &kp RCS_TAB  &kp LG(C)    &kp CTL_TAB  &kp LG(V)        &kp LC(B)    &none        &none        &none        &none
   /* ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯ */
                                               &none        &trans /*↓*/     &kp LSHIFT   &trans
+  /*                                        ╰───────────────────────────╯ ╰───────────────────────────╯                                        */
+      >;
+    };
+
+    /**
+     * TODO layer. Left thumb down.
+     *
+     *   - Primary hand (left):
+     *     - TODO.
+     *   - Secondary hand (right):
+     *     - TODO.
+     */
+    todo_layer {
+      bindings = <
+  /* ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮ */
+       &none        &none        &none        &none        &none            &none        &none        &none        &none        &none
+       &none        &kp ESCAPE   &kp MINUS    &kp COLON    &none            &none        &sk RSHIFT   &sk RCTRL    &sk RGUI     &sk RALT
+       &none        &none        &none        &none        &none            &none        &none        &none        &none        &none
+  /* ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯ */
+                                              &trans       &trans           &trans /*↓*/ &none
   /*                                        ╰───────────────────────────╯ ╰───────────────────────────╯                                        */
       >;
     };
