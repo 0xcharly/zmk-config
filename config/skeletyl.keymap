@@ -88,7 +88,7 @@
       compatible = "zmk,behavior-macro";
       #binding-cells = <0>;
       bindings = <&macro_tap &mo_sk TODO_LAYER LSHIFT>
-    }
+    };
 
     // Right arrow macro: ->
     right_arrow: right_arrow {
