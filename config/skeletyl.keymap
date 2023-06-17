@@ -37,10 +37,11 @@
 
 #define EXTPOW_TOG &ext_power EXT_POWER_TOGGLE_CMD
 #define RGB_UG_TOG &rgb_ug RGB_TOG
+#define SFT_UPP &mo_sk SYMBOLS_UPPER LSHIFT
 
 // Adjust sticky-keys configuration.
 &sk {
-  release-after-ms = <1500>;
+  release-after-ms = <1000>;
   quick-release;
 };
 
@@ -158,6 +159,17 @@
     };
   };
 
+  behaviors {
+    mo_sk: behavior_sk_mo {
+        compatible = "zmk,behavior-hold-tap";
+        label = "mo_sk";
+        #binding-cells = <2>;
+        flavor = "hold-preferred";
+        tapping-term-ms = <100>;
+        bindings = <&mo>, <&sk>;
+    };
+  };
+
   /**
    * 34-key keymap, using a Dvorak base layer. Skeletyl is a 36-key keyboard, but only 2 thumb keys are used on each side.
    *
@@ -183,9 +195,9 @@
   /* ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮ */
        &kp APOS     &kp COMMA    &kp PERIOD   &kp P        &kp Y            &kp F        &kp G        &kp C        &kp R        &kp L
        &kp A        &kp O        &kp E        &kp U        &kp I            &kp D        &kp H        &kp T        &kp N        &kp S
-       &key_repeat  &kp Q        &kp J        &kp K        &kp X            &kp B        &kp M        &kp W        &kp V        &kp Z
+       &sk LSHIFT   &kp Q        &kp J        &kp K        &kp X            &kp B        &kp M        &kp W        &kp V        &kp Z
   /* ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯ */
-                                              &mo SYM_LOW  &lt NAV SPACE    &sk LSHIFT   &mo SYM_UPP
+                                              &mo SYM_LOW  &lt NAV SPACE    SFT_UPP      &mo SYM_UPP
   /*                                        ╰───────────────────────────╯ ╰───────────────────────────╯                                        */
       >;
     };
@@ -203,7 +215,7 @@
   /* ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮ */
        &kp V        &kp W        &kp F        &kp P        &kp B            &kp J        &kp L        &kp U        &kp Y        &kp APOS
        &kp R        &kp S        &kp T        &kp H        &kp K            &kp X        &kp N        &kp A        &kp I        &kp O
-       &key_repeat  &kp C        &kp G        &kp D        &kp Q            &kp Z        &kp M        &kp COMMA    &kp PERIOD   &key_repeat
+       &sk LSHIFT   &kp C        &kp G        &kp D        &kp Q            &kp Z        &kp M        &kp COMMA    &kp PERIOD   &sk LSHIFT
   /* ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯ */
                                               &mo SYM_LOW  &lt NAV SPACE    &kp E        &mo SYM_UPP
   /*                                        ╰───────────────────────────╯ ╰───────────────────────────╯                                        */
@@ -269,8 +281,8 @@
     symbols_upper {
       bindings = <
   /* ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮ */
-       &none        &kp ESCAPE   &kp QMARK    &kp COLON    &none            &none        &none        &kp AT       &kp BSPC     &kp TAB
-       &none        &kp PLUS     &kp MINUS    &kp EQUAL    &none            &none        &kp LBKT     &kp UNDER    &kp RBKT     &kp ENTER
+       &none        &kp PLUS     &kp QMARK    &kp EQUAL    &none            &none        &none        &kp AT       &kp BSPC     &kp TAB
+       &none        &kp ESCAPE   &kp MINUS    &kp COLON    &none            &none        &kp LBKT     &kp UNDER    &kp RBKT     &kp ENTER
        &none        &kp GRAVE    &kp ASTERISK &kp SLASH    &none            &kp LC(B)    &kp LT       &kp DQT      &kp GT       &none       
   /* ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯ */
                                               &trans       &trans           &sl SYSTEM   &trans /*↓*/
