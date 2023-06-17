@@ -39,6 +39,8 @@
 #define EXTPOW_TOG &ext_power EXT_POWER_TOGGLE_CMD
 #define RGB_UG_TOG &rgb_ug RGB_TOG
 #define TODO_LSHFT &mo_sk TODO_LAYER LSHIFT
+#define LOWER_LCTL &mo_sk SYMBOLS_LOWER LCTRL
+#define UPPER_LGUI &mo_sk SYMBOLS_UPPER LGUI
 
 // Adjust sticky-keys configuration.
 &sk {
@@ -198,7 +200,7 @@
        &kp A        &kp O        &kp E        &kp U        &kp I            &kp D        &kp H        &kp T        &kp N        &kp S
        &sk LSHIFT   &kp Q        &kp J        &kp K        &kp X            &kp B        &kp M        &kp W        &kp V        &kp Z
   /* ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯ */
-                                              &mo SYM_LOW  &lt NAV SPACE    TODO_LSHFT &mo SYM_UPP
+                                              LOWER_LCTL   &lt NAV SPACE    TODO_LSHFT   UPPER_LGUI
   /*                                        ╰───────────────────────────╯ ╰───────────────────────────╯                                        */
       >;
     };
@@ -218,7 +220,7 @@
        &kp R        &kp S        &kp T        &kp H        &kp K            &kp X        &kp N        &kp A        &kp I        &kp O
        &sk LSHIFT   &kp C        &kp G        &kp D        &kp Q            &kp Z        &kp M        &kp COMMA    &kp PERIOD   &sk LSHIFT
   /* ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯ */
-                                              &mo SYM_LOW  &lt NAV SPACE    &kp E        &mo SYM_UPP
+                                              LOWER_LCTL   &lt NAV SPACE    &kp E        UPPER_LGUI
   /*                                        ╰───────────────────────────╯ ╰───────────────────────────╯                                        */
       >;
     };
