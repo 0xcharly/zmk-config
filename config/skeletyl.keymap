@@ -176,12 +176,15 @@
   /**
    * 34-key keymap, using a Dvorak base layer. Skeletyl is a 36-key keyboard, but only 2 thumb keys are used on each side.
    *
-   *   - Enter, backspace and tab on all non-base layers.
+   *   - Enter and backspace on all right-hand non-base layers.
+   *   - Shift, Control and Gui sticky mods on hold-tap with layers on thumb keys.
    *   - Navigation layer:
    *     - Direct access desktop shortcuts.
    *     - Home-row sticky mods.
    *     - Convenience shortcuts (cut/copy/paste, ctrl+tab, ctrl+shift+tab)
    *     - Inverted T arrow cluster.
+   *   - Todo layer:
+   *     - TODO
    *   - Symbols/numbers tri-layer:
    *     - 2 symbols layers to reduce pinky usage, and favor symbol synergies in most frequently used languages.
    *     - Numbers tri-layer with left-side numpad.
@@ -198,7 +201,7 @@
   /* ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮ */
        &kp APOS     &kp COMMA    &kp PERIOD   &kp P        &kp Y            &kp F        &kp G        &kp C        &kp R        &kp L
        &kp A        &kp O        &kp E        &kp U        &kp I            &kp D        &kp H        &kp T        &kp N        &kp S
-       &sk LSHIFT   &kp Q        &kp J        &kp K        &kp X            &kp B        &kp M        &kp W        &kp V        &kp Z
+       &key_repeat  &kp Q        &kp J        &kp K        &kp X            &kp B        &kp M        &kp W        &kp V        &kp Z
   /* ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯ */
                                               LOWER_LCTL   &lt NAV SPACE    TODO_LSHFT   UPPER_LGUI
   /*                                        ╰───────────────────────────╯ ╰───────────────────────────╯                                        */
@@ -218,7 +221,7 @@
   /* ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮ */
        &kp V        &kp W        &kp F        &kp P        &kp B            &kp J        &kp L        &kp U        &kp Y        &kp APOS
        &kp R        &kp S        &kp T        &kp H        &kp K            &kp X        &kp N        &kp A        &kp I        &kp O
-       &sk LSHIFT   &kp C        &kp G        &kp D        &kp Q            &kp Z        &kp M        &kp COMMA    &kp PERIOD   &sk LSHIFT
+       &key_repeat  &kp C        &kp G        &kp D        &kp Q            &kp Z        &kp M        &kp COMMA    &kp PERIOD   &key_repeat
   /* ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯ */
                                               LOWER_LCTL   &lt NAV SPACE    &kp E        UPPER_LGUI
   /*                                        ╰───────────────────────────╯ ╰───────────────────────────╯                                        */
@@ -229,8 +232,8 @@
      * Navigation layer. Left thumb down (tap-hold on space key).
      *
      *   - Primary hand (left):
-     *     - Direct access desktop shortcuts.
      *     - Home-row sticky mods.
+     *     - Direct access desktop shortcuts.
      *     - Convenience shortcuts (cut/copy/paste, ctrl+tab, ctrl+shift+tab)
      *   - Secondary hand (right):
      *     - Inverted T arrow cluster.
@@ -238,9 +241,9 @@
     navigation {
       bindings = <
   /* ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮ */
-       &kp LA(N1)   &kp LA(N2)   &kp LA(N3)   &kp LA(N4)   &kp LA(N5)       &none        &none        &kp UP       &kp BSPC     &kp TAB
+       &kp LA(N1)   &kp LA(N2)   &kp LA(N3)   &kp LA(N4)   &kp LA(N5)       &none        &none        &kp UP       &kp BSPC     &none
        &sk LALT     &sk LGUI     &sk LCTRL    &sk LSHIFT   &kp LAUNCHER     &none        &kp LEFT     &kp DOWN     &kp RIGHT    &kp ENTER
-       &kp LG(X)    &kp RCS_TAB  &kp LG(C)    &kp CTL_TAB  &kp LG(V)        &kp LC(B)    &none        &none        &none        &none
+       &kp LG(X)    &kp RCS_TAB  &kp LG(C)    &kp CTL_TAB  &kp LG(V)        &none        &none        &none        &none        &none
   /* ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯ */
                                               &none        &trans /*↓*/     &kp LSHIFT   &trans
   /*                                        ╰───────────────────────────╯ ╰───────────────────────────╯                                        */
@@ -248,19 +251,24 @@
     };
 
     /**
-     * TODO layer. Left thumb down.
+     * TODO layer. Right thumb down (tap-hold on sticky shift key).
      *
-     *   - Primary hand (left):
-     *     - TODO.
-     *   - Secondary hand (right):
-     *     - TODO.
+     *   - Primary hand (right):
+     *     - Home-row sticky mods.
+     *     - Double quotes.
+     *     - Hash and exclamation mark for Gmail shortcuts, and for symetry with opposite hand layer.
+     *   - Secondary hand (left):
+     *     - Tab.
+     *     - Most common operators.
+     *     - Tilde and forward-slash synergy for paths. 
+     *     - Modal editors escape+colon roll for command mode.
      */
     todo_layer {
       bindings = <
   /* ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮ */
-       &none        &none        &none        &none        &none            &none        &none        &none        &none        &none
-       &none        &kp ESCAPE   &kp MINUS    &kp COLON    &none            &none        &sk RSHIFT   &sk RCTRL    &sk RGUI     &sk RALT
-       &none        &none        &none        &none        &none            &none        &none        &none        &none        &none
+       &kp GRAVE    &kp TAB      &kp QMARK    &kp EQUAL    &none            &none        &none        &kp EXCL     &kp HASH     &none
+       &kp PLUS     &kp ESCAPE   &kp MINUS    &kp COLON    &none            &none        &sk RSHIFT   &sk RCTRL    &sk RGUI     &sk RALT
+       &none        &kp TILDE    &kp ASTERISK &kp SLASH    &none            &none        &none        &kp DQT      &none        &none
   /* ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯ */
                                               &trans       &trans           &trans /*↓*/ &none
   /*                                        ╰───────────────────────────╯ ╰───────────────────────────╯                                        */
@@ -268,12 +276,12 @@
     };
 
     /**
-     * Primary symbols layer. Left thumb down.
+     * Primary symbols layer. Left thumb down (tap-hold on sticky control key).
      *
      *   - Primary hand (left):
+     *     - Home-row sticky mods.
      *     - Hash and exclamation mark for Gmail shortcuts, and with synergy with right-side curly brackets.
-     *     - Tilde and forward-slash synergy for paths. 
-     *     - Caret and dollar for Vi-motions, and synergy with left-side curly brackets.
+     *     - Equal for synergy with operators, and consistency with other same-hand layer.
      *   - Secondary hand (right):
      *     - Parenthesis and curly brackets.
      *     - Semi-colon for synergy with parenthesis and curly brackets.
@@ -282,9 +290,9 @@
     symbols_lower {
       bindings = <
   /* ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮ */
-       &none        &kp HASH     &kp EXCL     &none        &none            &none        &kp PIPE     &kp AMPS     &kp BSPC     &kp TAB
-       &none        &kp CARET    &kp DOLLAR   &kp EQUAL    &none            &none        &kp LPAR     &kp SEMI     &kp RPAR     &kp ENTER
-       &none        &kp TILDE    &kp BSLH     &kp SLASH    &none            &kp LC(B)    &kp LBRC     &kp PERCENT  &kp RBRC     &none
+       &none        &kp HASH     &kp EXCL     &kp EQUAL    &none            &none        &none        &kp AMPS     &kp BSPC     &none
+       &sk LALT     &sk LGUI     &sk LCTRL    &sk LSHIFT   &none            &none        &kp LPAR     &kp SEMI     &kp RPAR     &kp ENTER
+       &none        &none        &none        &none        &none            &none        &kp LBRC     &kp PIPE     &kp RBRC     &none
   /* ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯ */
                                               &trans /*↓*/ &sl SYSTEM       &kp LSHIFT   &trans
   /*                                        ╰───────────────────────────╯ ╰───────────────────────────╯                                        */
@@ -292,21 +300,21 @@
     };
 
     /**
-     * Secondary symbols layer. Right thumb down.
+     * Secondary symbols layer. Right thumb down (tap-hold on sticky gui key).
      *
      *   - Primary hand (right):
-     *     - Square and angle brackets.
-     *     - Underscore for symmetry with dash on secondary hand.
+     *     - Home-row sticky mods.
      *   - Secondary hand (left):
-     *     - Vi escape+colon roll for command mode.
-     *     - Most common operators.
+     *     - Caret and dollar for Vi-motions.
+     *     - Square and angle brackets.
+     *     - Underscore for consistency with dash on other layer.
      */
     symbols_upper {
       bindings = <
   /* ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮ */
-       &none        &kp PLUS     &kp QMARK    &kp EQUAL    &none            &none        &none        &kp AT       &kp BSPC     &kp TAB
-       &none        &kp ESCAPE   &kp MINUS    &kp COLON    &none            &none        &kp LBKT     &kp UNDER    &kp RBKT     &kp ENTER
-       &none        &kp GRAVE    &kp ASTERISK &kp SLASH    &none            &kp LC(B)    &kp LT       &kp DQT      &kp GT       &none       
+       &kp BSLH     &kp CARET    &kp AT       &kp DOLLAR   &none            &none        &none        &none        &none        &none
+       &none        &kp LBKT     &kp UNDER    &kp RBKT     &none            &none        &sk RSHIFT   &sk RCTRL    &sk RGUI     &sk RALT
+       &none        &kp LT       &kp PERCENT  &kp GT       &none            &none        &none        &none        &none        &none       
   /* ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯ */
                                               &trans       &trans           &sl SYSTEM   &trans /*↓*/
   /*                                        ╰───────────────────────────╯ ╰───────────────────────────╯                                        */
@@ -322,7 +330,7 @@
     numbers {
       bindings = <
   /* ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮ */
-       &none        &kp N7       &kp N8       &kp N9       &none            &none        &kp COMMA    &kp PERIOD   &kp BSPC     &kp TAB
+       &none        &kp N7       &kp N8       &kp N9       &none            &none        &kp COMMA    &kp PERIOD   &kp BSPC     &none
        &none        &kp N4       &kp N5       &kp N6       &none            &none        &kp PLUS     &kp EQUAL    &kp MINUS    &kp ENTER
        &none        &kp N1       &kp N2       &kp N3       &none            &none        &kp ASTERISK &kp N0       &kp SLASH    &none
   /* ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯ */
