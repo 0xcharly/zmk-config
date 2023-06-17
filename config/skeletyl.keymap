@@ -1,14 +1,7 @@
 /*
- * Copyright (c) 2020 The ZMK Contributors
+ * Copyright (c) 2023 Charly Delay <0xcharly>
  *
  * SPDX-License-Identifier: MIT
- */
-
-/**
- * TODO
- *  - Move or duplicate $ so that it's sitting on the opposite half from the layer key.
- *  - add a tmux leader key
- *  - add C-n and C-p
  */
 
 #include <behaviors.dtsi>
@@ -20,7 +13,7 @@
 #define DVORAK 0
 #define APTMAK 1
 #define NAVIGATION 2
-#define TODO_LAYER 3
+#define EXTEND 3
 #define SYMBOLS_LOWER 4
 #define SYMBOLS_UPPER 5
 #define NUMBERS 6
@@ -38,7 +31,7 @@
 
 #define EXTPOW_TOG &ext_power EXT_POWER_TOGGLE_CMD
 #define RGB_UG_TOG &rgb_ug RGB_TOG
-#define TODO_LSHFT &mo_sk TODO_LAYER LSHIFT
+#define EXTND_LSFT &mo_sk EXTEND LSHIFT
 #define LOWER_LCTL &mo_sk SYMBOLS_LOWER LCTRL
 #define UPPER_LGUI &mo_sk SYMBOLS_UPPER LGUI
 
@@ -183,8 +176,11 @@
    *     - Home-row sticky mods.
    *     - Convenience shortcuts (cut/copy/paste, ctrl+tab, ctrl+shift+tab)
    *     - Inverted T arrow cluster.
-   *   - Todo layer:
-   *     - TODO
+   *   - Extend layer:
+   *     - Tab.
+   *     - Most common operators.
+   *     - Tilde and forward-slash synergy for paths. 
+   *     - Modal editors escape+colon roll for command mode.
    *   - Symbols/numbers tri-layer:
    *     - 2 symbols layers to reduce pinky usage, and favor symbol synergies in most frequently used languages.
    *     - Numbers tri-layer with left-side numpad.
@@ -203,7 +199,7 @@
        &kp A        &kp O        &kp E        &kp U        &kp I            &kp D        &kp H        &kp T        &kp N        &kp S
        &key_repeat  &kp Q        &kp J        &kp K        &kp X            &kp B        &kp M        &kp W        &kp V        &kp Z
   /* ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯ */
-                                              LOWER_LCTL   &lt NAV SPACE    TODO_LSHFT   UPPER_LGUI
+                                              LOWER_LCTL   &lt NAV SPACE    EXTND_LSFT   UPPER_LGUI
   /*                                        ╰───────────────────────────╯ ╰───────────────────────────╯                                        */
       >;
     };
@@ -251,7 +247,7 @@
     };
 
     /**
-     * TODO layer. Right thumb down (tap-hold on sticky shift key).
+     * Extend layer, extending base layer for commonly used keys. Right thumb down (tap-hold on sticky shift key).
      *
      *   - Primary hand (right):
      *     - Home-row sticky mods.
@@ -263,7 +259,7 @@
      *     - Tilde and forward-slash synergy for paths. 
      *     - Modal editors escape+colon roll for command mode.
      */
-    todo_layer {
+    extend {
       bindings = <
   /* ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮ */
        &kp GRAVE    &kp TAB      &kp QMARK    &kp EQUAL    &none            &none        &none        &kp EXCL     &kp HASH     &none
