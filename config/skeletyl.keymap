@@ -37,7 +37,7 @@
 
 // Adjust sticky-keys configuration.
 &sk {
-  release-after-ms = <1000>;
+  release-after-ms = <1500>;
   quick-release;
 };
 
