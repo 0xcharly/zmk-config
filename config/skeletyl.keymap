@@ -251,7 +251,7 @@
      *
      *   - Primary hand (right):
      *     - Home-row sticky mods.
-     *     - Double quotes.
+     *     - Double quotes for modal editors registry.
      *     - Hash and exclamation mark for Gmail shortcuts, and for symetry with opposite hand layer.
      *   - Secondary hand (left):
      *     - Tab.
