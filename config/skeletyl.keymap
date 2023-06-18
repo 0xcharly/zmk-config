@@ -266,7 +266,7 @@
        &kp PLUS     &kp ESCAPE   &kp MINUS    &kp COLON    &none            &none        &sk RSHIFT   &sk RCTRL    &sk RGUI     &sk RALT
        &none        &kp TILDE    &kp ASTERISK &kp SLASH    &none            &none        &none        &kp DQT      &none        &none
   /* ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯ */
-                                              &trans       &trans           &trans /*↓*/ &none
+                                              &trans       &kp SPACE        &trans /*↓*/ &none
   /*                                        ╰───────────────────────────╯ ╰───────────────────────────╯                                        */
       >;
     };
