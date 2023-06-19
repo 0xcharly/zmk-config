@@ -241,7 +241,7 @@
        &sk LALT     &sk LGUI     &sk LCTRL    &sk LSHIFT   &kp LAUNCHER     &none        &kp LEFT     &kp DOWN     &kp RIGHT    &kp ENTER
        &kp LG(X)    &kp RCS_TAB  &kp LG(C)    &kp CTL_TAB  &kp LG(V)        &none        &none        &none        &none        &none
   /* ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯ */
-                                              &none        &trans /*↓*/     &kp LSHIFT   &trans
+                                              &none        &trans /*↓*/     &trans       &trans
   /*                                        ╰───────────────────────────╯ ╰───────────────────────────╯                                        */
       >;
     };
@@ -290,7 +290,7 @@
        &sk LALT     &sk LGUI     &sk LCTRL    &sk LSHIFT   &none            &none        &kp LPAR     &kp SEMI     &kp RPAR     &kp ENTER
        &none        &none        &none        &none        &none            &none        &kp LBRC     &kp PIPE     &kp RBRC     &none
   /* ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯ */
-                                              &trans /*↓*/ &sl SYSTEM       &kp LSHIFT   &trans
+                                              &trans /*↓*/ &sl SYSTEM       &trans       &trans
   /*                                        ╰───────────────────────────╯ ╰───────────────────────────╯                                        */
       >;
     };
