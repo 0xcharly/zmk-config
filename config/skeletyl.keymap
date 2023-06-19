@@ -257,9 +257,9 @@
     symbols_upper {
       bindings = <
   /* ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮ */
-       &kp GRAVE    &kp TAB      &kp QMARK    &kp EQUAL    &none            &none        &kp CARRET   &kp DOLLAR   &kp BSPC     &kp PERCENT
+       &kp GRAVE    &kp TAB      &kp QMARK    &kp EQUAL    &none            &none        &kp CARET    &kp DOLLAR   &kp BSPC     &kp PERCENT
        &kp PLUS     &kp ESCAPE   &kp MINUS    &kp COLON    &none            &none        &kp LBKT     &kp UNDER    &kp RBKT     &kp ENTER
-       &kp BSLH     &kp TILDE    &kp ASTERISK &kp SLASH    &none            &none        &kp LT       &kp DQT      &kp GT       &kp AT       
+       &kp BSLH     &kp TILDE    &kp ASTERISK &kp SLASH    &none            &none        &kp LT       &kp DQT      &kp GT       &kp AT
   /* ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯ */
                                               &trans       &trans           &sl SYSTEM   &trans /*↓*/
   /*                                        ╰───────────────────────────╯ ╰───────────────────────────╯                                        */
