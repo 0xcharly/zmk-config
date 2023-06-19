@@ -11,13 +11,11 @@
 #include <dt-bindings/zmk/rgb.h>
 
 #define DVORAK 0
-#define APTMAK 1
-#define NAVIGATION 2
-#define EXTEND 3
-#define SYMBOLS_LOWER 4
-#define SYMBOLS_UPPER 5
-#define NUMBERS 6
-#define SYSTEM 7
+#define NAVIGATION 1
+#define SYMBOLS_LOWER 2
+#define SYMBOLS_UPPER 3
+#define NUMBERS 4
+#define SYSTEM 5
 
 // Custom keycodes.
 #define LAUNCHER (LG(SPACE))
@@ -31,9 +29,6 @@
 
 #define EXTPOW_TOG &ext_power EXT_POWER_TOGGLE_CMD
 #define RGB_UG_TOG &rgb_ug RGB_TOG
-#define EXTND_LSFT &mo_sk EXTEND LSHIFT
-#define LOWER_LCTL &mo_sk SYMBOLS_LOWER LCTRL
-#define UPPER_LGUI &mo_sk SYMBOLS_UPPER LGUI
 
 // Adjust sticky-keys configuration.
 &sk {
@@ -126,7 +121,7 @@
       timeout-ms = <50>;
       key-positions = <20 29>;
       bindings = <&cancel>;
-      layers = <DVORAK APTMAK>;
+      layers = <DVORAK>;
     };
 
     // Sticky shift on a bigram combo, on both sides, on all layers.
@@ -146,7 +141,7 @@
       timeout-ms = <50>;
       key-positions = <2 7>;
       bindings = <&caps_word>;
-      layers = <DVORAK APTMAK>;
+      layers = <DVORAK>;
     };
 
     // Right arrow on a 2-key combo.
@@ -154,7 +149,7 @@
       timeout-ms = <50>;
       key-positions = <2 3>;
       bindings = <&right_arrow>;
-      layers = <DVORAK APTMAK>;
+      layers = <DVORAK>;
     };
 
     // Fat right arrow on a 2-key combo.
@@ -162,7 +157,7 @@
       timeout-ms = <50>;
       key-positions = <6 7>;
       bindings = <&fat_right_arrow>;
-      layers = <DVORAK APTMAK>;
+      layers = <DVORAK>;
     };
   };
 
@@ -176,11 +171,6 @@
    *     - Home-row sticky mods.
    *     - Convenience shortcuts (cut/copy/paste, ctrl+tab, ctrl+shift+tab)
    *     - Inverted T arrow cluster.
-   *   - Extend layer:
-   *     - Tab.
-   *     - Most common operators.
-   *     - Tilde and forward-slash synergy for paths. 
-   *     - Modal editors escape+colon roll for command mode.
    *   - Symbols/numbers tri-layer:
    *     - 2 symbols layers to reduce pinky usage, and favor symbol synergies in most frequently used languages.
    *     - Numbers tri-layer with left-side numpad.
@@ -199,27 +189,7 @@
        &kp A        &kp O        &kp E        &kp U        &kp I            &kp D        &kp H        &kp T        &kp N        &kp S
        &kp LSHIFT   &kp Q        &kp J        &kp K        &kp X            &kp B        &kp M        &kp W        &kp V        &kp Z
   /* ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯ */
-                                              &mo SYM_LOW  &lt NAV SPACE    &mo EXTEND   &mo SYM_UPP
-  /*                                        ╰───────────────────────────╯ ╰───────────────────────────╯                                        */
-      >;
-    };
-
-    /**
-     * Aptmak by Eve.
-     *
-     *   v w f p b  j l u y '
-     *   r s t h k  x n a i o
-     *     c g d q  z m , .  
-     *              e          
-     */
-    aptmak {
-      bindings = <
-  /* ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮ */
-       &kp V        &kp W        &kp F        &kp P        &kp B            &kp J        &kp L        &kp U        &kp Y        &kp APOS
-       &kp R        &kp S        &kp T        &kp H        &kp K            &kp X        &kp N        &kp A        &kp I        &kp O
-       &key_repeat  &kp C        &kp G        &kp D        &kp Q            &kp Z        &kp M        &kp COMMA    &kp PERIOD   &key_repeat
-  /* ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯ */
-                                              &mo SYM_LOW  &lt NAV SPACE    &kp E        &mo SYM_UPP
+                                              &mo SYM_LOW  &lt NAV SPACE    &sk LSHIFT   &mo SYM_UPP
   /*                                        ╰───────────────────────────╯ ╰───────────────────────────╯                                        */
       >;
     };
@@ -242,31 +212,6 @@
        &kp LG(X)    &kp RCS_TAB  &kp LG(C)    &kp CTL_TAB  &kp LG(V)        &none        &none        &none        &none        &none
   /* ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯ */
                                               &none        &trans /*↓*/     &trans       &trans
-  /*                                        ╰───────────────────────────╯ ╰───────────────────────────╯                                        */
-      >;
-    };
-
-    /**
-     * Extend layer, extending base layer for commonly used keys. Right thumb down (tap-hold on sticky shift key).
-     *
-     *   - Primary hand (right):
-     *     - Home-row sticky mods.
-     *     - Double quotes for modal editors registry.
-     *     - Hash and exclamation mark for Gmail shortcuts, and for symetry with opposite hand layer.
-     *   - Secondary hand (left):
-     *     - Tab.
-     *     - Most common operators.
-     *     - Tilde and forward-slash synergy for paths. 
-     *     - Modal editors escape+colon roll for command mode.
-     */
-    extend {
-      bindings = <
-  /* ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮ */
-       &kp GRAVE    &kp TAB      &kp QMARK    &kp EQUAL    &none            &none        &none        &kp EXCL     &kp HASH     &none
-       &kp PLUS     &kp ESCAPE   &kp MINUS    &kp COLON    &none            &none        &sk RSHIFT   &sk RCTRL    &sk RGUI     &sk RALT
-       &none        &kp TILDE    &kp ASTERISK &kp SLASH    &none            &none        &none        &kp DQT      &none        &none
-  /* ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯ */
-                                              &trans       &kp SPACE        &trans /*↓*/ &none
   /*                                        ╰───────────────────────────╯ ╰───────────────────────────╯                                        */
       >;
     };
@@ -299,18 +244,22 @@
      * Secondary symbols layer. Right thumb down (tap-hold on sticky gui key).
      *
      *   - Primary hand (right):
-     *     - Home-row sticky mods.
-     *   - Secondary hand (left):
+     *     - Underscore for symmetry with dash on other half.
      *     - Caret and dollar for Vi-motions.
      *     - Square and angle brackets.
-     *     - Underscore for consistency with dash on other layer.
+     *     - Double quotes for modal editors registry.
+     *   - Secondary hand (left):
+     *     - Tab.
+     *     - Most common operators.
+     *     - Tilde and forward-slash synergy for paths. 
+     *     - Modal editors escape+colon roll for command mode.
      */
     symbols_upper {
       bindings = <
   /* ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮ */
-       &kp BSLH     &kp CARET    &kp AT       &kp DOLLAR   &none            &none        &none        &none        &none        &none
-       &none        &kp LBKT     &kp UNDER    &kp RBKT     &none            &none        &sk RSHIFT   &sk RCTRL    &sk RGUI     &sk RALT
-       &none        &kp LT       &kp PERCENT  &kp GT       &none            &none        &none        &none        &none        &none       
+       &kp GRAVE    &kp TAB      &kp QMARK    &kp EQUAL    &none            &none        &kp CARRET   &kp DOLLAR   &kp BSPC     &kp PERCENT
+       &kp PLUS     &kp ESCAPE   &kp MINUS    &kp COLON    &none            &none        &kp LBKT     &kp UNDER    &kp RBKT     &kp ENTER
+       &kp BSLH     &kp TILDE    &kp ASTERISK &kp SLASH    &none            &none        &kp LT       &kp DQT      &kp GT       &kp AT       
   /* ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯ */
                                               &trans       &trans           &sl SYSTEM   &trans /*↓*/
   /*                                        ╰───────────────────────────╯ ╰───────────────────────────╯                                        */
@@ -345,7 +294,7 @@
       bindings = <
   /* ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮ */
        EXTPOW_TOG   &bt BT_SEL 3 &bt BT_SEL 2 &bt BT_SEL 1 &bt BT_SEL 0     &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 EXTPOW_TOG
-       RGB_UG_TOG   &to APTMAK   &to DVORAK   &none        &bt BT_CLR       &bt BT_CLR   &none        &to DVORAK   &to APTMAK   RGB_UG_TOG
+       RGB_UG_TOG   &none        &to DVORAK   &none        &bt BT_CLR       &bt BT_CLR   &none        &to DVORAK   &none        RGB_UG_TOG
        &none        &bt BT_PRV   &sys_reset   &bt BT_NXT   &bootloader      &bootloader  &bt BT_PRV   &sys_reset   &bt BT_NXT   &none
   /* ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯ */
                                               &none        &none            &none        &none
