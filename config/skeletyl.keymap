@@ -113,18 +113,6 @@
       layers = <DVORAK>;
     };
 
-    // Sticky shift on a bigram combo, on both sides, on all layers.
-    combo_sticky_shift_lhs {
-      timeout-ms = <22>;
-      key-positions = <1 2>;
-      bindings = <&sk LSHIFT>;
-    };
-    combo_sticky_shift_rhs {
-      timeout-ms = <22>;
-      key-positions = <7 8>;
-      bindings = <&sk RSHIFT>;
-    };
-
     // Caps Word on a 2-key combo.
     combo_caps_word {
       timeout-ms = <50>;
@@ -136,7 +124,7 @@
     // Right arrow on a 2-key combo.
     combo_arrow {
       timeout-ms = <50>;
-      key-positions = <2 3>;
+      key-positions = <21 22>;
       bindings = <&right_arrow>;
       layers = <DVORAK>;
     };
@@ -144,7 +132,7 @@
     // Fat right arrow on a 2-key combo.
     combo_fat_arrow {
       timeout-ms = <50>;
-      key-positions = <6 7>;
+      key-positions = <27 28>;
       bindings = <&fat_right_arrow>;
       layers = <DVORAK>;
     };
