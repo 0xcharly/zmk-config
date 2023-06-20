@@ -53,17 +53,6 @@
     };
   };
 
-  behaviors {
-    mo_sk: behavior_sk_mo {
-        compatible = "zmk,behavior-hold-tap";
-        label = "mo_sk";
-        #binding-cells = <2>;
-        flavor = "hold-preferred";
-        tapping-term-ms = <120>;
-        bindings = <&mo>, <&sk>;
-    };
-  };
-
   // Macros configuration, specifically character sequences.
   macros {
     // Cancel sticky mods.
