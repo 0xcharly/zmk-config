@@ -12,20 +12,15 @@
 
 #define DVORAK 0
 #define NAVIGATION 1
-#define SYMBOLS_LOWER 2
-#define SYMBOLS_UPPER 3
-#define NUMBERS 4
+#define LOWER 2
+#define UPPER 3
+#define EXTEND 4
 #define SYSTEM 5
 
 // Custom keycodes.
 #define LAUNCHER (LG(SPACE))
 #define CTL_TAB (LC(TAB))
 #define RCS_TAB (LC(LS(TAB)))
-
-// Shorthands.
-#define NAV NAVIGATION
-#define SYM_LOW SYMBOLS_LOWER
-#define SYM_UPP SYMBOLS_UPPER
 
 #define EXTPOW_TOG &ext_power EXT_POWER_TOGGLE_CMD
 #define RGB_UG_TOG &rgb_ug RGB_TOG
@@ -46,10 +41,10 @@
   conditional_layers {
     compatible = "zmk,conditional-layers";
 
-    // Tri-layer SYML + SYMR = NUM.
+    // Tri-layer LOWER + UPPER = EXTEND.
     num_tri_layer {
-      if-layers = <SYMBOLS_LOWER SYMBOLS_UPPER>;
-      then-layer = <NUMBERS>;
+      if-layers = <LOWER UPPER>;
+      then-layer = <EXTEND>;
     };
   };
 
@@ -96,19 +91,19 @@
     // Failsafe reset on a tri-key combos, on both sides, on all layers.
     combo_sys_reset_lhs {
       timeout-ms = <50>;
-      key-positions = <20 24>;
+      key-positions = <30 31>;
       bindings = <&sys_reset>;
     };
     combo_sys_reset_rhs {
       timeout-ms = <50>;
-      key-positions = <25 29>;
+      key-positions = <32 33>;
       bindings = <&sys_reset>;
     };
 
     // Cancel sticky mods failsafe.
     combo_cancel {
       timeout-ms = <50>;
-      key-positions = <20 29>;
+      key-positions = <0 9>;
       bindings = <&cancel>;
       layers = <DVORAK>;
     };
@@ -141,14 +136,14 @@
   /**
    * 34-key keymap, using a Dvorak base layer. Skeletyl is a 36-key keyboard, but only 2 thumb keys are used on each side.
    *
-   *   - Enter and backspace on all right-hand non-base layers.
+   *   - Enter, tab and backspace on all right-hand non-base layers.
    *   - Shift, Control and Gui sticky mods on hold-tap with layers on thumb keys.
    *   - Navigation layer:
    *     - Direct access desktop shortcuts.
    *     - Home-row sticky mods.
    *     - Convenience shortcuts (cut/copy/paste, ctrl+tab, ctrl+shift+tab)
    *     - Inverted T arrow cluster.
-   *   - Symbols/numbers tri-layer:
+   *   - Lower/upper/extend tri-layer:
    *     - 2 symbols layers to reduce pinky usage, and favor symbol synergies in most frequently used languages.
    *     - Numbers tri-layer with left-side numpad.
    *   - System layer for hardware controls:
@@ -166,51 +161,30 @@
        &kp A        &kp O        &kp E        &kp U        &kp I            &kp D        &kp H        &kp T        &kp N        &kp S
        &kp LSHIFT   &kp Q        &kp J        &kp K        &kp X            &kp B        &kp M        &kp W        &kp V        &kp Z
   /* ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯ */
-                                              &mo SYM_LOW  &lt NAV SPACE    &sk LSHIFT   &mo SYM_UPP
+                                              &mo SYM_LOW  &kp SPACE        &sk LSHIFT   &mo SYM_UPP
   /*                                        ╰───────────────────────────╯ ╰───────────────────────────╯                                        */
       >;
     };
 
     /**
-     * Navigation layer. Left thumb down (tap-hold on space key).
+     * Lower layer. Left thumb down.
+     *
+     * Navigation and symbols.
      *
      *   - Primary hand (left):
      *     - Home-row sticky mods.
      *     - Direct access desktop shortcuts.
-     *     - Convenience shortcuts (cut/copy/paste, ctrl+tab, ctrl+shift+tab)
      *   - Secondary hand (right):
      *     - Inverted T arrow cluster.
+     *     - Parenthesis brackets.
+     *     - Semi-colon for synergy with parenthesis and alt mod.
      */
-    navigation {
+    lower {
       bindings = <
   /* ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮ */
-       &kp LA(N1)   &kp LA(N2)   &kp LA(N3)   &kp LA(N4)   &kp LA(N5)       &none        &none        &kp UP       &kp BSPC     &none
+       &kp LA(N1)   &kp LA(N2)   &kp LA(N3)   &kp LA(N4)   &kp LA(N5)       &none        &none        &kp UP       &kp BSPC     &kp TAB
        &sk LALT     &sk LGUI     &sk LCTRL    &sk LSHIFT   &kp LAUNCHER     &none        &kp LEFT     &kp DOWN     &kp RIGHT    &kp ENTER
-       &kp LG(X)    &kp RCS_TAB  &kp LG(C)    &kp CTL_TAB  &kp LG(V)        &none        &none        &none        &none        &none
-  /* ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯ */
-                                              &none        &trans /*↓*/     &trans       &trans
-  /*                                        ╰───────────────────────────╯ ╰───────────────────────────╯                                        */
-      >;
-    };
-
-    /**
-     * Primary symbols layer. Left thumb down (tap-hold on sticky control key).
-     *
-     *   - Primary hand (left):
-     *     - Home-row sticky mods.
-     *     - Hash and exclamation mark for Gmail shortcuts, and with synergy with right-side curly brackets.
-     *     - Equal for synergy with operators, and consistency with other same-hand layer.
-     *   - Secondary hand (right):
-     *     - Parenthesis and curly brackets.
-     *     - Semi-colon for synergy with parenthesis and curly brackets.
-     *     - Pipe and ampersand on strong fingers, with synergy with left-side equal.
-     */
-    symbols_lower {
-      bindings = <
-  /* ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮ */
-       &none        &kp HASH     &kp EXCL     &kp EQUAL    &none            &none        &none        &kp AMPS     &kp BSPC     &none
-       &sk LALT     &sk LGUI     &sk LCTRL    &sk LSHIFT   &none            &none        &kp LPAR     &kp SEMI     &kp RPAR     &kp ENTER
-       &none        &none        &none        &none        &none            &none        &kp LBRC     &kp PIPE     &kp RBRC     &none
+       &kp LG(X)    &kp RCS_TAB  &kp LG(C)    &kp CTL_TAB  &kp LG(V)        &none        &kp LPAR     &kp SEMI     &kp RPAR     &none
   /* ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯ */
                                               &trans /*↓*/ &sl SYSTEM       &trans       &trans
   /*                                        ╰───────────────────────────╯ ╰───────────────────────────╯                                        */
@@ -218,25 +192,27 @@
     };
 
     /**
-     * Secondary symbols layer. Right thumb down (tap-hold on sticky gui key).
+     * Upper layer. Right thumb down.
+     *
+     * Symbols.
      *
      *   - Primary hand (right):
      *     - Underscore for symmetry with dash on other half.
      *     - Caret and dollar for Vi-motions.
-     *     - Square and angle brackets.
+     *     - Square and curly brackets.
      *     - Double quotes for modal editors registry.
      *   - Secondary hand (left):
-     *     - Tab.
      *     - Most common operators.
+     *     - Hash and exclamation mark for Gmail shortcuts, and with synergy with right-side curly brackets.
      *     - Tilde and forward-slash synergy for paths. 
      *     - Modal editors escape+colon roll for command mode.
      */
-    symbols_upper {
+    upper {
       bindings = <
   /* ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮ */
-       &kp GRAVE    &kp TAB      &kp QMARK    &kp EQUAL    &none            &none        &kp CARET    &kp DOLLAR   &kp BSPC     &kp PERCENT
+       &kp HASH     &kp QMARK    &kp EXCL     &kp EQUAL    &none            &none        &kp CARET    &kp DOLLAR   &kp BSPC     &kp TAB
        &kp PLUS     &kp ESCAPE   &kp MINUS    &kp COLON    &none            &none        &kp LBKT     &kp UNDER    &kp RBKT     &kp ENTER
-       &kp BSLH     &kp TILDE    &kp ASTERISK &kp SLASH    &none            &none        &kp LT       &kp DQT      &kp GT       &kp AT
+       &none        &kp TILDE    &kp ASTERISK &kp SLASH    &none            &none        &kp LBRC     &kp DQT      &kp RBRC     &none
   /* ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯ */
                                               &trans       &trans           &sl SYSTEM   &trans /*↓*/
   /*                                        ╰───────────────────────────╯ ╰───────────────────────────╯                                        */
@@ -244,17 +220,19 @@
     };
 
     /**
-     * Numpad layer. Tri-layer activated with both symbols layers.
+     * Extend layer. Classic tri-layer activated from both lower and upper layers.
+     *
+     * Numbers and symbols.
      *
      * - Left-side numpad, with right-side 0.
-     * - Right-side operators and other symbols frequently used with numbers.
+     * - Right-side symbols, angle brackets.
      */
-    numbers {
+    extend {
       bindings = <
   /* ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮ */
-       &none        &kp N7       &kp N8       &kp N9       &none            &none        &kp COMMA    &kp PERIOD   &kp BSPC     &none
-       &none        &kp N4       &kp N5       &kp N6       &none            &none        &kp PLUS     &kp EQUAL    &kp MINUS    &kp ENTER
-       &none        &kp N1       &kp N2       &kp N3       &none            &none        &kp ASTERISK &kp N0       &kp SLASH    &none
+       &kp GRAVE    &kp N7       &kp N8       &kp N9       &none            &none        &none        &kp BSLH     &kp BSPC     &kp TAB
+       &kp PERCENT  &kp N4       &kp N5       &kp N6       &none            &none        &kp AMPS     &kp AT       &kp PIPE     &kp ENTER
+       &none        &kp N1       &kp N2       &kp N3       &none            &none        &kp LT       &kp N0       &kp GT       &none
   /* ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯ */
                                               &trans /*↓*/ &none            &none        &trans /*↓*/
   /*                                        ╰───────────────────────────╯ ╰───────────────────────────╯                                        */
@@ -271,7 +249,7 @@
       bindings = <
   /* ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮ */
        EXTPOW_TOG   &bt BT_SEL 3 &bt BT_SEL 2 &bt BT_SEL 1 &bt BT_SEL 0     &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 EXTPOW_TOG
-       RGB_UG_TOG   &none        &to DVORAK   &none        &bt BT_CLR       &bt BT_CLR   &none        &to DVORAK   &none        RGB_UG_TOG
+       RGB_UG_TOG   &none        &none        &none        &bt BT_CLR       &bt BT_CLR   &none        &none        &none        RGB_UG_TOG
        &none        &bt BT_PRV   &sys_reset   &bt BT_NXT   &bootloader      &bootloader  &bt BT_PRV   &sys_reset   &bt BT_NXT   &none
   /* ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯ */
                                               &none        &none            &none        &none
