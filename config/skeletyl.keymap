@@ -11,11 +11,10 @@
 #include <dt-bindings/zmk/rgb.h>
 
 #define DVORAK 0
-#define NAVIGATION 1
-#define LOWER 2
-#define UPPER 3
-#define EXTEND 4
-#define SYSTEM 5
+#define LOWER 1
+#define UPPER 2
+#define EXTEND 3
+#define SYSTEM 4
 
 // Custom keycodes.
 #define LAUNCHER (LG(SPACE))
