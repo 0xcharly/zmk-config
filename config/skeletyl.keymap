@@ -161,7 +161,7 @@
        &kp A        &kp O        &kp E        &kp U        &kp I            &kp D        &kp H        &kp T        &kp N        &kp S
        &kp LSHIFT   &kp Q        &kp J        &kp K        &kp X            &kp B        &kp M        &kp W        &kp V        &kp Z
   /* ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯ */
-                                              &mo SYM_LOW  &kp SPACE        &sk LSHIFT   &mo SYM_UPP
+                                              &mo LOWER    &kp SPACE        &sk LSHIFT   &mo UPPER
   /*                                        ╰───────────────────────────╯ ╰───────────────────────────╯                                        */
       >;
     };
