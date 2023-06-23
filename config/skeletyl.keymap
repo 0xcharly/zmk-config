@@ -58,7 +58,7 @@
     };
 
     // Right arrow macro: ->
-    right_arrow: right_arrow {
+    rarrow: right_arrow {
       label = "Right Arrow";
       compatible = "zmk,behavior-macro";
       #binding-cells = <0>;
@@ -66,7 +66,7 @@
     };
 
     // Fat right arrow macro: =>
-    fat_right_arrow: fat_right_arrow {
+    frarrow: fat_right_arrow {
       label = "Fat Right Arrow";
       compatible = "zmk,behavior-macro";
       #binding-cells = <0>;
@@ -114,21 +114,39 @@
       bindings = <&caps_word>;
       layers = <DVORAK>;
     };
+  };
 
-    // Right arrow on a 2-key combo.
-    combo_arrow {
-      timeout-ms = <50>;
-      key-positions = <21 22>;
-      bindings = <&right_arrow>;
-      layers = <DVORAK>;
+  /**
+   * Custom shifted keycode for access to convenience symbols from the base layer.
+   *
+   * Particularly useful for Gmail keyboard shortcuts.
+   */
+  behaviors {
+    // Single quote -> Pound sign.
+    sqt_hash: single_quote_pound {
+      compatible = "zmk,behavior-mod-morph";
+      label = "SINGLE_QUOTE_POUND";
+      #binding-cells = <0>;
+      bindings = <&kp SINGLE_QUOTE>, <&kp POUND>;
+      mods = <(MOD_LSFT|MOD_RSFT)>;
     };
-
-    // Fat right arrow on a 2-key combo.
-    combo_fat_arrow {
-      timeout-ms = <50>;
-      key-positions = <27 28>;
-      bindings = <&fat_right_arrow>;
-      layers = <DVORAK>;
+  
+    // Comma -> Question mark.
+    comma_qmark: comma_question {
+      compatible = "zmk,behavior-mod-morph";
+      label = "COMMA_QUESTION";
+      #binding-cells = <0>;
+      bindings = <&kp COMMA>, <&kp QUESTION>;
+      mods = <(MOD_LSFT|MOD_RSFT)>;
+    };
+  
+    // Period -> Exclamation mark.
+    dot_excl: period_exclamation {
+      compatible = "zmk,behavior-mod-morph";
+      label = "PERIOD_EXCLAMATION";
+      #binding-cells = <0>;
+      bindings = <&kp PERIOD>, <&kp EXCLAMATION>;
+      mods = <(MOD_LSFT|MOD_RSFT)>;
     };
   };
 
@@ -156,7 +174,7 @@
     dvorak {
       bindings = <
   /* ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮ */
-       &kp APOS     &kp COMMA    &kp PERIOD   &kp P        &kp Y            &kp F        &kp G        &kp C        &kp R        &kp L
+       &sqt_hash    &comma_qmark &dot_excl    &kp P        &kp Y            &kp F        &kp G        &kp C        &kp R        &kp L
        &kp A        &kp O        &kp E        &kp U        &kp I            &kp D        &kp H        &kp T        &kp N        &kp S
        &kp LSHIFT   &kp Q        &kp J        &kp K        &kp X            &kp B        &kp M        &kp W        &kp V        &kp Z
   /* ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯ */
@@ -231,7 +249,7 @@
   /* ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮ */
        &kp GRAVE    &kp N7       &kp N8       &kp N9       &none            &none        &none        &kp BSLH     &kp BSPC     &kp TAB
        &kp PERCENT  &kp N4       &kp N5       &kp N6       &none            &none        &kp AMPS     &kp AT       &kp PIPE     &kp ENTER
-       &none        &kp N1       &kp N2       &kp N3       &none            &none        &kp LT       &kp N0       &kp GT       &none
+       &rarrow      &kp N1       &kp N2       &kp N3       &none            &none        &kp LT       &kp N0       &kp GT       &frarrow
   /* ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯ */
                                               &trans /*↓*/ &none            &none        &trans /*↓*/
   /*                                        ╰───────────────────────────╯ ╰───────────────────────────╯                                        */
