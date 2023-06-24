@@ -151,7 +151,7 @@
   };
 
   /**
-   * 34-key keymap, using a Dvorak base layer. Skeletyl is a 36-key keyboard, but only 2 thumb keys are used on each side.
+   * 36-key keymap, using a Dvorak base layer.
    *
    *   - Enter, tab and backspace on all right-hand non-base layers.
    *   - Shift, Control and Gui sticky mods on hold-tap with layers on thumb keys.
@@ -178,8 +178,8 @@
        &kp A        &kp O        &kp E        &kp U        &kp I            &kp D        &kp H        &kp T        &kp N        &kp S
        &kp LSHIFT   &kp Q        &kp J        &kp K        &kp X            &kp B        &kp M        &kp W        &kp V        &kp Z
   /* ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯ */
-                                              &mo LOWER    &kp SPACE        &sk LSHIFT   &mo UPPER
-  /*                                        ╰───────────────────────────╯ ╰───────────────────────────╯                                        */
+                                 &mo LOWER    &kp SPACE    &kp LCTRL        &kp RCTRL    &sk LSHIFT   &mo UPPER
+  /*                           ╰────────────────────────────────────────╯ ╰────────────────────────────────────────╯                           */
       >;
     };
 
@@ -203,8 +203,8 @@
        &sk LALT     &sk LGUI     &sk LCTRL    &sk LSHIFT   &kp LAUNCHER     &none        &kp LEFT     &kp DOWN     &kp RIGHT    &kp ENTER
        &kp LG(X)    &kp RCS_TAB  &kp LG(C)    &kp CTL_TAB  &kp LG(V)        &none        &kp LPAR     &kp SEMI     &kp RPAR     &none
   /* ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯ */
-                                              &trans /*↓*/ &sl SYSTEM       &trans       &trans
-  /*                                        ╰───────────────────────────╯ ╰───────────────────────────╯                                        */
+                                 &trans /*↓*/ &sl SYSTEM   &trans           &trans       &trans       &trans
+  /*                           ╰────────────────────────────────────────╯ ╰────────────────────────────────────────╯                           */
       >;
     };
 
@@ -231,8 +231,8 @@
        &kp PLUS     &kp ESCAPE   &kp MINUS    &kp COLON    &none            &none        &kp LBKT     &kp UNDER    &kp RBKT     &kp ENTER
        &none        &kp TILDE    &kp ASTERISK &kp SLASH    &none            &none        &kp LBRC     &kp DQT      &kp RBRC     &none
   /* ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯ */
-                                              &trans       &trans           &sl SYSTEM   &trans /*↓*/
-  /*                                        ╰───────────────────────────╯ ╰───────────────────────────╯                                        */
+                                 &trans       &trans       &trans           &trans       &sl SYSTEM   &trans /*↓*/
+  /*                           ╰────────────────────────────────────────╯ ╰────────────────────────────────────────╯                           */
       >;
     };
 
@@ -251,8 +251,8 @@
        &kp PERCENT  &kp N4       &kp N5       &kp N6       &none            &none        &kp AMPS     &kp AT       &kp PIPE     &kp ENTER
        &rarrow      &kp N1       &kp N2       &kp N3       &none            &none        &kp LT       &kp N0       &kp GT       &frarrow
   /* ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯ */
-                                              &trans /*↓*/ &none            &none        &trans /*↓*/
-  /*                                        ╰───────────────────────────╯ ╰───────────────────────────╯                                        */
+                                 &trans /*↓*/ &none        &trans           &trans       &none        &trans /*↓*/
+  /*                           ╰────────────────────────────────────────╯ ╰────────────────────────────────────────╯                           */
       >;
     };
 
@@ -269,8 +269,8 @@
        RGB_UG_TOG   &none        &none        &none        &bt BT_CLR       &bt BT_CLR   &none        &none        &none        RGB_UG_TOG
        &none        &bt BT_PRV   &sys_reset   &bt BT_NXT   &bootloader      &bootloader  &bt BT_PRV   &sys_reset   &bt BT_NXT   &none
   /* ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯ */
-                                              &none        &none            &none        &none
-  /*                                        ╰───────────────────────────╯ ╰───────────────────────────╯                                        */
+                                 &none        &none        &none            &none        &none        &none
+  /*                           ╰────────────────────────────────────────╯ ╰────────────────────────────────────────╯                           */
       >;
     };
   };
