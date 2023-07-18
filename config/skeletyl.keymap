@@ -132,7 +132,7 @@
       compatible = "zmk,behavior-mod-morph";
       label = "SINGLE_QUOTE_POUND";
       #binding-cells = <0>;
-      bindings = <&kp SINGLE_QUOTE>, <&kp POUND>;
+      bindings = <&kp SINGLE_QUOTE>, <&kp QUESTION>;
       mods = <(MOD_LSFT|MOD_RSFT)>;
     };
   
@@ -141,7 +141,7 @@
       compatible = "zmk,behavior-mod-morph";
       label = "COMMA_QUESTION";
       #binding-cells = <0>;
-      bindings = <&kp COMMA>, <&kp QUESTION>;
+      bindings = <&kp COMMA>, <&kp POUND>;
       mods = <(MOD_LSFT|MOD_RSFT)>;
     };
   
