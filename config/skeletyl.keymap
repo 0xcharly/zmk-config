@@ -82,20 +82,25 @@
    *    0  1  2  3  4    5  6  7  8  9
    *   10 11 12 13 14    15 16 17 18 19
    *   20 21 22 23 24    25 26 27 28 29
-   *       			30 31    32 33
+   *         30 31 32    33 34 35
    */
   combos {
     compatible = "zmk,combos";
 
-    // Failsafe reset on a tri-key combos, on both sides, on all layers.
+    // Failsafe reset on a 2-key combos.
+    combo_sys_reset {
+      timeout-ms = <50>;
+      key-positions = <32 33>;
+      bindings = <&sys_reset>;
+    };
     combo_sys_reset_lhs {
       timeout-ms = <50>;
-      key-positions = <30 31>;
+      key-positions = <30 32>;
       bindings = <&sys_reset>;
     };
     combo_sys_reset_rhs {
       timeout-ms = <50>;
-      key-positions = <32 33>;
+      key-positions = <33 35>;
       bindings = <&sys_reset>;
     };
 
@@ -178,7 +183,7 @@
        &kp A        &kp O        &kp E        &kp U        &kp I            &kp D        &kp H        &kp T        &kp N        &kp S
        &kp LSHIFT   &kp Q        &kp J        &kp K        &kp X            &kp B        &kp M        &kp W        &kp V        &kp Z
   /* ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯ */
-                                 &mo LOWER    &kp SPACE    &kp LCTRL        &kp RCTRL    &sk LSHIFT   &mo UPPER
+                                 &mo LOWER    &kp SPACE    &kp LGUI         &kp RCTRL    &sk LSHIFT   &mo UPPER
   /*                           ╰────────────────────────────────────────╯ ╰────────────────────────────────────────╯                           */
       >;
     };
@@ -203,7 +208,7 @@
        &sk LALT     &sk LGUI     &sk LCTRL    &sk LSHIFT   &kp LAUNCHER     &none        &kp LEFT     &kp DOWN     &kp RIGHT    &kp ENTER
        &kp LG(X)    &kp RCS_TAB  &kp LG(C)    &kp CTL_TAB  &kp LG(V)        &none        &kp LPAR     &kp SEMI     &kp RPAR     &none
   /* ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯ */
-                                 &trans /*↓*/ &sl SYSTEM   &trans           &trans       &trans       &trans
+                                 &trans /*↓*/ &trans       &sl SYSTEM       &trans       &trans       &trans
   /*                           ╰────────────────────────────────────────╯ ╰────────────────────────────────────────╯                           */
       >;
     };
@@ -227,11 +232,11 @@
     upper {
       bindings = <
   /* ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮ */
-       &kp HASH     &kp QMARK    &kp EXCL     &kp EQUAL    &none            &none        &kp CARET    &kp DOLLAR   &kp BSPC     &kp TAB
+       &kp QMARK    &kp HASH     &kp EXCL     &kp EQUAL    &none            &none        &kp CARET    &kp DOLLAR   &kp BSPC     &kp TAB
        &kp PLUS     &kp ESCAPE   &kp MINUS    &kp COLON    &none            &none        &kp LBRC     &kp UNDER    &kp RBRC     &kp ENTER
        &none        &kp TILDE    &kp ASTERISK &kp SLASH    &none            &none        &kp LBKT     &kp DQT      &kp RBKT     &none
   /* ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯ */
-                                 &trans       &trans       &trans           &trans       &sl SYSTEM   &trans /*↓*/
+                                 &trans       &trans       &trans           &sl SYSTEM       &trans       &trans /*↓*/
   /*                           ╰────────────────────────────────────────╯ ╰────────────────────────────────────────╯                           */
       >;
     };
@@ -247,9 +252,9 @@
     extend {
       bindings = <
   /* ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮ */
-       &kp GRAVE    &kp N7       &kp N8       &kp N9       &none            &none        &none        &kp BSLH     &kp BSPC     &kp TAB
-       &kp PERCENT  &kp N4       &kp N5       &kp N6       &none            &none        &kp AMPS     &kp AT       &kp PIPE     &kp ENTER
-       &rarrow      &kp N1       &kp N2       &kp N3       &none            &none        &kp LT       &kp N0       &kp GT       &frarrow
+       &kp GRAVE    &kp N7       &kp N8       &kp N9       &none            &none        &kp BSLH     &kp AT       &kp BSPC     &kp TAB
+       &kp PERCENT  &kp N4       &kp N5       &kp N6       &none            &none        &kp LT       &kp N0       &kp GT       &kp ENTER
+       &rarrow      &kp N1       &kp N2       &kp N3       &none            &none        &none        &kp AMPS     &kp PIPE     &frarrow
   /* ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯ */
                                  &trans /*↓*/ &none        &trans           &trans       &none        &trans /*↓*/
   /*                           ╰────────────────────────────────────────╯ ╰────────────────────────────────────────╯                           */
