@@ -110,7 +110,7 @@
       timeout-ms = <50>;
       key-positions = <0 9>;
       bindings = <&cancel>;
-      layers = <DVORAK, APTMAK>;
+      layers = <DVORAK APTMAK>;
     };
 
     // Caps Word on a 2-key combo.
@@ -118,7 +118,7 @@
       timeout-ms = <50>;
       key-positions = <2 7>;
       bindings = <&caps_word>;
-      layers = <DVORAK, APTMAK>;
+      layers = <DVORAK APTMAK>;
     };
   };
 
