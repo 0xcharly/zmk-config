@@ -11,10 +11,11 @@
 #include <dt-bindings/zmk/rgb.h>
 
 #define DVORAK 0
-#define LOWER 1
-#define UPPER 2
-#define EXTEND 3
-#define SYSTEM 4
+#define APTMAK 1
+#define LOWER 2
+#define UPPER 3
+#define EXTEND 4
+#define SYSTEM 5
 
 // Custom keycodes.
 #define LAUNCHER (LG(SPACE))
@@ -109,7 +110,7 @@
       timeout-ms = <50>;
       key-positions = <0 9>;
       bindings = <&cancel>;
-      layers = <DVORAK>;
+      layers = <DVORAK, APTMAK>;
     };
 
     // Caps Word on a 2-key combo.
@@ -117,7 +118,7 @@
       timeout-ms = <50>;
       key-positions = <2 7>;
       bindings = <&caps_word>;
-      layers = <DVORAK>;
+      layers = <DVORAK, APTMAK>;
     };
   };
 
@@ -189,6 +190,26 @@
     };
 
     /**
+     * Alternate layout: Aptmak by Eve.
+     *
+     *   v w f p b  j l u y '
+     *   r s t h k  x n a i o
+     *     c g d q  z m , .  
+     *              e          
+     */
+    aptmak {
+      bindings = <
+  /* ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮ */
+       &kp V        &kp W        &kp F        &kp P        &kp B            &kp J        &kp L        &kp U        &kp Y        &kp APOS
+       &kp R        &kp S        &kp T        &kp H        &kp K            &kp X        &kp N        &kp A        &kp I        &kp O
+       &none        &kp C        &kp G        &kp D        &kp Q            &kp Z        &kp M        &kp COMMA    &kp PERIOD   &none
+  /* ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯ */
+                                 &mo LOWER    &kp SPACE    &kp LGUI         &kp RCTRL    &kp E        &mo UPPER
+  /*                           ╰────────────────────────────────────────╯ ╰────────────────────────────────────────╯                           */
+      >;
+    };
+
+    /**
      * Lower layer. Left thumb down.
      *
      * Navigation and symbols.
@@ -236,7 +257,7 @@
        &kp PLUS     &kp ESCAPE   &kp MINUS    &kp COLON    &none            &none        &kp LBRC     &kp UNDER    &kp RBRC     &kp ENTER
        &trans       &kp TILDE    &kp ASTERISK &kp SLASH    &none            &none        &kp LBKT     &kp DQT      &kp RBKT     &none
   /* ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯ */
-                                 &trans       &trans       &trans           &sl SYSTEM       &trans       &trans /*↓*/
+                                 &trans       &trans       &trans           &sl SYSTEM   &trans       &trans /*↓*/
   /*                           ╰────────────────────────────────────────╯ ╰────────────────────────────────────────╯                           */
       >;
     };
@@ -271,7 +292,7 @@
       bindings = <
   /* ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮ */
        EXTPOW_TOG   &bt BT_SEL 3 &bt BT_SEL 2 &bt BT_SEL 1 &bt BT_SEL 0     &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 EXTPOW_TOG
-       RGB_UG_TOG   &none        &none        &none        &bt BT_CLR       &bt BT_CLR   &none        &none        &none        RGB_UG_TOG
+       RGB_UG_TOG   &to APTMAK   &to DVORAK   &none        &bt BT_CLR       &bt BT_CLR   &none        &to DVORAK   &to APTMAK   RGB_UG_TOG
        &none        &bt BT_PRV   &sys_reset   &bt BT_NXT   &bootloader      &bootloader  &bt BT_PRV   &sys_reset   &bt BT_NXT   &none
   /* ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯ */
                                  &none        &none        &none            &none        &none        &none
