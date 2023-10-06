@@ -234,7 +234,7 @@
   /* ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮ */
        &kp QMARK    &kp HASH     &kp EXCL     &kp EQUAL    &none            &none        &kp CARET    &kp DOLLAR   &kp BSPC     &kp TAB
        &kp PLUS     &kp ESCAPE   &kp MINUS    &kp COLON    &none            &none        &kp LBRC     &kp UNDER    &kp RBRC     &kp ENTER
-       &none        &kp TILDE    &kp ASTERISK &kp SLASH    &none            &none        &kp LBKT     &kp DQT      &kp RBKT     &none
+       &trans       &kp TILDE    &kp ASTERISK &kp SLASH    &none            &none        &kp LBKT     &kp DQT      &kp RBKT     &none
   /* ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯ */
                                  &trans       &trans       &trans           &sl SYSTEM       &trans       &trans /*↓*/
   /*                           ╰────────────────────────────────────────╯ ╰────────────────────────────────────────╯                           */
