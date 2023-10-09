@@ -129,7 +129,7 @@
    */
   behaviors {
     // Single quote -> Pound sign.
-    sqt_hash: single_quote_pound {
+    apos_qmark: single_quote_pound {
       compatible = "zmk,behavior-mod-morph";
       label = "SINGLE_QUOTE_POUND";
       #binding-cells = <0>;
@@ -138,7 +138,7 @@
     };
   
     // Comma -> Question mark.
-    comma_qmark: comma_question {
+    comma_hash: comma_question {
       compatible = "zmk,behavior-mod-morph";
       label = "COMMA_QUESTION";
       #binding-cells = <0>;
@@ -180,7 +180,7 @@
     dvorak {
       bindings = <
   /* ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮ */
-       &sqt_hash    &comma_qmark &dot_excl    &kp P        &kp Y            &kp F        &kp G        &kp C        &kp R        &kp L
+       &apos_qmark  &comma_hash  &dot_excl    &kp P        &kp Y            &kp F        &kp G        &kp C        &kp R        &kp L
        &kp A        &kp O        &kp E        &kp U        &kp I            &kp D        &kp H        &kp T        &kp N        &kp S
        &kp LSHIFT   &kp Q        &kp J        &kp K        &kp X            &kp B        &kp M        &kp W        &kp V        &kp Z
   /* ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯ */
@@ -200,9 +200,9 @@
     aptmak {
       bindings = <
   /* ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮ */
-       &kp V        &kp W        &kp F        &kp P        &kp B            &kp J        &kp L        &kp U        &kp Y        &kp APOS
+       &kp V        &kp W        &kp F        &kp P        &kp B            &kp J        &kp L        &kp U        &kp Y        &apos_qmark
        &kp R        &kp S        &kp T        &kp H        &kp K            &kp X        &kp N        &kp A        &kp I        &kp O
-       &none        &kp C        &kp G        &kp D        &kp Q            &kp Z        &kp M        &kp COMMA    &kp PERIOD   &none
+       &none        &kp C        &kp G        &kp D        &kp Q            &kp Z        &kp M        &comma_hash  &dot_excl    &none
   /* ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯ */
                                  &mo LOWER    &kp SPACE    &kp LGUI         &kp RCTRL    &kp E        &mo UPPER
   /*                           ╰────────────────────────────────────────╯ ╰────────────────────────────────────────╯                           */
