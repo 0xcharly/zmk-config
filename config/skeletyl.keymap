@@ -15,7 +15,8 @@
 #define LOWER 2
 #define UPPER 3
 #define EXTEND 4
-#define SYSTEM 5
+#define SHORTS 5
+#define SYSTEM 6
 
 // Custom keycodes.
 #define LAUNCHER (LG(SPACE))
@@ -73,6 +74,54 @@
       #binding-cells = <0>;
       bindings = <&macro_tap &kp EQUAL &kp GT>;
     };
+
+    // Dead key acute.
+    dk_acute: dead_ecute {
+      label = "Acute dead key";
+      compatible = "zmk,behavior-macro";
+      #binding-cells = <0>;
+      bindings
+          = <&macro_press &kp LALT>
+          , <&macro_tap &kp E>
+          , <&macro_release &kp LALT>
+          ;
+    };
+
+    // Dead key grave.
+    dk_grave: dead_grave {
+      label = "Grave dead key";
+      compatible = "zmk,behavior-macro";
+      #binding-cells = <0>;
+      bindings
+          = <&macro_press &kp LALT>
+          , <&macro_tap &kp GRAVE>
+          , <&macro_release &kp LALT>
+          ;
+    };
+
+    // Dead key circumflex.
+    dk_circ: dead_circumflex {
+      label = "Circumflex dead key";
+      compatible = "zmk,behavior-macro";
+      #binding-cells = <0>;
+      bindings
+          = <&macro_press &kp LALT>
+          , <&macro_tap &kp I>
+          , <&macro_release &kp LALT>
+          ;
+    };
+
+    // Dead key acute.
+    dk_trema: dead_trema {
+      label = "Trema dead key";
+      compatible = "zmk,behavior-macro";
+      #binding-cells = <0>;
+      bindings
+          = <&macro_press &kp LALT>
+          , <&macro_tap &kp U>
+          , <&macro_release &kp LALT>
+          ;
+    };
   };
 
   /**
@@ -89,11 +138,6 @@
     compatible = "zmk,combos";
 
     // Failsafe reset on a 2-key combos.
-    combo_sys_reset {
-      timeout-ms = <50>;
-      key-positions = <32 33>;
-      bindings = <&sys_reset>;
-    };
     combo_sys_reset_lhs {
       timeout-ms = <50>;
       key-positions = <30 32>;
@@ -128,15 +172,6 @@
    * Particularly useful for Gmail keyboard shortcuts.
    */
   behaviors {
-    // Single quote -> Pound sign.
-    apos_qmark: single_quote_pound {
-      compatible = "zmk,behavior-mod-morph";
-      label = "SINGLE_QUOTE_POUND";
-      #binding-cells = <0>;
-      bindings = <&kp SINGLE_QUOTE>, <&kp QUESTION>;
-      mods = <(MOD_LSFT|MOD_RSFT)>;
-    };
-  
     // Comma -> Question mark.
     comma_hash: comma_question {
       compatible = "zmk,behavior-mod-morph";
@@ -157,21 +192,7 @@
   };
 
   /**
-   * 36-key keymap, using a Dvorak base layer.
-   *
-   *   - Enter, tab and backspace on all right-hand non-base layers.
-   *   - Shift, Control and Gui sticky mods on hold-tap with layers on thumb keys.
-   *   - Navigation layer:
-   *     - Direct access desktop shortcuts.
-   *     - Home-row sticky mods.
-   *     - Convenience shortcuts (cut/copy/paste, ctrl+tab, ctrl+shift+tab)
-   *     - Inverted T arrow cluster.
-   *   - Lower/upper/extend tri-layer:
-   *     - 2 symbols layers to reduce pinky usage, and favor symbol synergies in most frequently used languages.
-   *     - Numbers tri-layer with left-side numpad.
-   *   - System layer for hardware controls:
-   *     - Bluetooth channels.
-   *     - Reset/bootloader.
+   * 36-key keymap, using a Dvorak or Aptmak base layer.
    */
   keymap {
     compatible = "zmk,keymap";
@@ -180,11 +201,11 @@
     dvorak {
       bindings = <
   /* ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮ */
-       &apos_qmark  &comma_hash  &dot_excl    &kp P        &kp Y            &kp F        &kp G        &kp C        &kp R        &kp L
+       &kp APOS     &comma_hash  &dot_excl    &kp P        &kp Y            &kp F        &kp G        &kp C        &kp R        &kp L
        &kp A        &kp O        &kp E        &kp U        &kp I            &kp D        &kp H        &kp T        &kp N        &kp S
-       &kp LSHIFT   &kp Q        &kp J        &kp K        &kp X            &kp B        &kp M        &kp W        &kp V        &kp Z
+       &none        &kp Q        &kp J        &kp K        &kp X            &kp B        &kp M        &kp W        &kp V        &kp Z
   /* ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯ */
-                                 &mo LOWER    &kp SPACE    &kp LGUI         &kp RCTRL    &sk LSHIFT   &mo UPPER
+                                 &mo LOWER    &kp SPACE    &mo SHORTS       &kp RCTRL    &sk LSHIFT   &mo UPPER
   /*                           ╰────────────────────────────────────────╯ ╰────────────────────────────────────────╯                           */
       >;
     };
@@ -200,11 +221,11 @@
     aptmak {
       bindings = <
   /* ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮ */
-       &kp V        &kp W        &kp F        &kp P        &kp B            &kp J        &kp L        &kp U        &kp Y        &apos_qmark
+       &kp V        &kp W        &kp F        &kp P        &kp B            &kp J        &kp L        &kp U        &kp Y        &kp APOS
        &kp R        &kp S        &kp T        &kp H        &kp K            &kp X        &kp N        &kp A        &kp I        &kp O
-       &none        &kp C        &kp G        &kp D        &kp Q            &kp Z        &kp M        &comma_hash  &dot_excl    &none
+       &none        &kp C        &kp G        &kp D        &kp Q            &kp Z        &kp M        &kp COMMA    &kp DOT      &none
   /* ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯ */
-                                 &mo LOWER    &kp SPACE    &kp LGUI         &kp RCTRL    &kp E        &mo UPPER
+                                 &mo LOWER    &kp SPACE    &mo SHORTS       &kp RCTRL    &kp E        &mo UPPER
   /*                           ╰────────────────────────────────────────╯ ╰────────────────────────────────────────╯                           */
       >;
     };
@@ -227,7 +248,7 @@
   /* ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮ */
        &kp LA(N1)   &kp LA(N2)   &kp LA(N3)   &kp LA(N4)   &kp LA(N5)       &none        &none        &kp UP       &kp BSPC     &kp TAB
        &sk LALT     &sk LGUI     &sk LCTRL    &sk LSHIFT   &kp LAUNCHER     &none        &kp LEFT     &kp DOWN     &kp RIGHT    &kp ENTER
-       &kp LG(X)    &kp RCS_TAB  &kp LG(C)    &kp CTL_TAB  &kp LG(V)        &none        &kp LPAR     &kp SEMI     &kp RPAR     &none
+       &none        &kp RCS_TAB  &kp LG(C)    &kp CTL_TAB  &kp LG(V)        &none        &kp LPAR     &kp SEMI     &kp RPAR     &none
   /* ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯ */
                                  &trans /*↓*/ &trans       &sl SYSTEM       &trans       &trans       &trans
   /*                           ╰────────────────────────────────────────╯ ╰────────────────────────────────────────╯                           */
@@ -253,9 +274,9 @@
     upper {
       bindings = <
   /* ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮ */
-       &kp QMARK    &kp HASH     &kp EXCL     &kp EQUAL    &none            &none        &kp CARET    &kp DOLLAR   &kp BSPC     &kp TAB
-       &kp PLUS     &kp ESCAPE   &kp MINUS    &kp COLON    &none            &none        &kp LBRC     &kp UNDER    &kp RBRC     &kp ENTER
-       &trans       &kp TILDE    &kp ASTERISK &kp SLASH    &none            &none        &kp LBKT     &kp DQT      &kp RBKT     &none
+       &kp QMARK    &kp HASH     &kp EXCL     &kp EQUAL    &none            &none        &kp CARET    &kp DOLLAR   &none        &none
+       &kp PLUS     &kp ESCAPE   &kp MINUS    &kp COLON    &none            &none        &kp LBRC     &kp UNDER    &kp RBRC     &none
+       &none        &kp TILDE    &kp ASTERISK &kp SLASH    &none            &none        &kp LBKT     &kp DQT      &kp RBKT     &none
   /* ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯ */
                                  &trans       &trans       &trans           &sl SYSTEM   &trans       &trans /*↓*/
   /*                           ╰────────────────────────────────────────╯ ╰────────────────────────────────────────╯                           */
@@ -273,20 +294,44 @@
     extend {
       bindings = <
   /* ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮ */
-       &kp GRAVE    &kp N7       &kp N8       &kp N9       &none            &none        &kp BSLH     &kp AT       &kp BSPC     &kp TAB
-       &kp PERCENT  &kp N4       &kp N5       &kp N6       &none            &none        &kp LT       &kp N0       &kp GT       &kp ENTER
-       &rarrow      &kp N1       &kp N2       &kp N3       &none            &none        &none        &kp AMPS     &kp PIPE     &frarrow
+       &none        &kp GRAVE    &none        &none        &none            &none        &kp BSLH     &kp AT       &kp PERCENT  &none
+       &kp N7       &kp N5       &kp N1       &kp N3       &none            &none        &kp N2       &kp N0       &kp N4       &kp N6
+       &none        &kp LT       &kp AMPS     &kp N9       &rarrow          &frarrow     &kp N8       &kp PIPE     &kp GT       &none
   /* ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯ */
                                  &trans /*↓*/ &none        &trans           &trans       &none        &trans /*↓*/
   /*                           ╰────────────────────────────────────────╯ ╰────────────────────────────────────────╯                           */
       >;
     };
 
+    /**
+     * Shortcuts layer. Left thumb down.
+     *
+     *   - Primary hand (left):
+     *     - 
+     *   - Secondary hand (right):
+     *     - 
+     */
+    shortcuts {
+      bindings = <
+  /* ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮ */
+       &kp HASH     &kp O        &kp E        &kp U        &kp EXCL         &none        &kp N7       &kp N8       &kp N9       &kp TAB
+       &kp H        &kp J        &kp K        &kp L        &kp X            &none        &kp N4       &kp N5       &kp N6       &kp ENTER
+       &none        &none        &none        &none        &none            &none        &kp N1       &kp N2       &kp N3       &none
+  /* ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯ */
+                                 &none        &none        &trans /*↓*/     &trans       &kp N0       &trans
+  /*                           ╰────────────────────────────────────────╯ ╰────────────────────────────────────────╯                           */
+      >;
+    };
+
    /**
-    * System layer for hardware controls. Available as a sticky-layer with a hard-to-mistap thumb hold.
+    * System layer for hardware controls.
+    * 
+    * Available as a sticky-layer with a hard-to-mistap thumb cluster tap dance.
     *
     *   - Bluetooth channels.
     *   - Reset/bootloader.
+    *   - Base layers.
+    *   - Ext power/RGB.
     */
     system {
       bindings = <
