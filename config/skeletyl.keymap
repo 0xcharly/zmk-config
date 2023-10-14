@@ -274,7 +274,7 @@
       bindings = <
   /* ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮ */
        &none        &kp HASH     &kp EXCL     &kp EQUAL    &none            &none        &kp CARET    &kp QMARK    &kp DOLLAR   &none
-       &kp AT       &kp ESCAPE   &kp MINUS    &kp COLON    &none            &none        &kp LBRC     &kp UNDER    &kp RBRC     &kp GRAVE
+       &kp GRAVE    &kp ESCAPE   &kp MINUS    &kp COLON    &none            &none        &kp LBRC     &kp UNDER    &kp RBRC     &kp AT
        &none        &kp PLUS     &kp ASTERISK &kp SLASH    &none            &none        &kp LBKT     &kp DQT      &kp RBKT     &none
   /* ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯ */
                                  &trans       &trans       &trans           &sl SYSTEM   &trans       &trans /*↓*/
