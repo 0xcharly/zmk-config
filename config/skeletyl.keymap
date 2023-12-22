@@ -11,12 +11,10 @@
 #include <dt-bindings/zmk/rgb.h>
 
 #define DVORAK 0
-#define APTMAK 1
-#define LOWER 2
-#define UPPER 3
-#define EXTEND 4
-#define SHORTS 5
-#define SYSTEM 6
+#define LOWER 1
+#define UPPER 2
+#define EXTEND 3
+#define SYSTEM 4
 
 // Custom keycodes.
 #define LAUNCHER (LG(SPACE))
@@ -73,6 +71,30 @@
       compatible = "zmk,behavior-macro";
       #binding-cells = <0>;
       bindings = <&macro_tap &kp EQUAL &kp GT>;
+    };
+
+    // ^C (Ctrl+c).
+    ctrl_c: ctrl_c {
+      label = "Ctrl+c";
+      compatible = "zmk,behavior-macro";
+      #binding-cells = <0>;
+      bindings
+          = <&macro_press &kp LCTRL>
+          , <&macro_tap &kp C>
+          , <&macro_release &kp LCTRL>
+          ;
+    };
+
+    // ^D (Ctrl+d).
+    ctrl_d: ctrl_d {
+      label = "Ctrl+d";
+      compatible = "zmk,behavior-macro";
+      #binding-cells = <0>;
+      bindings
+          = <&macro_press &kp LCTRL>
+          , <&macro_tap &kp D>
+          , <&macro_release &kp LCTRL>
+          ;
     };
 
     // Dead key acute.
@@ -154,7 +176,7 @@
       timeout-ms = <50>;
       key-positions = <0 9>;
       bindings = <&cancel>;
-      layers = <DVORAK APTMAK>;
+      layers = <DVORAK>;
     };
 
     // Caps Word on a 2-key combo.
@@ -162,7 +184,7 @@
       timeout-ms = <50>;
       key-positions = <2 7>;
       bindings = <&caps_word>;
-      layers = <DVORAK APTMAK>;
+      layers = <DVORAK>;
     };
   };
 
@@ -173,26 +195,26 @@
    */
   behaviors {
     // Comma -> Question mark.
-    comma_hash: comma_question {
+    comma_c_d: comma_ctrl_d {
       compatible = "zmk,behavior-mod-morph";
       label = "COMMA_QUESTION";
       #binding-cells = <0>;
-      bindings = <&kp COMMA>, <&kp POUND>;
+      bindings = <&kp COMMA>, <&ctrl_d>;
       mods = <(MOD_LSFT|MOD_RSFT)>;
     };
   
     // Period -> Exclamation mark.
-    dot_excl: period_exclamation {
+    dot_c_c: period_ctrl_c {
       compatible = "zmk,behavior-mod-morph";
       label = "PERIOD_EXCLAMATION";
       #binding-cells = <0>;
-      bindings = <&kp PERIOD>, <&kp EXCLAMATION>;
+      bindings = <&kp PERIOD>, <&ctrl_c>;
       mods = <(MOD_LSFT|MOD_RSFT)>;
     };
   };
 
   /**
-   * 36-key keymap, using a Dvorak or Aptmak base layer.
+   * 34-key keymap, using a Dvorak base layer.
    */
   keymap {
     compatible = "zmk,keymap";
@@ -201,31 +223,11 @@
     dvorak {
       bindings = <
   /* ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮ */
-       &kp APOS     &comma_hash  &dot_excl    &kp P        &kp Y            &kp F        &kp G        &kp C        &kp R        &kp L
+       &kp APOS     &comma_c_d   &dot_c_c     &kp P        &kp Y            &kp F        &kp G        &kp C        &kp R        &kp L
        &kp A        &kp O        &kp E        &kp U        &kp I            &kp D        &kp H        &kp T        &kp N        &kp S
        &none        &kp Q        &kp J        &kp K        &kp X            &kp B        &kp M        &kp W        &kp V        &kp Z
   /* ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯ */
-                                 &mo LOWER    &kp SPACE    &mo SHORTS       &kp RCTRL    &sk LSHIFT   &mo UPPER
-  /*                           ╰────────────────────────────────────────╯ ╰────────────────────────────────────────╯                           */
-      >;
-    };
-
-    /**
-     * Alternate layout: Aptmak by Eve.
-     *
-     *   v w f p b  j l u y '
-     *   r s t h k  x n a i o
-     *     c g d q  z m , .  
-     *              e          
-     */
-    aptmak {
-      bindings = <
-  /* ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮ */
-       &kp V        &kp W        &kp F        &kp P        &kp B            &kp J        &kp L        &kp U        &kp Y        &kp APOS
-       &kp R        &kp S        &kp T        &kp H        &kp K            &kp X        &kp N        &kp A        &kp I        &kp O
-       &none        &kp C        &kp G        &kp D        &kp Q            &kp Z        &kp M        &kp COMMA    &kp DOT      &none
-  /* ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯ */
-                                 &mo LOWER    &kp SPACE    &mo SHORTS       &kp RCTRL    &kp E        &mo UPPER
+                                 &mo LOWER    &kp SPACE    &none            &none        &sk LSHIFT   &mo UPPER
   /*                           ╰────────────────────────────────────────╯ ╰────────────────────────────────────────╯                           */
       >;
     };
@@ -247,10 +249,10 @@
       bindings = <
   /* ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮ */
        &kp LA(N1)   &kp LA(N2)   &kp LA(N3)   &kp LA(N4)   &kp LA(N5)       &none        &kp LS(TAB)  &kp UP       &kp BSPC     &kp TAB
-       &sk LALT     &sk LGUI     &sk LCTRL    &sk LSHIFT   &kp LAUNCHER     &none        &kp LEFT     &kp DOWN     &kp RIGHT    &kp ENTER
-       &none        &kp RCS_TAB  &kp LG(C)    &kp CTL_TAB  &kp LG(V)        &none        &kp LPAR     &kp SEMI     &kp RPAR     &none
+       &sk LALT     &sk LGUI     &sk LCTRL    &sk LSHIFT   &none            &none        &kp LEFT     &kp DOWN     &kp RIGHT    &kp ENTER
+       &kp LAUNCHER &kp RCS_TAB  &kp LG(C)    &kp CTL_TAB  &kp LG(V)        &none        &kp LPAR     &kp SEMI     &kp RPAR     &none
   /* ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯ */
-                                 &trans /*↓*/ &trans       &sl SYSTEM       &trans       &trans       &trans
+                                 &trans /*↓*/ &sl SYSTEM   &none            &none        &trans       &trans
   /*                           ╰────────────────────────────────────────╯ ╰────────────────────────────────────────╯                           */
       >;
     };
@@ -273,11 +275,11 @@
     upper {
       bindings = <
   /* ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮ */
-       &none        &kp HASH     &kp EXCL     &kp EQUAL    &none            &none        &kp CARET    &kp QMARK    &kp DOLLAR   &none
+       &kp PERCENT  &kp HASH     &kp EXCL     &kp EQUAL    &none            &none        &kp CARET    &kp QMARK    &kp DOLLAR   &kp BSLH
        &kp GRAVE    &kp ESCAPE   &kp MINUS    &kp COLON    &none            &none        &kp LBRC     &kp UNDER    &kp RBRC     &kp AT
-       &none        &kp PLUS     &kp ASTERISK &kp SLASH    &none            &none        &kp LBKT     &kp DQT      &kp RBKT     &none
+       &kp TILDE    &kp PLUS     &kp ASTERISK &kp SLASH    &none            &none        &kp LBKT     &kp DQT      &kp RBKT     &none
   /* ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯ */
-                                 &trans       &trans       &trans           &sl SYSTEM   &trans       &trans /*↓*/
+                                 &trans       &trans       &none            &none        &sl SYSTEM   &trans /*↓*/
   /*                           ╰────────────────────────────────────────╯ ╰────────────────────────────────────────╯                           */
       >;
     };
@@ -293,31 +295,11 @@
     extend {
       bindings = <
   /* ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮ */
-       &kp TILDE    &kp SLASH    &kp MINUS    &kp PERCENT  &none            &none        &kp EQUAL    &kp PLUS     &kp ASTERISK &kp BSLH
-       &kp N7       &kp N5       &kp N1       &kp N3       &kp COMMA        &kp DOT      &kp N2       &kp N0       &kp N4       &kp N6
-       &none        &kp LT       &kp AMPS     &kp N9       &rarrow          &frarrow     &kp N8       &kp PIPE     &kp GT       &none
+       &none        &kp COMMA    &kp DOT      &none        &none            &none        &none        &none        &none        &none
+       &kp N7       &kp N5       &kp N1       &kp N3       &none            &none        &kp N2       &kp N0       &kp N4       &kp N6
+       &rarrow      &kp LT       &kp AMPS     &kp N9       &none            &none        &kp N8       &kp PIPE     &kp GT       &frarrow
   /* ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯ */
-                                 &trans /*↓*/ &none        &trans           &trans       &none        &trans /*↓*/
-  /*                           ╰────────────────────────────────────────╯ ╰────────────────────────────────────────╯                           */
-      >;
-    };
-
-    /**
-     * Shortcuts layer. Left thumb down.
-     *
-     *   - Primary hand (left):
-     *     - 
-     *   - Secondary hand (right):
-     *     - 
-     */
-    shortcuts {
-      bindings = <
-  /* ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮ */
-       &kp HASH     &kp O        &kp E        &kp U        &kp EXCL         &none        &kp N7       &kp N8       &kp N9       &kp TAB
-       &kp H        &kp J        &kp K        &kp L        &kp X            &none        &kp N4       &kp N5       &kp N6       &kp ENTER
-       &none        &none        &none        &none        &none            &none        &kp N1       &kp N2       &kp N3       &none
-  /* ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯ */
-                                 &none        &none        &trans /*↓*/     &trans       &kp N0       &trans
+                                 &trans /*↓*/ &none        &none            &none        &none        &trans /*↓*/
   /*                           ╰────────────────────────────────────────╯ ╰────────────────────────────────────────╯                           */
       >;
     };
@@ -336,7 +318,7 @@
       bindings = <
   /* ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮ */
        EXTPOW_TOG   &bt BT_SEL 3 &bt BT_SEL 2 &bt BT_SEL 1 &bt BT_SEL 0     &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 EXTPOW_TOG
-       RGB_UG_TOG   &to APTMAK   &to DVORAK   &none        &bt BT_CLR       &bt BT_CLR   &none        &to DVORAK   &to APTMAK   RGB_UG_TOG
+       RGB_UG_TOG   &none        &none        &none        &bt BT_CLR       &bt BT_CLR   &none        &none        &none        RGB_UG_TOG
        &none        &bt BT_PRV   &sys_reset   &bt BT_NXT   &bootloader      &bootloader  &bt BT_PRV   &sys_reset   &bt BT_NXT   &none
   /* ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯ */
                                  &none        &none        &none            &none        &none        &none
