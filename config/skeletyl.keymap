@@ -194,7 +194,7 @@
    * Particularly useful for Gmail keyboard shortcuts.
    */
   behaviors {
-    // Comma -> Question mark.
+    // Comma -> Control+d.
     comma_c_d: comma_ctrl_d {
       compatible = "zmk,behavior-mod-morph";
       label = "COMMA_QUESTION";
@@ -203,7 +203,7 @@
       mods = <(MOD_LSFT|MOD_RSFT)>;
     };
   
-    // Period -> Exclamation mark.
+    // Period -> Control+c.
     dot_c_c: period_ctrl_c {
       compatible = "zmk,behavior-mod-morph";
       label = "PERIOD_EXCLAMATION";
