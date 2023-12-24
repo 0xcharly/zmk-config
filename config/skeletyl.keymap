@@ -14,7 +14,8 @@
 #define LOWER 1
 #define UPPER 2
 #define EXTEND 3
-#define SYSTEM 4
+#define OTHERS 4
+#define SYSTEM 5
 
 // Custom keycodes.
 #define LAUNCHER (LG(SPACE))
@@ -227,7 +228,7 @@
        &kp A        &kp O        &kp E        &kp U        &kp I            &kp D        &kp H        &kp T        &kp N        &kp S
        &none        &kp Q        &kp J        &kp K        &kp X            &kp B        &kp M        &kp W        &kp V        &kp Z
   /* ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯ */
-                                 &mo LOWER    &kp SPACE    &none            &none        &sk LSHIFT   &mo UPPER
+                                 &mo LOWER    &kp SPACE    &mo OTHERS       &kp LCTRL    &sk LSHIFT   &mo UPPER
   /*                           ╰────────────────────────────────────────╯ ╰────────────────────────────────────────╯                           */
       >;
     };
@@ -249,10 +250,10 @@
       bindings = <
   /* ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮ */
        &kp LA(N1)   &kp LA(N2)   &kp LA(N3)   &kp LA(N4)   &kp LA(N5)       &none        &kp LS(TAB)  &kp UP       &kp BSPC     &kp TAB
-       &sk LALT     &sk LGUI     &sk LCTRL    &sk LSHIFT   &none            &none        &kp LEFT     &kp DOWN     &kp RIGHT    &kp ENTER
-       &kp LAUNCHER &kp RCS_TAB  &kp LG(C)    &kp CTL_TAB  &kp LG(V)        &none        &kp LPAR     &kp SEMI     &kp RPAR     &none
+       &sk LALT     &sk LGUI     &sk LCTRL    &sk LSHIFT   &kp LAUNCHER     &none        &kp LEFT     &kp DOWN     &kp RIGHT    &kp ENTER
+       &kp LG(X)    &kp RCS_TAB  &kp LG(C)    &kp CTL_TAB  &kp LG(V)        &none        &kp LPAR     &kp SEMI     &kp RPAR     &none
   /* ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯ */
-                                 &trans /*↓*/ &sl SYSTEM   &none            &none        &trans       &trans
+                                 &trans /*↓*/ &none        &sl SYSTEM       &none        &trans       &trans
   /*                           ╰────────────────────────────────────────╯ ╰────────────────────────────────────────╯                           */
       >;
     };
@@ -279,7 +280,7 @@
        &kp GRAVE    &kp ESCAPE   &kp MINUS    &kp COLON    &none            &none        &kp LBRC     &kp UNDER    &kp RBRC     &kp AT
        &kp TILDE    &kp PLUS     &kp ASTERISK &kp SLASH    &none            &none        &kp LBKT     &kp DQT      &kp RBKT     &none
   /* ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯ */
-                                 &trans       &trans       &none            &none        &sl SYSTEM   &trans /*↓*/
+                                 &trans       &trans       &none            &sl SYSTEM   &none        &trans /*↓*/
   /*                           ╰────────────────────────────────────────╯ ╰────────────────────────────────────────╯                           */
       >;
     };
@@ -300,6 +301,28 @@
        &rarrow      &kp LT       &kp AMPS     &kp N9       &none            &none        &kp N8       &kp PIPE     &kp GT       &frarrow
   /* ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯ */
                                  &trans /*↓*/ &none        &none            &none        &none        &trans /*↓*/
+  /*                           ╰────────────────────────────────────────╯ ╰────────────────────────────────────────╯                           */
+      >;
+    };
+
+    /**
+     * Convenience layer. Left thumb down.
+     *
+     * Normal (non-sticky mods).
+     *
+     *   - Primary hand (left):
+     *     - Home-row mods.
+     *   - Secondary hand (right):
+     *     - TODO
+     */
+    others {
+      bindings = <
+  /* ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮ */
+       &none        &none        &none        &none        &none            &none        &none        &none        &none        &none       
+       &kp LALT     &kp LGUI     &kp LCTRL    &kp LSHIFT   &none            &none        &none        &none        &none        &none       
+       &none        &none        &none        &none        &none            &none        &none        &none        &none        &none
+  /* ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯ */
+                                 &none        &none        &trans /*↓*/     &none        &none        &none
   /*                           ╰────────────────────────────────────────╯ ╰────────────────────────────────────────╯                           */
       >;
     };
