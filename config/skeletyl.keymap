@@ -215,7 +215,7 @@
   };
 
   /**
-   * 34-key keymap, using a Dvorak base layer.
+   * 36-key keymap, using a Dvorak base layer.
    */
   keymap {
     compatible = "zmk,keymap";
