@@ -213,6 +213,8 @@
       mods = <(MOD_LSFT|MOD_RSFT)>;
     };
 
+    // Tap-preferred flavored homerow mods to use on the left side only in
+    // conjuction with the mouse.
     hm: homerow_mods {
       compatible = "zmk,behavior-hold-tap";
       #binding-cells = <2>;
