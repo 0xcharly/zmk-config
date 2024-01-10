@@ -212,6 +212,15 @@
       bindings = <&kp PERIOD>, <&ctrl_c>;
       mods = <(MOD_LSFT|MOD_RSFT)>;
     };
+
+    hm: homerow_mods {
+      compatible = "zmk,behavior-hold-tap";
+      #binding-cells = <2>;
+      tapping-term-ms = <300>;
+      quick-tap-ms = <0>;
+      flavor = "tap-preferred";
+      bindings = <&kp>, <&kp>;
+    };
   };
 
   /**
@@ -225,7 +234,7 @@
       bindings = <
   /* ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮ */
        &kp APOS     &comma_c_d   &dot_c_c     &kp P        &kp Y            &kp F        &kp G        &kp C        &kp R        &kp L
-       &kp A        &kp O        &kp E        &kp U        &kp I            &kp D        &kp H        &kp T        &kp N        &kp S
+       &hm LALT A   &hm LGUI O   &hm LCTRL E  &hm LSHIFT U &kp I            &kp D        &kp H        &kp T        &kp N        &kp S
        &none        &kp Q        &kp J        &kp K        &kp X            &kp B        &kp M        &kp W        &kp V        &kp Z
   /* ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯ */
                                  &mo LOWER    &kp SPACE    &mo OTHERS       &kp LCTRL    &sk LSHIFT   &mo UPPER
