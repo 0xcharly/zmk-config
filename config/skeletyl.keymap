@@ -212,9 +212,15 @@
       mods = <(MOD_LSFT|MOD_RSFT)>;
     };
 
-    // Tap-preferred flavored homerow mods to use on the left side only in
-    // conjuction with the mouse.
-    hm: homerow_mods {
+    // Key positions:
+    //
+    //    0  1  2  3  4    5  6  7  8  9
+    //   10 11 12 13 14    15 16 17 18 19
+    //   20 21 22 23 24    25 26 27 28 29
+    //         30 31 32    33 34 35
+
+    // Tap-preferred flavored homerow mods to use on the right side keys and mouse.
+    lhm: left_hand_homerow_mods {
       compatible = "zmk,behavior-hold-tap";
       #binding-cells = <2>;
       tapping-term-ms = <200>;
@@ -222,6 +228,19 @@
       require-prior-idle-ms = <125>;
       flavor = "tap-preferred";
       bindings = <&kp>, <&kp>;
+      hold-trigger-key-positions = <5 6 7 8 9 15 16 17 18 19 25 26 27 28 29 33 34 35>; // Right-hand keys.
+    };
+
+    // Tap-unless-interrupted flavored homerow mods to use on the left side keys only.
+    rhm: right_hand_homerow_mods {
+      compatible = "zmk,behavior-hold-tap";
+      #binding-cells = <2>;
+      tapping-term-ms = <200>;
+      quick-tap-ms = <200>;
+      require-prior-idle-ms = <125>;
+      flavor = "tap-unless-interrupted"; // Produces tap if held longer than tapping-term-ms.
+      bindings = <&kp>, <&kp>;
+      hold-trigger-key-positions = <0 1 2 3 4 10 11 12 13 14 20 21 22 23 24 30 31 32>; // Right-hand keys.
     };
   };
 
@@ -236,7 +255,7 @@
       bindings = <
   /* ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮ */
        &kp APOS     &comma_c_d   &dot_c_c     &kp P        &kp Y            &kp F        &kp G        &kp C        &kp R        &kp L
-       &hm LALT A   &hm LGUI O   &hm LCTRL E  &hm LSHIFT U &kp I            &kp D        &kp H        &hm LCTRL T  &hm LGUI N   &hm LALT S
+       &lhm LALT A  &lhm LGUI O  &lhm LCTRL E &lhm LSHFT U &kp I            &kp D        &kp H        &rhm LCTRL T &rhm LGUI N  &rhm LALT S
        &none        &kp Q        &kp J        &kp K        &kp X            &kp B        &kp M        &kp W        &kp V        &kp Z
   /* ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯ */
                                  &mo LOWER    &kp SPACE    &none            &none        &sk LSHIFT   &mo UPPER
