@@ -190,7 +190,7 @@
     // Switch to the SYSTEM layer.
     combo_system {
       timeout-ms = <50>;
-      key-positions = <10 19>;
+      key-positions = <0 9>;
       bindings = <&sl SYSTEM>;
     };
   };
@@ -286,7 +286,7 @@
     lower {
       bindings = <
   /* ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮ */
-       &kp LA(N1)   &kp LA(N2)   &kp LA(N3)   &kp LA(N4)   &kp LA(N5)       &none        &kp LS(TAB)  &kp UP       &kp BSPC     &kp TAB
+       &kp LA(N1)   &kp LA(N2)   &kp LA(N3)   &kp LA(N4)   &kp LA(N5)       &kp DEL      &kp LS(TAB)  &kp UP       &kp BSPC     &kp TAB
        &sk LALT     &sk LGUI     &sk LCTRL    &sk LSHIFT   &kp LAUNCHER     &none        &kp LEFT     &kp DOWN     &kp RIGHT    &kp ENTER
        &kp LG(X)    &kp RCS_TAB  &kp LG(C)    &kp CTL_TAB  &kp LG(V)        &none        &kp LPAR     &kp SEMI     &kp RPAR     &none
   /* ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯ */
