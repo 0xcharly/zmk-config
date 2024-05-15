@@ -154,7 +154,7 @@
    *    0  1  2  3  4    5  6  7  8  9
    *   10 11 12 13 14    15 16 17 18 19
    *   20 21 22 23 24    25 26 27 28 29
-   *         30 31 32    33 34 35
+   *            30 31    32 33
    */
   combos {
     compatible = "zmk,combos";
@@ -186,12 +186,13 @@
       bindings = <&caps_word>;
       layers = <DVORAK>;
     };
-    
-    // Switch to the SYSTEM layer.
-    combo_system {
+
+    // Caps Lock on a 2-key combo.
+    combo_caps_lock {
       timeout-ms = <50>;
-      key-positions = <0 9>;
-      bindings = <&sl SYSTEM>;
+      key-positions = <2 7>;
+      bindings = <&kp CAPSLOCK>;
+      layers = <DVORAK>;
     };
   };
 
@@ -224,7 +225,7 @@
     //    0  1  2  3  4    5  6  7  8  9
     //   10 11 12 13 14    15 16 17 18 19
     //   20 21 22 23 24    25 26 27 28 29
-    //         30 31 32    33 34 35
+    //            30 31    32 33
 
     // Tap-preferred flavored homerow mods to use on the right side keys and mouse.
     lhm: left_hand_homerow_mods {
@@ -235,7 +236,7 @@
       require-prior-idle-ms = <200>;
       flavor = "tap-preferred";
       bindings = <&kp>, <&kp>;
-      hold-trigger-key-positions = <5 6 7 8 9 15 16 17 18 19 25 26 27 28 29 33 34 35>; // Right-hand keys.
+      hold-trigger-key-positions = <5 6 7 8 9 15 16 17 18 19 25 26 27 28 29 33 33>; // Right-hand keys.
     };
 
     // Tap-preferred flavored homerow mods to use on the left side keys only.
@@ -247,7 +248,7 @@
       require-prior-idle-ms = <200>;
       flavor = "tap-preferred";
       bindings = <&kp>, <&kp>;
-      hold-trigger-key-positions = <0 1 2 3 4 10 11 12 13 14 20 21 22 23 24 30 31 32>; // Left-hand keys.
+      hold-trigger-key-positions = <0 1 2 3 4 10 11 12 13 14 20 21 22 23 24 30 31>; // Left-hand keys.
     };
   };
 
@@ -259,6 +260,7 @@
 
     /** Traditional Dvorak layout. */
     dvorak {
+      label = "Dvorak";
       bindings = <
   /* ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮ */
        &kp APOS     &comma_c_d   &dot_c_c     &kp P        &kp Y            &kp F        &kp G        &kp C        &kp R        &kp L
@@ -284,13 +286,14 @@
      *     - Semi-colon for synergy with parenthesis and alt mod.
      */
     lower {
+      label = "Lower";
       bindings = <
   /* ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮ */
        &kp LA(N1)   &kp LA(N2)   &kp LA(N3)   &kp LA(N4)   &kp LA(N5)       &kp DEL      &kp LS(TAB)  &kp UP       &kp BSPC     &kp TAB
        &sk LALT     &sk LGUI     &sk LCTRL    &sk LSHIFT   &kp LAUNCHER     &none        &kp LEFT     &kp DOWN     &kp RIGHT    &kp ENTER
        &kp LG(X)    &kp RCS_TAB  &kp LG(C)    &kp CTL_TAB  &kp LG(V)        &none        &kp LPAR     &kp SEMI     &kp RPAR     &none
   /* ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯ */
-                                              &trans /*↓*/ &none            &trans       &trans
+                                              &trans /*↓*/ &sk SYSTEM       &trans       &trans
   /*                                        ╰───────────────────────────╯ ╰───────────────────────────╯                           */
       >;
     };
@@ -311,13 +314,14 @@
      *     - Modal editors escape+colon roll for command mode.
      */
     upper {
+      label = "Upper";
       bindings = <
   /* ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮ */
        &kp PERCENT  &kp HASH     &kp EXCL     &kp EQUAL    &none            &none        &kp CARET    &kp QMARK    &kp DOLLAR   &kp BSLH
        &kp GRAVE    &kp ESCAPE   &kp MINUS    &kp COLON    &none            &none        &kp LBRC     &kp UNDER    &kp RBRC     &kp AT
        &kp TILDE    &kp PLUS     &kp ASTERISK &kp SLASH    &none            &none        &kp LBKT     &kp DQT      &kp RBKT     &none
   /* ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯ */
-                                              &trans       &trans           &none        &trans /*↓*/
+                                              &trans       &trans           &sk SYSTEM   &trans /*↓*/
   /*                                        ╰───────────────────────────╯ ╰───────────────────────────╯                           */
       >;
     };
@@ -331,6 +335,7 @@
      *   - Tilde and forward-slash synergy for paths. 
      */
     extend {
+      label = "Extend";
       bindings = <
   /* ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮ */
        &none        &kp COMMA    &kp DOT      &none        &none            &none        &none        &none        &none        &none
@@ -353,6 +358,7 @@
     *   - Ext power/RGB.
     */
     system {
+      label = "System";
       bindings = <
   /* ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮ */
        EXTPOW_TOG   &bt BT_SEL 3 &bt BT_SEL 2 &bt BT_SEL 1 &bt BT_SEL 0     &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 EXTPOW_TOG
