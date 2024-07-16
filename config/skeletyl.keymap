@@ -73,30 +73,6 @@
       bindings = <&macro_tap &kp EQUAL &kp GT>;
     };
 
-    // Zoom in (⌘+): ->
-    zoom_in: zoom_in {
-      label = "Zoom in";
-      compatible = "zmk,behavior-macro";
-      #binding-cells = <0>;
-      bindings
-          = <&macro_press &kp LGUI>
-          , <&macro_tap &kp PLUS>
-          , <&macro_release &kp LGUI>
-          ;
-    };
-
-    // Zoom out (⌘-): ->
-    zoom_out: zoom_out {
-      label = "Zoom out";
-      compatible = "zmk,behavior-macro";
-      #binding-cells = <0>;
-      bindings
-          = <&macro_press &kp LGUI>
-          , <&macro_tap &kp MINUS>
-          , <&macro_release &kp LGUI>
-          ;
-    };
-
     // ^C (Ctrl+c).
     ctrl_c: ctrl_c {
       label = "Ctrl+c";
@@ -351,8 +327,8 @@
     extend {
       bindings = <
   /* ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮ */
-       &kp LA(N6)   &kp LA(N7)   &kp LA(N8)   &kp LA(N9)   &kp LA(N0)       &zoom_out    &none        &kp DOT      &kp COMMA    &none
-       &kp N7       &kp N5       &kp N1       &kp N3       &none            &zoom_in     &kp N2       &kp N0       &kp N4       &kp N6
+       &kp LA(N6)   &kp LA(N7)   &kp LA(N8)   &kp LA(N9)   &kp LA(N0)       &none        &none        &kp DOT      &kp COMMA    &none
+       &kp N7       &kp N5       &kp N1       &kp N3       &none            &none        &kp N2       &kp N0       &kp N4       &kp N6
        &rarrow      &kp LT       &kp AMPS     &kp N9       &none            &none        &kp N8       &kp PIPE     &kp GT       &frarrow
   /* ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯ */
                                  &trans /*↓*/ &none        &none            &none        &none        &trans /*↓*/
