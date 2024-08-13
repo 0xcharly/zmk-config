@@ -144,6 +144,58 @@
           , <&macro_release &kp LALT>
           ;
     };
+
+    // ^bh: TMUX Space 0.
+    tmux_0: tmux_space_0 {
+      label = "TMUX Space 0";
+      compatible = "zmk,behavior-macro";
+      #binding-cells = <0>;
+      bindings
+          = <&macro_press &kp LCTRL>
+          , <&macro_tap &kp B>
+          , <&macro_tap &kp H>
+          , <&macro_release &kp LCTRL>
+          ;
+    };
+
+    // ^bj: TMUX Space 1.
+    tmux_1: tmux_space_1 {
+      label = "TMUX Space 1";
+      compatible = "zmk,behavior-macro";
+      #binding-cells = <0>;
+      bindings
+          = <&macro_press &kp LCTRL>
+          , <&macro_tap &kp B>
+          , <&macro_tap &kp J>
+          , <&macro_release &kp LCTRL>
+          ;
+    };
+
+    // ^bk: TMUX Space 2.
+    tmux_2: tmux_space_2 {
+      label = "TMUX Space 2";
+      compatible = "zmk,behavior-macro";
+      #binding-cells = <0>;
+      bindings
+          = <&macro_press &kp LCTRL>
+          , <&macro_tap &kp B>
+          , <&macro_tap &kp K>
+          , <&macro_release &kp LCTRL>
+          ;
+    };
+
+    // ^bl: TMUX Space 3.
+    tmux_3: tmux_space_3 {
+      label = "TMUX Space 3";
+      compatible = "zmk,behavior-macro";
+      #binding-cells = <0>;
+      bindings
+          = <&macro_press &kp LCTRL>
+          , <&macro_tap &kp B>
+          , <&macro_tap &kp L>
+          , <&macro_release &kp LCTRL>
+          ;
+    };
   };
 
   /**
@@ -327,7 +379,7 @@
     extend {
       bindings = <
   /* ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮ */
-       &kp LA(N6)   &kp LA(N7)   &kp LA(N8)   &kp LA(N9)   &kp LA(N0)       &none        &none        &kp DOT      &kp COMMA    &none
+       &kp LA(N6)   &kp LA(N7)   &kp LA(N8)   &kp LA(N9)   &kp LA(N0)       &none        &tmux_0      &tmux_1      &tmux_2      &tmux_3
        &kp N7       &kp N5       &kp N1       &kp N3       &none            &none        &kp N2       &kp N0       &kp N4       &kp N6
        &rarrow      &kp LT       &kp AMPS     &kp N9       &none            &none        &kp N8       &kp PIPE     &kp GT       &frarrow
   /* ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯ */
