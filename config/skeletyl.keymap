@@ -73,30 +73,6 @@
       bindings = <&macro_tap &kp EQUAL &kp GT>;
     };
 
-    // ^C (Ctrl+c).
-    ctrl_c: ctrl_c {
-      label = "Ctrl+c";
-      compatible = "zmk,behavior-macro";
-      #binding-cells = <0>;
-      bindings
-          = <&macro_press &kp LCTRL>
-          , <&macro_tap &kp C>
-          , <&macro_release &kp LCTRL>
-          ;
-    };
-
-    // ^D (Ctrl+d).
-    ctrl_d: ctrl_d {
-      label = "Ctrl+d";
-      compatible = "zmk,behavior-macro";
-      #binding-cells = <0>;
-      bindings
-          = <&macro_press &kp LCTRL>
-          , <&macro_tap &kp D>
-          , <&macro_release &kp LCTRL>
-          ;
-    };
-
     // Dead key acute.
     dk_acute: dead_key_ecute {
       label = "Acute dead key";
@@ -319,7 +295,7 @@
     dvorak {
       bindings = <
   /* ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮ */
-       &kp APOS     &comma_esc   &dot_colon   &kp P        &kp Y            &kp F        &kp G        &kp C        &kp R        &kp L
+       &kp APOS     &kp COMMA    &kp DOT      &kp P        &kp Y            &kp F        &kp G        &kp C        &kp R        &kp L
        &lhm LALT A  &lhm LGUI O  &lhm LCTRL E &lhm LSHFT U &kp I            &kp D        &kp H        &rhm LCTRL T &rhm LGUI N  &rhm LALT S
        &none        &kp Q        &kp J        &kp K        &kp X            &kp B        &kp M        &kp W        &kp V        &kp Z
   /* ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯ */
@@ -342,8 +318,7 @@
      *     - Semi-colon for synergy with parenthesis and alt mod.
      */
     lower {
-      bindings = <
-  /* ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮ */
+      bindings = < /* ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮ */
        &kp LA(N1)   &kp LA(N2)   &kp LA(N3)   &kp LA(N4)   &kp LA(N5)       &kp DEL      &kp LS(TAB)  &kp UP       &kp BSPC     &kp TAB
        &sk LALT     &sk LGUI     &sk LCTRL    &sk LSHIFT   &kp LAUNCHER     &none        &kp LEFT     &kp DOWN     &kp RIGHT    &kp ENTER
        &kp LG(X)    &kp RCS_TAB  &kp LG(C)    &kp CTL_TAB  &kp LG(V)        &none        &kp LPAR     &kp SEMI     &kp RPAR     &none
@@ -372,7 +347,7 @@
       bindings = <
   /* ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮ */
        &kp PERCENT  &kp HASH     &kp EXCL     &kp EQUAL    &none            &none        &kp CARET    &kp QMARK    &kp DOLLAR   &kp BSLH
-       &kp GRAVE    &none        &kp MINUS    &kp COLON    &sshift          &none        &kp LBRC     &kp UNDER    &kp RBRC     &kp AT
+       &kp GRAVE    &kp ESCAPE   &kp MINUS    &kp COLON    &sshift          &none        &kp LBRC     &kp UNDER    &kp RBRC     &kp AT
        &kp TILDE    &kp PLUS     &kp ASTERISK &kp SLASH    &none            &none        &kp LBKT     &kp DQT      &kp RBKT     &none
   /* ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯ */
                                  &trans       &trans       &none            &sl SYSTEM   &none        &trans /*↓*/
