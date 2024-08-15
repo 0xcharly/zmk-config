@@ -259,21 +259,21 @@
    * Particularly useful for Gmail keyboard shortcuts.
    */
   behaviors {
-    // Comma -> Control+d.
-    comma_c_d: comma_ctrl_d {
+    // Comma -> Escape.
+    comma_esc: comma_escape {
       compatible = "zmk,behavior-mod-morph";
       label = "COMMA_QUESTION";
       #binding-cells = <0>;
-      bindings = <&kp COMMA>, <&ctrl_d>;
+      bindings = <&kp COMMA>, <&kp ESCAPE>;
       mods = <(MOD_LSFT|MOD_RSFT)>;
     };
   
-    // Period -> Control+c.
-    dot_c_c: period_ctrl_c {
+    // Period -> colon.
+    dot_colon: period_colon {
       compatible = "zmk,behavior-mod-morph";
       label = "PERIOD_EXCLAMATION";
       #binding-cells = <0>;
-      bindings = <&kp PERIOD>, <&ctrl_c>;
+      bindings = <&kp PERIOD>, <&kp COLON>;
       mods = <(MOD_LSFT|MOD_RSFT)>;
     };
 
@@ -319,7 +319,7 @@
     dvorak {
       bindings = <
   /* ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮ */
-       &kp APOS     &comma_c_d   &dot_c_c     &kp P        &kp Y            &kp F        &kp G        &kp C        &kp R        &kp L
+       &kp APOS     &comma_esc   &dot_colon   &kp P        &kp Y            &kp F        &kp G        &kp C        &kp R        &kp L
        &lhm LALT A  &lhm LGUI O  &lhm LCTRL E &lhm LSHFT U &kp I            &kp D        &kp H        &rhm LCTRL T &rhm LGUI N  &rhm LALT S
        &none        &kp Q        &kp J        &kp K        &kp X            &kp B        &kp M        &kp W        &kp V        &kp Z
   /* ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯ */
