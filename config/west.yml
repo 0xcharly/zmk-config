@@ -1,11 +1,34 @@
 manifest:
+  defaults:
+    remote: urob
+
   remotes:
-    - name: zmkfirmware
+    - name: upstream
       url-base: https://github.com/zmkfirmware
+    - name: urob
+      url-base: https://github.com/urob
+
   projects:
+    - name: zmk-helpers
+      revision: main
+      path: modules/helpers
+    - name: zmk-auto-layer
+      revision: main
+      path: modules/auto-layer
+    - name: zmk-tri-state
+      revision: main
+      path: modules/tri-state
+
+    # ZMK with Zephyr namespaced under /zmk. This requires that ZMK imports
+    # Zephyr with a path other than `zephyr` (as in `going-modular`).
     - name: zmk
-      remote: zmkfirmware
+      remote: upstream
       revision: main
       import: app/west.yml
+      # path: .
+      # import:
+      #   file: app/west.yml
+      #   path-prefix: zmk
+
   self:
     path: config

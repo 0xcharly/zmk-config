@@ -57,8 +57,8 @@ clean-nix:
 draw:
     #!/usr/bin/env bash
     set -euo pipefail
-    keymap -c "{{ draw }}/config.yaml" parse -z "{{ config }}/skeletyl.keymap" >"{{ draw }}/skeletyl.yaml"
-    keymap -c "{{ draw }}/config.yaml" draw "{{ draw }}/skeletyl.yaml" -k "bastardkb/skeletyl" >"{{ draw }}/skeletyl.svg"
+    keymap -c "{{ draw }}/config.yaml" parse -z "{{ config }}/base.keymap" >"{{ draw }}/base.yaml"
+    keymap -c "{{ draw }}/config.yaml" draw "{{ draw }}/base.yaml" -k "ferris/sweep" >"{{ draw }}/base.svg"
 
 # initialize west
 init:

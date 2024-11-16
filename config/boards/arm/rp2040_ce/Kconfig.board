@@ -1,0 +1,8 @@
+# Copyright (c) 2022 Pete Johanson
+# Copyright (c) 2024, Nicolas Munnich
+# Copyright (c) 2024, Charly Delay
+# SPDX-License-Identifier: Apache-2.0
+
+config BOARD_RP2040_CE
+	bool "RP2040 Community Edition"
+	depends on SOC_RP2040

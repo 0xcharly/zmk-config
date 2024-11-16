@@ -1,0 +1,8 @@
+/* source key position labels */
+#include "zmk-helpers/key-labels/34.h"
+
+/* activate bluetooth */
+#define CONFIG_WIRELESS
+
+/* source the main keymap */
+#include "base.keymap"

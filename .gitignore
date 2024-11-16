@@ -9,3 +9,6 @@ zmk/
 # Ignore keymap-drawer output for now
 draw/skeletyl.svg
 draw/skeletyl.yaml
+.DS_Store
+draw/base.svg
+draw/base.yaml
