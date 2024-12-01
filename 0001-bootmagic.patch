@@ -1,0 +1,666 @@
+From e8b31969c7afc869ab840d9f58de5331df097fa7 Mon Sep 17 00:00:00 2001
+From: Charly Delay <0@0xcharly.com>
+Date: Sun, 1 Dec 2024 19:50:15 +0900
+Subject: [PATCH] [PATCH] Cherry-pick
+ https://github.com/zmkfirmware/zmk/pull/1757
+
+---
+ app/CMakeLists.txt                       |   2 +
+ app/Kconfig                              |   9 +
+ app/dts/behaviors/reset.dtsi             |   2 +-
+ app/dts/bindings/zmk,boot-magic-key.yaml |  22 +++
+ app/include/dt-bindings/zmk/reset.h      |  10 +-
+ app/include/zmk/ble.h                    |   2 +-
+ app/include/zmk/reset.h                  |  24 +++
+ app/src/behaviors/behavior_reset.c       |   6 +-
+ app/src/ble.c                            |  57 ++++---
+ app/src/boot_magic_key.c                 |  80 +++++++++
+ app/src/reset.c                          |  48 ++++++
+ docs/docs/config/system.md               |  15 +-
+ docs/docs/features/boot-magic-key.md     | 209 +++++++++++++++++++++++
+ docs/sidebars.js                         |   1 +
+ 14 files changed, 441 insertions(+), 46 deletions(-)
+ create mode 100644 app/dts/bindings/zmk,boot-magic-key.yaml
+ create mode 100644 app/include/zmk/reset.h
+ create mode 100644 app/src/boot_magic_key.c
+ create mode 100644 app/src/reset.c
+ create mode 100644 docs/docs/features/boot-magic-key.md
+
+diff --git a/app/CMakeLists.txt b/app/CMakeLists.txt
+index 072d5672..dc43b644 100644
+--- a/app/CMakeLists.txt
++++ b/app/CMakeLists.txt
+@@ -29,6 +29,7 @@ target_sources(app PRIVATE src/behavior.c)
+ target_sources_ifdef(CONFIG_ZMK_KSCAN_SIDEBAND_BEHAVIORS app PRIVATE src/kscan_sideband_behaviors.c)
+ target_sources(app PRIVATE src/matrix_transform.c)
+ target_sources(app PRIVATE src/physical_layouts.c)
++target_sources(app PRIVATE src/reset.c)
+ target_sources(app PRIVATE src/sensors.c)
+ target_sources_ifdef(CONFIG_ZMK_WPM app PRIVATE src/wpm.c)
+ target_sources(app PRIVATE src/event_manager.c)
+@@ -103,6 +104,7 @@ target_sources_ifdef(CONFIG_ZMK_USB app PRIVATE src/usb_hid.c)
+ target_sources_ifdef(CONFIG_ZMK_RGB_UNDERGLOW app PRIVATE src/rgb_underglow.c)
+ target_sources_ifdef(CONFIG_ZMK_BACKLIGHT app PRIVATE src/backlight.c)
+ target_sources_ifdef(CONFIG_ZMK_LOW_PRIORITY_WORK_QUEUE app PRIVATE src/workqueue.c)
++target_sources_ifdef(CONFIG_ZMK_BOOT_MAGIC_KEY app PRIVATE src/boot_magic_key.c)
+ target_sources(app PRIVATE src/main.c)
+ 
+ add_subdirectory(src/display/)
+diff --git a/app/Kconfig b/app/Kconfig
+index 5fc03822..39203980 100644
+--- a/app/Kconfig
++++ b/app/Kconfig
+@@ -687,6 +687,15 @@ choice CBPRINTF_IMPLEMENTATION
+ 
+ endchoice
+ 
++DT_COMPAT_ZMK_BOOT_MAGIC_KEY := zmk,boot-magic-key
++config ZMK_BOOT_MAGIC_KEY
++    bool "Enable actions when keys are held at boot"
++    default $(dt_compat_enabled,$(DT_COMPAT_ZMK_BOOT_MAGIC_KEY))
++
++config ZMK_BOOT_MAGIC_KEY_TIMEOUT_MS
++    int "Milliseconds to wait for a boot magic key at startup"
++    default 500
++
+ module = ZMK
+ module-str = zmk
+ source "subsys/logging/Kconfig.template.log_config"
+diff --git a/app/dts/behaviors/reset.dtsi b/app/dts/behaviors/reset.dtsi
+index 2aa41d7d..b2999e71 100644
+--- a/app/dts/behaviors/reset.dtsi
++++ b/app/dts/behaviors/reset.dtsi
+@@ -18,7 +18,7 @@
+         // Behavior can be invoked on peripherals, so name must be <= 8 characters.
+         bootloader: bootload {
+             compatible = "zmk,behavior-reset";
+-            type = <RST_UF2>;
++            type = <ZMK_RESET_BOOTLOADER>;
+             #binding-cells = <0>;
+             display-name = "Bootloader";
+         };
+diff --git a/app/dts/bindings/zmk,boot-magic-key.yaml b/app/dts/bindings/zmk,boot-magic-key.yaml
+new file mode 100644
+index 00000000..59d58f8b
+--- /dev/null
++++ b/app/dts/bindings/zmk,boot-magic-key.yaml
+@@ -0,0 +1,22 @@
++# Copyright (c) 2023, The ZMK Contributors
++# SPDX-License-Identifier: MIT
++
++description: |
++  Triggers one or more actions if a specific key is held while the keyboard boots.
++  This is typically used for recovering a keyboard in cases such as &bootloader
++  being missing from the keymap or a split peripheral which isn't connected to
++  the central, and therefore can't process th ekeymap.
++compatible: "zmk,boot-magic-key"
++
++properties:
++  key-position:
++    type: int
++    default: 0
++    description: Zero-based index of the key which triggers the action(s).
++  # Boot magic actions:
++  jump-to-bootloader:
++    type: boolean
++    description: Reboots into the bootloader.
++  reset-settings:
++    type: boolean
++    description: Clears settings and reboots.
+diff --git a/app/include/dt-bindings/zmk/reset.h b/app/include/dt-bindings/zmk/reset.h
+index 2b3d8760..63f3428e 100644
+--- a/app/include/dt-bindings/zmk/reset.h
++++ b/app/include/dt-bindings/zmk/reset.h
+@@ -4,10 +4,6 @@
+  * SPDX-License-Identifier: MIT
+  */
+ 
+-#define RST_WARM 0x00
+-#define RST_COLD 0x01
+-
+-// AdaFruit nrf52 Bootloader Specific. See
+-// https://github.com/adafruit/Adafruit_nRF52_Bootloader/blob/d6b28e66053eea467166f44875e3c7ec741cb471/src/main.c#L107
+-
+-#define RST_UF2 0x57
+\ No newline at end of file
++#define ZMK_RESET_WARM 0
++#define ZMK_RESET_COLD 1
++#define ZMK_RESET_BOOTLOADER 2
+diff --git a/app/include/zmk/ble.h b/app/include/zmk/ble.h
+index c44c5e16..33237e71 100644
+--- a/app/include/zmk/ble.h
++++ b/app/include/zmk/ble.h
+@@ -37,7 +37,7 @@ bool zmk_ble_active_profile_is_open(void);
+ bool zmk_ble_active_profile_is_connected(void);
+ char *zmk_ble_active_profile_name(void);
+ 
+-int zmk_ble_unpair_all(void);
++void zmk_ble_unpair_all(void);
+ 
+ int zmk_ble_set_device_name(char *name);
+ 
+diff --git a/app/include/zmk/reset.h b/app/include/zmk/reset.h
+new file mode 100644
+index 00000000..065a63c1
+--- /dev/null
++++ b/app/include/zmk/reset.h
+@@ -0,0 +1,24 @@
++/*
++ * Copyright (c) 2023 The ZMK Contributors
++ *
++ * SPDX-License-Identifier: MIT
++ */
++
++#pragma once
++
++#include <zephyr/toolchain.h>
++#include <dt-bindings/zmk/reset.h>
++
++/**
++ * Reboot the system.
++ * @param type A ZMK_RESET_* value indicating how to reboot.
++ */
++void zmk_reset(int type);
++
++/**
++ * Clear all persistent settings.
++ *
++ * This should typically be followed by a call to zmk_reset() to ensure that
++ * all subsystems are properly reset.
++ */
++void zmk_reset_settings(void);
+diff --git a/app/src/behaviors/behavior_reset.c b/app/src/behaviors/behavior_reset.c
+index 554132f4..78827a3a 100644
+--- a/app/src/behaviors/behavior_reset.c
++++ b/app/src/behaviors/behavior_reset.c
+@@ -13,6 +13,7 @@
+ #include <drivers/behavior.h>
+ 
+ #include <zmk/behavior.h>
++#include <zmk/reset.h>
+ 
+ LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
+ 
+@@ -28,10 +29,7 @@ static int on_keymap_binding_pressed(struct zmk_behavior_binding *binding,
+     const struct device *dev = zmk_behavior_get_binding(binding->behavior_dev);
+     const struct behavior_reset_config *cfg = dev->config;
+ 
+-    // TODO: Correct magic code for going into DFU?
+-    // See
+-    // https://github.com/adafruit/Adafruit_nRF52_Bootloader/blob/d6b28e66053eea467166f44875e3c7ec741cb471/src/main.c#L107
+-    sys_reboot(cfg->type);
++    zmk_reset(cfg->type);
+     return ZMK_BEHAVIOR_OPAQUE;
+ }
+ 
+diff --git a/app/src/ble.c b/app/src/ble.c
+index 02d8901b..b7ab02e5 100644
+--- a/app/src/ble.c
++++ b/app/src/ble.c
+@@ -335,6 +335,36 @@ struct bt_conn *zmk_ble_active_profile_conn(void) {
+ 
+ char *zmk_ble_active_profile_name(void) { return profiles[active_profile].name; }
+ 
++void zmk_ble_unpair_all(void) {
++    int err;
++
++    LOG_WRN("Clearing all existing BLE bond information from the keyboard");
++
++    bt_unpair(BT_ID_DEFAULT, NULL);
++
++    for (int i = 0; i < 8; i++) {
++        char setting_name[15];
++        sprintf(setting_name, "ble/profiles/%d", i);
++
++        err = settings_delete(setting_name);
++        if (err) {
++            LOG_ERR("Failed to delete setting: %d", err);
++        }
++    }
++
++    // Hardcoding a reasonable hardcoded value of peripheral addresses
++    // to clear so we properly clear a split central as well.
++    for (int i = 0; i < 8; i++) {
++        char setting_name[32];
++        sprintf(setting_name, "ble/peripheral_addresses/%d", i);
++
++        err = settings_delete(setting_name);
++        if (err) {
++            LOG_ERR("Failed to delete setting: %d", err);
++        }
++    }
++}
++
+ int zmk_ble_set_device_name(char *name) {
+     // Copy new name to advertising parameters
+     int err = bt_set_name(name);
+@@ -672,32 +702,7 @@ static void zmk_ble_ready(int err) {
+ static int zmk_ble_complete_startup(void) {
+ 
+ #if IS_ENABLED(CONFIG_ZMK_BLE_CLEAR_BONDS_ON_START)
+-    LOG_WRN("Clearing all existing BLE bond information from the keyboard");
+-
+-    bt_unpair(BT_ID_DEFAULT, NULL);
+-
+-    for (int i = 0; i < 8; i++) {
+-        char setting_name[15];
+-        sprintf(setting_name, "ble/profiles/%d", i);
+-
+-        int err = settings_delete(setting_name);
+-        if (err) {
+-            LOG_ERR("Failed to delete setting: %d", err);
+-        }
+-    }
+-
+-    // Hardcoding a reasonable hardcoded value of peripheral addresses
+-    // to clear so we properly clear a split central as well.
+-    for (int i = 0; i < 8; i++) {
+-        char setting_name[32];
+-        sprintf(setting_name, "ble/peripheral_addresses/%d", i);
+-
+-        int err = settings_delete(setting_name);
+-        if (err) {
+-            LOG_ERR("Failed to delete setting: %d", err);
+-        }
+-    }
+-
++    zmk_ble_unpair_all();
+ #endif // IS_ENABLED(CONFIG_ZMK_BLE_CLEAR_BONDS_ON_START)
+ 
+     bt_conn_cb_register(&conn_callbacks);
+diff --git a/app/src/boot_magic_key.c b/app/src/boot_magic_key.c
+new file mode 100644
+index 00000000..bc29873a
+--- /dev/null
++++ b/app/src/boot_magic_key.c
+@@ -0,0 +1,80 @@
++/*
++ * Copyright (c) 2023 The ZMK Contributors
++ *
++ * SPDX-License-Identifier: MIT
++ */
++
++#define DT_DRV_COMPAT zmk_boot_magic_key
++
++#include <zephyr/device.h>
++#include <zephyr/devicetree.h>
++#include <zephyr/init.h>
++#include <zephyr/kernel.h>
++#include <zephyr/toolchain.h>
++#include <zephyr/logging/log.h>
++
++#include <zmk/reset.h>
++#include <zmk/event_manager.h>
++#include <zmk/events/position_state_changed.h>
++
++LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
++
++struct boot_key_config {
++    int key_position;
++    bool jump_to_bootloader;
++    bool reset_settings;
++};
++
++#define BOOT_KEY_CONFIG(n)                                                                         \
++    {                                                                                              \
++        .key_position = DT_INST_PROP_OR(n, key_position, 0),                                       \
++        .jump_to_bootloader = DT_INST_PROP_OR(n, jump_to_bootloader, false),                       \
++        .reset_settings = DT_INST_PROP_OR(n, reset_settings, false),                               \
++    },
++
++static const struct boot_key_config boot_keys[] = {DT_INST_FOREACH_STATUS_OKAY(BOOT_KEY_CONFIG)};
++
++static int64_t timeout_uptime;
++
++static int timeout_init(const struct device *device) {
++    timeout_uptime = k_uptime_get() + CONFIG_ZMK_BOOT_MAGIC_KEY_TIMEOUT_MS;
++    return 0;
++}
++
++SYS_INIT(timeout_init, APPLICATION, CONFIG_APPLICATION_INIT_PRIORITY);
++
++static void trigger_boot_key(const struct boot_key_config *config) {
++    if (config->reset_settings) {
++        LOG_INF("Boot key: resetting settings");
++        zmk_reset_settings();
++    }
++
++    if (config->jump_to_bootloader) {
++        LOG_INF("Boot key: jumping to bootloader");
++        zmk_reset(ZMK_RESET_BOOTLOADER);
++    } else if (config->reset_settings) {
++        // If resetting settings but not jumping to bootloader, we need to reboot
++        // to ensure all subsystems are properly reset.
++        zmk_reset(ZMK_RESET_WARM);
++    }
++}
++
++static int event_listener(const zmk_event_t *eh) {
++    if (likely(k_uptime_get() > timeout_uptime)) {
++        return ZMK_EV_EVENT_BUBBLE;
++    }
++
++    const struct zmk_position_state_changed *ev = as_zmk_position_state_changed(eh);
++    if (ev && ev->state) {
++        for (int i = 0; i < ARRAY_SIZE(boot_keys); i++) {
++            if (ev->position == boot_keys[i].key_position) {
++                trigger_boot_key(&boot_keys[i]);
++            }
++        }
++    }
++
++    return ZMK_EV_EVENT_BUBBLE;
++}
++
++ZMK_LISTENER(boot_magic_key, event_listener);
++ZMK_SUBSCRIPTION(boot_magic_key, zmk_position_state_changed);
+diff --git a/app/src/reset.c b/app/src/reset.c
+new file mode 100644
+index 00000000..179e1890
+--- /dev/null
++++ b/app/src/reset.c
+@@ -0,0 +1,48 @@
++/*
++ * Copyright (c) 2023 The ZMK Contributors
++ *
++ * SPDX-License-Identifier: MIT
++ */
++
++#include <zephyr/sys/reboot.h>
++#include <zephyr/logging/log.h>
++#include <zephyr/sys/util.h>
++
++#if IS_ENABLED(CONFIG_ZMK_BLE)
++#include <zmk/ble.h>
++#endif
++#include <zmk/reset.h>
++
++LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
++
++// AdaFruit nrf52 Bootloader Specific. See
++// https://github.com/adafruit/Adafruit_nRF52_Bootloader/blob/d6b28e66053eea467166f44875e3c7ec741cb471/src/main.c#L107
++#define ADAFRUIT_MAGIC_UF2 0x57
++
++void zmk_reset(int type) {
++    switch (type) {
++    case ZMK_RESET_WARM:
++        sys_reboot(SYS_REBOOT_WARM);
++        break;
++
++    case ZMK_RESET_COLD:
++        sys_reboot(SYS_REBOOT_COLD);
++        break;
++
++    case ZMK_RESET_BOOTLOADER:
++        // TODO: Add support for other types of bootloaders.
++        sys_reboot(ADAFRUIT_MAGIC_UF2);
++        break;
++
++    default:
++        LOG_ERR("Unknown reset type %d", type);
++        break;
++    }
++}
++
++void zmk_reset_settings(void) {
++#if IS_ENABLED(CONFIG_ZMK_BLE)
++    zmk_ble_unpair_all();
++#endif
++    // TODO: clear settings for all subsystems.
++}
+diff --git a/docs/docs/config/system.md b/docs/docs/config/system.md
+index 150c30c5..e54b7ba1 100644
+--- a/docs/docs/config/system.md
++++ b/docs/docs/config/system.md
+@@ -13,13 +13,14 @@ Definition file: [zmk/app/Kconfig](https://github.com/zmkfirmware/zmk/blob/main/
+ 
+ ### General
+ 
+-| Config                               | Type   | Description                                                                   | Default |
+-| ------------------------------------ | ------ | ----------------------------------------------------------------------------- | ------- |
+-| `CONFIG_ZMK_KEYBOARD_NAME`           | string | The name of the keyboard (max 16 characters)                                  |         |
+-| `CONFIG_ZMK_SETTINGS_RESET_ON_START` | bool   | Clears all persistent settings from the keyboard at startup                   | n       |
+-| `CONFIG_ZMK_SETTINGS_SAVE_DEBOUNCE`  | int    | Milliseconds to wait after a setting change before writing it to flash memory | 60000   |
+-| `CONFIG_ZMK_WPM`                     | bool   | Enable calculating words per minute                                           | n       |
+-| `CONFIG_HEAP_MEM_POOL_SIZE`          | int    | Size of the heap memory pool                                                  | 8192    |
++| Config                                 | Type   | Description                                                                           | Default |
++| -------------------------------------- | ------ | ------------------------------------------------------------------------------------- | ------- |
++| `CONFIG_ZMK_KEYBOARD_NAME`             | string | The name of the keyboard (max 16 characters)                                          |         |
++| `CONFIG_ZMK_SETTINGS_SAVE_DEBOUNCE`    | int    | Milliseconds to wait after a setting change before writing it to flash memory         | 60000   |
++| `CONFIG_ZMK_BOOT_MAGIC_KEY_TIMEOUT_MS` | int    | Milliseconds to watch for [boot magic keys](../features/boot-magic-key.md) at startup | 500     |
++| `CONFIG_ZMK_WPM`                       | bool   | Enable calculating words per minute                                                   | n       |
++| `CONFIG_HEAP_MEM_POOL_SIZE`            | int    | Size of the heap memory pool                                                          | 8192    |
++| `CONFIG_ZMK_BATTERY_REPORT_INTERVAL`   | int    | Battery level report interval in seconds                                              | 60      |
+ 
+ ### HID
+ 
+diff --git a/docs/docs/features/boot-magic-key.md b/docs/docs/features/boot-magic-key.md
+new file mode 100644
+index 00000000..d51c2b34
+--- /dev/null
++++ b/docs/docs/features/boot-magic-key.md
+@@ -0,0 +1,209 @@
++---
++title: Boot Magic Key
++sidebar_label: Boot Magic Key
++---
++
++A boot magic key performs one or more actions if a specific key is held while powering on the keyboard. This is useful for recovering a keyboard which doesn't have a physical reset button. It also works on the peripheral side of a split keyboard, even when it isn't connected to the central side.
++
++## Magic Keys
++
++To define a boot magic key on a new board or shield, add a `zmk,boot-magic-key` node to your board's `.dts` file or shield's `.overlay` file and select which key will trigger it with the `key-position` property.
++
++You can also enable the feature for any keyboard by adding it to your `.keymap` file.
++
++```c
++/ {
++    ...
++    bootloader_key: bootloader_key {
++        compatible = "zmk,boot-magic-key";
++        key-position = <0>;
++    };
++    ...
++};
++```
++
++:::info
++
++Key positions are numbered like the keys in your keymap, starting at 0. So, if the first key in your keymap is `Q`, this key is in position `0`. The next key (possibly `W`) will have position 1, etcetera.
++
++:::
++
++If `key-position` is omitted, it will trigger for the key in position `0`.
++
++Next, you should add properties to determine what the magic key will do:
++
++### Jump to Bootloader
++
++If a boot magic key has a `jump-to-bootloader` property, it will reboot to the bootloader:
++
++```c
++/ {
++    ...
++    bootloader_key: bootloader_key {
++        compatible = "zmk,boot-magic-key";
++        ...
++        jump-to-bootloader;
++    };
++    ...
++};
++```
++
++### Reset Settings
++
++If a boot magic key has a `reset-settings` property, it will reset persistent settings and then reboot:
++
++```c
++/ {
++    ...
++    reset_settings_key: reset_settings_key {
++        compatible = "zmk,boot-magic-key";
++        ...
++        reset-settings;
++    };
++    ...
++};
++```
++
++:::info
++
++This clears all BLE bonds. You will need to re-pair the keyboard with any hosts after using this.
++
++:::
++
++:::caution
++
++Currently this action _only_ clears BLE bonds. It will be updated to reset all settings in the future.
++
++:::
++
++## Multiple Actions
++
++If you want a single boot magic key to perform multiple actions, simply add properties for each action to the same `zmk,boot-magic-key` node. The order of the properties does not matter.
++
++For example, to make a key that resets settings and then reboots to the bootloader, add both `reset-settings` and `jump-to-bootloader`:
++
++```c
++/ {
++    ...
++    recovery_key: recovery_key {
++        compatible = "zmk,boot-magic-key";
++        jump-to-bootloader;
++        reset-settings;
++    };
++    ...
++};
++```
++
++:::info
++
++You may define multiple `zmk,boot-magic-key` nodes for different keys, but note that if you hold multiple keys at boot, they will be run in an arbitrary order. If one of them reboots the keyboard, the rest of the keys will not run.
++
++:::
++
++## Split Keyboards
++
++For split keyboards, you can define multiple boot magic keys and then only enable the correct key(s) for each side. For example, if key 0 is the top-left key on the left side and key 11 is the top-right key on the right side, you could use:
++
++**shield.dtsi**
++
++```c
++/ {
++    ...
++    bootloader_key_left: bootloader_key_left {
++        compatible = "zmk,boot-magic-key";
++        key-position = <0>;
++        jump-to-bootloader;
++        status = "disabled";
++    };
++
++    bootloader_key_right: bootloader_key_right {
++        compatible = "zmk,boot-magic-key";
++        key-position = <11>;
++        jump-to-bootloader;
++        status = "disabled";
++    };
++    ...
++};
++```
++
++**shield_left.overlay**
++
++```c
++#include "shield.dtsi"
++
++&bootloader_key_left {
++    status = "okay";
++};
++```
++
++**shield_right.overlay**
++
++```c
++#include "shield.dtsi"
++
++&bootloader_key_right {
++    status = "okay";
++};
++```
++
++## Key Positions and Alternate Layouts
++
++Key positions are affected by the [matrix transform](../config/kscan.md#matrix-transform), so if your keyboard has multiple transforms for alternate layouts, you may need to adjust positions according to the user's selected transform. There is no automatic way to do this, but one way to simplify things for users is to add a block of commented out code to the keymap which selects the transform and updates the key positions to match if uncommented.
++
++For example, consider a split keyboard which has 6 columns per side by default but supports a 5-column layout, and assume you want the top-left key on the left side and the top-right key on the right side to be boot magic keys. The top-left key will be position 0 regardless of layout, but the top-right key will be position 11 by default and position 9 in the 5-column layout.
++
++**shield.dtsi**
++
++```c
++/ {
++    chosen {
++        zmk,matrix_transform = &default_transform;
++    };
++
++    bootloader_key_left: bootloader_key_left {
++        compatible = "zmk,boot-magic-key";
++        key-position = <0>;
++        jump-to-bootloader;
++        status = "disabled";
++    };
++
++    bootloader_key_right: bootloader_key_right {
++        compatible = "zmk,boot-magic-key";
++        key-position = <11>;
++        jump-to-bootloader;
++        status = "disabled";
++    };
++    ...
++};
++```
++
++**shield.keymap**
++
++```c
++// Uncomment this block if using the 5-column layout
++// / {
++//     chosen {
++//         zmk,matrix_transform = &five_column_transform;
++//     };
++//     bootloader_key_right {
++//         key-position = <9>;
++//     };
++// };
++```
++
++## Startup Timeout
++
++By default, the keyboard processes boot magic keys for 500 ms. You can change this timeout with `CONFIG_ZMK_BOOT_MAGIC_KEY_TIMEOUT_MS` if it isn't reliably triggering, for example if you have some board-specific initialization code which takes a while.
++
++To change the value for a new board or shield, set this option in your `Kconfig.defconfig` file:
++
++```
++config ZMK_BOOT_MAGIC_KEY_TIMEOUT_MS
++    default 1000
++```
++
++You can also set it from your keyboard's `.conf` file in a user config repo:
++
++```ini
++CONFIG_ZMK_BOOT_MAGIC_KEY_TIMEOUT_MS=1000
++```
+diff --git a/docs/sidebars.js b/docs/sidebars.js
+index 57f07fc3..28cdf5d2 100644
+--- a/docs/sidebars.js
++++ b/docs/sidebars.js
+@@ -33,6 +33,7 @@ module.exports = {
+     {
+       Features: [
+         "features/bluetooth",
++        "features/boot-magic-key",
+         "features/modules",
+         "features/split-keyboards",
+         "features/debouncing",
+-- 
+2.47.2
+
