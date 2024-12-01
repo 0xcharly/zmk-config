@@ -4,7 +4,7 @@
     pinctrl-0 = <&pio0_uart0_right>;
 };
 
-&skeletyl_34_wired_transform {
+&default_transform {
     col-offset = <5>;
 };
 
