@@ -4,6 +4,8 @@ manifest:
       url-base: https://github.com/zmkfirmware
     - name: urob
       url-base: https://github.com/urob
+    - name: xudongzheng
+      url-base: https://github.com/xudongzheng
 
   projects:
     - name: zmk-auto-layer
@@ -14,8 +16,8 @@ manifest:
     # ZMK with Zephyr namespaced under /zmk. This requires that ZMK imports
     # Zephyr with a path other than `zephyr` (as in `going-modular`).
     - name: zmk
-      remote: upstream
-      revision: main
+      remote: xudongzheng
+      revision: split-serial-pr
       import: app/west.yml
       # path: .
       # import:
