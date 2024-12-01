@@ -14,9 +14,9 @@
 ---
 include:
   - board: rp2040_ce
-    shield: rp2040_ce_holder skeletyl_34_wired_left
+    shield: rp2040_ce_holder skeletyl_34_wired_left skeletyl_34_wired_left
   - board: rp2040_ce
-    shield: rp2040_ce_holder skeletyl_34_wired_right
+    shield: rp2040_ce_holder skeletyl_34_wired_right skeletyl_34_wired_right
 
   - board: nice_nano_v2
     shield: skeletyl_34_left
