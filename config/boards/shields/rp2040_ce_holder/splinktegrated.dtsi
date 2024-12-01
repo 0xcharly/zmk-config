@@ -1,0 +1,39 @@
+/*
+ * Copyright (c) 2020 Pete Johanson
+ * Copyright (c) 2024 burkfers
+ * Copyright (c) 2024 Charly Delay <0@0xcharly.com>
+ *
+ * SPDX-License-Identifier: MIT
+ */
+
+/ {
+	splinktegrated_r: connector_r {
+		compatible = "bastardkb,splinktegrated-rows";
+		#gpio-cells = <2>;
+		gpio-map-mask = <0xffffffff 0xffffffc0>;
+		gpio-map-pass-thru = <0 0x3f>;
+		gpio-map
+			= <1 0 &pro_micro 21 0> /* RP2040 gpio29 */
+	 		, <2 0 &pro_micro 18 0>	/* RP2040 gpio26 */
+			, <3 0 &pro_micro  5 0> /* RP2040 gpio5 */
+			, <4 0 &pro_micro  4 0> /* RP2040 gpio4 */
+			, <5 0 &pro_micro  9 0> /* RP2040 gpio9 */
+
+			;
+	};
+
+	splinktegrated_c: connector_c {
+		compatible = "bastardkb,splinktegrated-cols";
+		#gpio-cells = <2>;
+		gpio-map-mask = <0xffffffff 0xffffffc0>;
+		gpio-map-pass-thru = <0 0x3f>;
+		gpio-map
+			= <1 0 &pro_micro 19 0> /* RP2040 gpio27 */
+			, <2 0 &pro_micro 20 0> /* RP2040 gpio28 */
+			, <3 0 &pro_micro 10 0> /* RP2040 gpio21 */
+			, <4 0 &pro_micro  6 0> /* RP2040 gpio6 */
+			, <5 0 &pro_micro  7 0> /* RP2040 gpio7 */
+			, <6 0 &pro_micro  8 0> /* RP2040 gpio8 */
+			;
+	};
+};

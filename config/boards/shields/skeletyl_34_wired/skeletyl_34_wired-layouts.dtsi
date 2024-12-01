@@ -1,0 +1,10 @@
+#include <physical_layouts.dtsi>
+
+/ {
+    skeletyl_34_3x5_layout: skeletyl_34_3x5_layout {
+        compatible = "zmk,physical-layout";
+        display-name = "3x5 Layout";
+        transform = <&skeletyl_34_3x5_transform>;
+        kscan = <&kscan0>;
+    };
+};
