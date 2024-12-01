@@ -1,0 +1,6 @@
+if SHIELD_RP2040_CE_HOLDER
+
+config ZMK_KEYBOARD_NAME
+    default "Bastard Keyboards RP2040 CE Holder"
+
+endif

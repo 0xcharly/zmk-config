@@ -1,0 +1,28 @@
+#include "skeletyl_34_wired.dtsi"
+
+&pio0_uart0 {
+    pinctrl-0 = <&pio0_uart0_left>;
+};
+
+&kscan0 {
+    debounce-press-ms = <8>;
+    debounce-release-ms = <16>;
+    row-gpios
+        = <&splinktegrated_r 1 GPIO_ACTIVE_HIGH>
+        , <&splinktegrated_r 2 GPIO_ACTIVE_HIGH>
+        , <&splinktegrated_r 3 GPIO_ACTIVE_HIGH>
+        , <&splinktegrated_r 4 GPIO_ACTIVE_HIGH>
+        ;
+
+    col-gpios
+        = <&splinktegrated_c 1 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+        , <&splinktegrated_c 2 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+        , <&splinktegrated_c 3 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+        , <&splinktegrated_c 4 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+        , <&splinktegrated_c 5 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+        ;
+};
+
+&bootloader_key_left {
+    status = "okay";
+};

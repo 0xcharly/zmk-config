@@ -1,0 +1,10 @@
+#include <physical_layouts.dtsi>
+
+/ {
+    skeletyl_34_wired_layout: skeletyl_34_wired_layout {
+        compatible = "zmk,physical-layout";
+        display-name = "Skeletyl 3x5 layout (34 keys)";
+        transform = <&default_transform>;
+        kscan = <&kscan0>;
+    };
+};

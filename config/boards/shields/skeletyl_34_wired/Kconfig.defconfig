@@ -1,0 +1,18 @@
+if SHIELD_SKELETYL_34_WIRED_RIGHT
+
+config ZMK_KEYBOARD_NAME
+    default "BastardKB Skeletyl"
+
+config ZMK_SPLIT_ROLE_CENTRAL
+    default y
+
+endif
+
+if SHIELD_SKELETYL_34_WIRED_LEFT || SHIELD_SKELETYL_34_WIRED_RIGHT
+
+config ZMK_SPLIT
+    default y
+config ZMK_SPLIT_SERIAL
+    default y
+
+endif

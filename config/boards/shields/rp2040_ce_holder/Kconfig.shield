@@ -1,0 +1,2 @@
+config SHIELD_RP2040_CE_HOLDER
+    def_bool $(shields_list_contains,rp2040_ce_holder)
