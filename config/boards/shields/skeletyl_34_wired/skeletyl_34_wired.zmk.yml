@@ -1,0 +1,12 @@
+file_format: "1"
+id: skeletyl_34_wired
+name: Skeletyl 34 Wired
+type: shield
+url: https://github.com/Bastardkb/Skeletyl
+requires:
+  - splinktegrated
+features:
+  - keys
+siblings:
+  - skeletyl_34_wired_left
+  - skeletyl_34_wired_right
