@@ -15,11 +15,11 @@
 
 / {
     chosen {
-        zmk,physical-layout = &skeletyl_34_3x5_layout;
+        zmk,physical-layout = &skeletyl_34_wired_layout;
         zmk,split-uart = &pio0_uart0;
     };
 
-    skeletyl_34_3x5_transform: keymap_transform_0 {
+    skeletyl_34_wired_transform: keymap_transform_0 {
         compatible = "zmk,matrix-transform";
         columns = <10>;
         rows = <4>;
@@ -35,5 +35,18 @@ RC(2, 0) RC(2, 1) RC(2, 2) RC(2, 3) RC(2, 4)     RC(2, 9) RC(2, 8) RC(2, 7) RC(2
         compatible = "zmk,kscan-gpio-matrix";
         diode-direction = "row2col";
         wakeup-source;
+    };
+
+    bootloader_key_left: bootloader_key_left {
+        compatible = "zmk,boot-magic-key";
+        key-position = <0>;
+        jump-to-bootloader;
+        status = "disabled";
+    };
+    bootloader_key_right: bootloader_key_right {
+        compatible = "zmk,boot-magic-key";
+        key-position = <9>;
+        jump-to-bootloader;
+        status = "disabled";
     };
 };

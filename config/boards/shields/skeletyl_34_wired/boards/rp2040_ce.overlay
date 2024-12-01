@@ -6,12 +6,12 @@
             bias-pull-up;
         };
         tx_pins {
-            pinmux = <PIO0_P12>;
+            pinmux = <PIO0_P14>;
         };
     };
     pio0_uart0_right: pio0_uart0_right {
         rx_pins {
-            pinmux = <PIO0_P12>;
+            pinmux = <PIO0_P14>;
             input-enable;
             bias-pull-up;
         };
