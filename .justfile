@@ -41,6 +41,10 @@ build expr *west_args:
         just _build_single "$board" "$shield" {{ west_args }}
     done
 
+build-wired-skeletyl-34:
+    just _build_single rp2040_ce "rp2040_ce_holder skeletyl_34_wired_left skeletyl_34_wired_left"
+    just _build_single rp2040_ce "rp2040_ce_holder skeletyl_34_wired_right skeletyl_34_wired_right"
+
 # clear build cache and artifacts
 clean:
     rm -rf {{ build }} {{ out }}
