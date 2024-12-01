@@ -1,6 +1,6 @@
-# Copyright (c) 2022 Peter Johanson
+# Copyright (c) 2022, Peter Johanson
 # Copyright (c) 2024, Nicolas Munnich
-# Copyright (c) 2024, Charly Delay
+# Copyright (c) 2024, Charly Delay <0@0xcharly.com>
 # SPDX-License-Identifier: Apache-2.0
 
 if BOARD_RP2040_CE

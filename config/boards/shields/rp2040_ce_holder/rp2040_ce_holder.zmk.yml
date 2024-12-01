@@ -1,0 +1,10 @@
+file_format: "1"
+id: rp2040_ce_holder
+name: RP2040 CE Holder aka Bastard Keyboard Shield
+type: shield
+url: https://github.com/Bastardkb/elite-c-holder
+requires:
+  - pro_micro
+  - elite-c
+exposes:
+  - splinktegrated
