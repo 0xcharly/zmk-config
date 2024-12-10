@@ -13,10 +13,10 @@
 		gpio-map-mask = <0xffffffff 0xffffffc0>;
 		gpio-map-pass-thru = <0 0x3f>;
 		gpio-map
-	 		= <1 0 &pro_micro 18 0>	/* RP2040 gpio26 */
-			, <2 0 &pro_micro  5 0> /* RP2040 gpio5 */
-			, <3 0 &pro_micro  4 0> /* RP2040 gpio4 */
-			, <4 0 &pro_micro  9 0> /* RP2040 gpio9 */
+	 		= <1 0 &gpio0 26 0>	/* RP2040 gpio26 */
+			, <2 0 &gpio0  5 0> /* RP2040 gpio5 */
+			, <3 0 &gpio0  4 0> /* RP2040 gpio4 */
+			, <4 0 &gpio0  9 0> /* RP2040 gpio9 */
 			;
 	};
 
@@ -26,11 +26,13 @@
 		gpio-map-mask = <0xffffffff 0xffffffc0>;
 		gpio-map-pass-thru = <0 0x3f>;
 		gpio-map
-			= <1 0 &pro_micro 20 0> /* RP2040 gpio28 */
-			, <2 0 &pro_micro 10 0> /* RP2040 gpio21 */
-			, <3 0 &pro_micro  6 0> /* RP2040 gpio6 */
-			, <4 0 &pro_micro  7 0> /* RP2040 gpio7 */
-			, <5 0 &pro_micro  8 0> /* RP2040 gpio8 */
+			= <1 0 &gpio0 28 0> /* RP2040 gpio28 */
+      // NOTE: for splinky v2
+			// , <2 0 &gpio0 15 0> /* RP2040 gpio15 */
+			, <2 0 &gpio0 21 0> /* RP2040 gpio21 */
+			, <3 0 &gpio0  6 0> /* RP2040 gpio6 */
+			, <4 0 &gpio0  7 0> /* RP2040 gpio7 */
+			, <5 0 &gpio0  8 0> /* RP2040 gpio8 */
 			;
 	};
 };
