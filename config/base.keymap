@@ -11,16 +11,13 @@
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/rgb.h>
 
-#ifdef CONFIG_WIRELESS
-    #include <dt-bindings/zmk/bt.h>
-    #define _BT_SEL_KEYS_ &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_CLR
-#else
-    #define _BT_SEL_KEYS_ &trans &trans &trans &trans &trans
-#endif
-
 #include "zmk-helpers/helper.h"
 #include "zmk-helpers/unicode-chars/greek.dtsi"
 #include "zmk-helpers/unicode-chars/german.dtsi"
+
+#ifdef CONFIG_WIRELESS
+    #include <dt-bindings/zmk/bt.h>
+#endif
 
 // Layers.
 #define DVORAK 0
@@ -31,16 +28,12 @@
 #define MOUSE 5
 
 // Custom keycodes.
-#define CANCEL &kp K_CANCEL   // cancel caps-word, num-word and smart-mouse
 #define LAUNCHER (LG(SPACE))
 #define CTL_TAB (LC(TAB))
 #define RCS_TAB (LC(LS(TAB)))
 
 #define EXTPOW_TOG &ext_power EXT_POWER_TOGGLE_CMD
 #define RGB_UG_TOG &rgb_ug RGB_TOG
-
-#define XXX &none
-#define ___ &trans
 
 /* Global settings */
 
@@ -62,7 +55,7 @@
     quick-tap-ms = <QUICK_TAP_MS>;
 };
 
-/* Caps-word, num-word and smart-mouse */
+/* Caps-word, num-word */
 
 // tap: sticky-shift | shift + tap/ double-tap: caps-word | hold: shift
 ZMK_MOD_MORPH(smart_shft,
@@ -98,60 +91,18 @@ ZMK_MOD_MORPH(smart_shft,
 MAKE_HRM(hml, &kp, &kp, KEYS_R THUMBS)  // left-hand HRMs
 MAKE_HRM(hmr, &kp, &kp, KEYS_L THUMBS)  // right-hand HRMs
 
-// HRM combo hack - workaround for lack of tap-only combos (ZMK issue #544)
-#define ZMK_COMBO_8(NAME, TAP, KEYPOS, LAYERS, COMBO_TERM, COMBO_IDLE, HOLD, SIDE) \
-    MAKE_HRM(hm_combo_ ## NAME, &kp, TAP, SIDE THUMBS) \
-    ZMK_COMBO_6(NAME, &hm_combo_ ## NAME HOLD 0, KEYPOS, LAYERS, COMBO_TERM, COMBO_IDLE)
-
-/* Combos, leader key sequences, mouse emulation */
-
-#include "combos.dtsi"  // must be sourced after HRM-combo hack
-
-// reuse basic mod-morph scheme
-#define SIMPLE_MORPH(NAME, MOD, BINDING1, BINDING2) \
-    ZMK_MOD_MORPH(NAME, \
-        mods = <(MOD_L ## MOD|MOD_R ## MOD)>; \
-        bindings = <BINDING1>, <BINDING2>; \
-    )
-
 /* Custom behaviors */
-
-// tap: comma | shift + tap: semicolon | ctrl + shift + tap: <
-SIMPLE_MORPH(comma_morph, SFT, &kp COMMA, &comma_inner_morph)
-SIMPLE_MORPH(comma_inner_morph, CTL, &kp SEMICOLON, &kp LESS_THAN)
-
-// tap: dot | shift + tap: colon | ctrl + shift + tap: >
-SIMPLE_MORPH(dot_morph, SFT, &kp DOT, &dot_inner_morph)
-SIMPLE_MORPH(dot_inner_morph, CTL, &kp COLON, &kp GREATER_THAN)
-
-// tap: qmark | shift + tap: excl
-SIMPLE_MORPH(qexcl, SFT, &kp QMARK, &kp EXCL)
-
-// tap: space | shift + tap: dot -> space -> sticky shift | hold: activate layer
-ZMK_HOLD_TAP(lt_spc,
-    flavor = "balanced";
-    tapping-term-ms = <200>;
-    quick-tap-ms = <QUICK_TAP_MS>;
-    bindings = <&mo>, <&spc_morph>;
-)
-SIMPLE_MORPH(spc_morph, SFT, &kp SPACE, &dot_spc)
-ZMK_MACRO(dot_spc,
-    wait-ms = <0>;
-    tap-ms = <5>;
-    bindings = <&kp DOT &kp SPACE &sk LSHFT>;
-)
-
-// tap: backspace | lshft + tap: delete | rshft + tap: shift-delete
-ZMK_MOD_MORPH(bs_del,
-    bindings = <&kp BSPC>, <&kp DEL>;
-    mods = <(MOD_LSFT|MOD_RSFT)>;
-    keep-mods = <MOD_RSFT>;
-)
 
 // tap: copy | double-tap: cut
 ZMK_TAP_DANCE(copy_cut,
     tapping-term-ms = <200>;
-    bindings = <&kp LC(INS)>, <&kp LC(X)>;
+    bindings = <&kp LG(C)>, <&kp LG(X)>;
+)
+
+// tap: paste | double-tap: paste w/o styles
+ZMK_TAP_DANCE(styled_paste,
+    tapping-term-ms = <200>;
+    bindings = <&kp LG(V)>, <&kp LG(LS(V))>;
 )
 
 ZMK_CONDITIONAL_LAYER(sys, LOWER UPPER, EXTEND)  // LOWER + UPPER -> EXTEND
@@ -171,50 +122,6 @@ ZMK_CONDITIONAL_LAYER(sys, LOWER UPPER, EXTEND)  // LOWER + UPPER -> EXTEND
       compatible = "zmk,behavior-macro";
       #binding-cells = <0>;
       bindings = <&macro_tap &kp EQUAL &kp GT>;
-    };
-
-    // Dead key acute.
-    dk_acute: dead_key_ecute {
-      compatible = "zmk,behavior-macro";
-      #binding-cells = <0>;
-      bindings
-          = <&macro_press &kp LALT>
-          , <&macro_tap &kp E>
-          , <&macro_release &kp LALT>
-          ;
-    };
-
-    // Dead key grave.
-    dk_grave: dead_key_grave {
-      compatible = "zmk,behavior-macro";
-      #binding-cells = <0>;
-      bindings
-          = <&macro_press &kp LALT>
-          , <&macro_tap &kp GRAVE>
-          , <&macro_release &kp LALT>
-          ;
-    };
-
-    // Dead key circumflex.
-    dk_circ: dead_key_circumflex {
-      compatible = "zmk,behavior-macro";
-      #binding-cells = <0>;
-      bindings
-          = <&macro_press &kp LALT>
-          , <&macro_tap &kp I>
-          , <&macro_release &kp LALT>
-          ;
-    };
-
-    // Dead key acute.
-    dk_trema: dead_key_trema {
-      compatible = "zmk,behavior-macro";
-      #binding-cells = <0>;
-      bindings
-          = <&macro_press &kp LALT>
-          , <&macro_tap &kp U>
-          , <&macro_release &kp LALT>
-          ;
     };
 
     // Double shift.
@@ -321,7 +228,7 @@ ZMK_CONDITIONAL_LAYER(sys, LOWER UPPER, EXTEND)  // LOWER + UPPER -> EXTEND
   /* ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮ */
        &kp LA(N1)   &kp LA(N2)   &kp LA(N3)   &kp LA(N4)   &kp LA(N5)       &kp DEL      &kp LS(TAB)  &kp UP       &kp BSPC     &kp TAB
        &sk LALT     &sk LGUI     &sk LCTRL    &sk LSHIFT   &kp LAUNCHER     &none        &kp LEFT     &kp DOWN     &kp RIGHT    &kp ENTER
-       &kp LG(X)    &kp RCS_TAB  &kp LG(C)    &kp CTL_TAB  &kp LG(V)        &none        &kp LPAR     &kp SEMI     &kp RPAR     &none
+       &none        &kp RCS_TAB  &copy_cut    &kp CTL_TAB  &styled_paste    &none        &kp LPAR     &kp SEMI     &kp RPAR     &none
   /* ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯ */
                                  &trans /*↓*/ &none                                      &trans       &trans
   /*                           ╰────────────────────────────────────────╯ ╰────────────────────────────────────────╯                           */
@@ -346,9 +253,9 @@ ZMK_CONDITIONAL_LAYER(sys, LOWER UPPER, EXTEND)  // LOWER + UPPER -> EXTEND
     upper {
       bindings = <
   /* ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮ */
-       &kp PERCENT  &kp HASH     &kp EXCL     &kp EQUAL    &none            &none        &kp CARET    &kp QMARK    &kp DOLLAR   &kp BSLH
+       &kp TILDE    &kp HASH     &kp EXCL     &kp EQUAL    &kp PERCENT      &none        &kp CARET    &kp QMARK    &kp DOLLAR   &kp BSLH
        &kp GRAVE    &kp ESCAPE   &kp MINUS    &kp COLON    &sshift          &none        &kp LBRC     &kp UNDER    &kp RBRC     &kp AT
-       &kp TILDE    &kp PLUS     &kp ASTERISK &kp SLASH    &none            &none        &kp LBKT     &kp DQT      &kp RBKT     &none
+       &none        &kp PLUS     &kp ASTERISK &kp SLASH    &none            &none        &kp LBKT     &kp DQT      &kp RBKT     &none
   /* ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯ */
                                  &trans       &trans                                     &none        &trans /*↓*/
   /*                           ╰────────────────────────────────────────╯ ╰────────────────────────────────────────╯                           */
@@ -368,8 +275,8 @@ ZMK_CONDITIONAL_LAYER(sys, LOWER UPPER, EXTEND)  // LOWER + UPPER -> EXTEND
       bindings = <
   /* ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮ */
        &kp LA(N6)   &kp LA(N7)   &kp LA(N8)   &kp LA(N9)   &kp LA(N0)       &none        &tmux_0      &tmux_1      &tmux_2      &tmux_3
-       &kp N7       &kp N5       &kp N1       &kp N3       &none            &none        &kp N2       &kp N0       &kp N4       &kp N6
-       &rarrow      &kp LT       &kp AMPS     &kp N9       &none            &none        &kp N8       &kp PIPE     &kp GT       &frarrow
+       &kp N7       &kp N5       &kp N1       &kp N3       &none            &frarrow     &kp N2       &kp N0       &kp N4       &kp N6
+       &none        &kp LT       &kp AMPS     &kp N9       &none            &rarrow      &kp N8       &kp PIPE     &kp GT       &none
   /* ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯ */
                                  &trans /*↓*/ &none                                      &none        &trans /*↓*/
   /*                           ╰────────────────────────────────────────╯ ╰────────────────────────────────────────╯                           */
