@@ -65,7 +65,7 @@ ZMK_MOD_MORPH(smart_shft,
 
 // Adjust Caps Word configuration.
 &caps_word {
-  continue-list = <UNDERSCORE MINUS BACKSPACE MINUS>;
+  continue-list = <UNDERSCORE MINUS BACKSPACE DELETE>;
 };
 
 /* Homerow mods */
