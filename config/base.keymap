@@ -28,7 +28,7 @@
 #define LOWER 9
 #define UPPER 10
 #define EXTEND 11
-#define NAV_EXTEND 12
+#define F_ROW 12
 #define SYSTEM 13
 
 #include "hrm.dtsi"
@@ -43,22 +43,8 @@
 
 // Adjust sticky-keys configuration.
 &sk {
-    release-after-ms = <900>;  // release after 0.9s
-    quick-release;             // no double capitalization when rolling keys
-};
-
-/* Caps-word, num-word */
-
-// tap: sticky-shift | shift + tap/ double-tap: caps-word | hold: shift
-/ {
-  behaviors {
-    smart_shft: smart_shft {
-      compatible = "zmk,behavior-mod-morph";
-      mods = <(MOD_LSFT)>;
-      bindings = <&sk LSHFT>, <&caps_word>;
-      #binding-cells = <0>;
-    };
-  };
+    release-after-ms = <900>;  // Release after 0.9s.
+    quick-release;             // No double capitalization when rolling keys.
 };
 
 // Adjust Caps Word configuration.
@@ -66,22 +52,49 @@
   continue-list = <UNDERSCORE MINUS BACKSPACE DELETE>;
 };
 
-/* Custom behaviors */
-
+// Custom behaviors.
 / {
   behaviors {
+    // A reimplementation of layer-tap (`lt`) for which the key-press (`kp`) can
+    // be repeated. It's essentially the same as customizing the `lt` behavior
+    // (`&lt { ... }`) but only applying the `quick-tap-ms` property locally.
+    rlt: repeatable_lt {
+      compatible = "zmk,behavior-hold-tap";
+      #binding-cells = <2>;
+      tapping-term-ms = <200>;
+      quick-tap-ms = <150>; // Enable repeat on double tap.
+      flavor = "tap-preferred";
+      bindings = <&mo>, <&kp>;
+    };
+    // A reimplementation of mod-tap (`mt`) with a sticky-key (`sk`) instead
+    // of a key-press (`kp`).
+    mo_sk: momentary_stickykey {
+      compatible = "zmk,behavior-hold-tap";
+      #binding-cells = <2>;
+      tapping-term-ms = <200>;
+      flavor = "tap-preferred";
+      bindings = <&mo>, <&sk>;
+    };
+
+    // tap: sticky-shift | shift + tap/ double-tap: caps-word | hold: nav layer.
+    smart_shift: smart_shift {
+      compatible = "zmk,behavior-mod-morph";
+      #binding-cells = <0>;
+      mods = <(MOD_LSFT)>;
+      bindings = <&mo_sk NAV LSHFT>, <&caps_word>;
+    };
+
     // tap: paste | double-tap: paste w/o styles
     styled_paste: styled_paste {
       compatible = "zmk,behavior-tap-dance";
+      #binding-cells = <0>;
       tapping-term-ms = <200>;
       bindings = <&kp LG(V)>, <&kp LG(LS(V))>;
-      #binding-cells = <0>;
     };
   };
 };
 
-/* Tri-layers */
-
+// Tri-layers.
 / {
   conditional_layers {
     // LOWER + UPPER -> EXTEND
@@ -91,17 +104,18 @@
       then-layer = <EXTEND>;
     };
 
-    // NAV + UPPER -> NAV_EXTEND
+    // NAV + UPPER -> F_ROW
     tri_layers_nav_extend {
       if-layers = <NAV UPPER>;
-      then-layer = <NAV_EXTEND>;
+      then-layer = <F_ROW>;
     };
   };
 };
 
-/* Quick navigation to Zellij tabs. */
+// Quick navigation to Zellij tabs.
 / {
   macros {
+    // Switch to the specified tab number (use `N1`, `N2`, …).
     mul_tab: multiplexer_switch_to_tab_ {
       compatible = "zmk,behavior-macro-one-param";
       #binding-cells = <1>;
@@ -115,11 +129,8 @@
           , <&macro_tap &kp MACRO_PLACEHOLDER>
           ;
     };
-  };
-};
 
-/ {
-  macros {
+    // Quick swap between the 2 most recent tabs.
     mul_swap: multiplexer_quick_swap {
       compatible = "zmk,behavior-macro";
       #binding-cells = <0>;
@@ -134,8 +145,8 @@
   };
 };
 
+// Custom character sequences.
 / {
-  // Macros configuration, specifically character sequences.
   macros {
     // Right arrow macro: ->
     rarrow: right_arrow {
@@ -151,7 +162,7 @@
       bindings = <&macro_tap &kp EQUAL &kp GT>;
     };
 
-    // Double shift.
+    // Double shift (⇧⇧) for opening the menu in IntelliJ's IDE.
     sshift: double_shift {
       compatible = "zmk,behavior-macro";
       #binding-cells = <0>;
@@ -165,130 +176,130 @@
   };
 };
 
+// Layout.
 / {
-  /**
-   * 34-key keymap, using a Dvorak base layer.
-   */
+  // 34-key (in practice, 32-key) keymap, using a Dvorak base layer.
   keymap {
     compatible = "zmk,keymap";
 
-    /** Traditional Dvorak layout. */
+    // Dvorak layout with `Z` moved to the `APOS` position (to fit on a 32-key,
+    // 23333+2 keyboard).
     dvorak {
       bindings = <
-   /* ╭───────────────────────────────────────────────────────────────────────╮ ╭────────────────────────────────────────────────────────────────────────────╮ */
+   // ╭───────────────────────────────────────────────────────────────────────╮ ╭────────────────────────────────────────────────────────────────────────────╮
         &kp Z         &kp COMMA     &kp DOT       &kp P         &kp Y             &kp F         &kp G         &kp C           &kp R           &kp L
         &LeftPinky(A) &LeftRingy(O) &LeftMiddy(E) &LeftIndex(U) &kp I             &kp D         &kp H         &RightMiddy(T)  &RightRingy(N)  &RightPinky(S)
-        &none         &kp Q         &kp J         &kp K         &kp X             &kp B         &kp M         &kp W           &kp V           &none
-   /* ╰───────────────────────────────────────────────────────────────────────┤ ├────────────────────────────────────────────────────────────────────────────╯ */
-                                                  &mo LOWER     &lt NAV SPACE     &smart_shft  &mo UPPER
-   /*                                           ╰─────────────────────────────╯ ╰────────────────────────────╯                                                 */
+        &mo SYSTEM    &kp Q         &kp J         &kp K         &kp X             &kp B         &kp M         &kp W           &kp V           &mo SYSTEM
+   // ╰───────────────────────────────────────────────────────────────────────┤ ├────────────────────────────────────────────────────────────────────────────╯
+                                                  &mo LOWER     &rlt NAV SPACE    &smart_shift  &mo UPPER
+   //                                           ╰─────────────────────────────╯ ╰─────────────────────────────╯
       >;
     };
 
+    // Layers involved in the bilateral home row mod (HRM) implementation
+    // (adapted from Sunaku's implementation).
     layer_LeftPinky {
       bindings = <
-   /* ╭──────────────────────────────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────────────────────────────╮ */
-        &ltap_pinky Z     &ltap_pinky COMMA &ltap_pinky DOT   &ltap_pinky P     &ltap_pinky Y        &trans            &trans            &trans            &trans            &trans
-        &none             &LeftPinkyRingy   &LeftPinkyMiddy   &LeftPinkyIndex   &ltap_pinky I        &trans            &kp H             &kp T             &kp N             &kp S
-        &none             &ltap_pinky Q     &ltap_pinky J     &ltap_pinky K     &ltap_pinky X        &trans            &trans            &trans            &trans            &trans
-   /* ╰──────────────────────────────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────────────────────────────╯ */
-                                                              &trans            &trans               &trans            &trans
-   /*                                                       ╰────────────────────────────────────╯ ╰────────────────────────────────────╯                                                       */
+   // ╭───────────────────────────────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────────────────────────────╮
+        &ltap_pinky Z     &ltap_pinky COMMA &ltap_pinky DOT   &ltap_pinky P     &ltap_pinky Y         &trans            &trans            &trans            &trans            &trans
+        &none             &LeftPinkyRingy   &LeftPinkyMiddy   &LeftPinkyIndex   &ltap_pinky I         &trans            &kp H             &kp T             &kp N             &kp S
+        &none             &ltap_pinky Q     &ltap_pinky J     &ltap_pinky K     &ltap_pinky X         &trans            &trans            &trans            &trans            &trans
+   // ╰───────────────────────────────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────────────────────────────╯
+                                                              &trans            &trans                &trans            &trans
+   //                                                       ╰─────────────────────────────────────╯ ╰─────────────────────────────────────╯
       >;
     };
 
     layer_LeftRingy {
       bindings = <
-   /* ╭──────────────────────────────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────────────────────────────╮ */
-        &ltap_ringy Z     &ltap_ringy COMMA &ltap_ringy DOT   &ltap_ringy P     &ltap_ringy Y        &trans            &trans            &trans            &trans            &trans
-        &LeftRingyPinky   &none             &LeftRingyMiddy   &LeftRingyIndex   &ltap_ringy I        &trans            &kp H             &kp T             &kp N             &kp S
-        &none             &ltap_ringy Q     &ltap_ringy J     &ltap_ringy K     &ltap_ringy X        &trans            &trans            &trans            &trans            &trans
-   /* ╰──────────────────────────────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────────────────────────────╯ */
-                                                              &trans            &trans               &trans            &trans
-   /*                                                       ╰────────────────────────────────────╯ ╰────────────────────────────────────╯                                                       */
+   // ╭───────────────────────────────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────────────────────────────╮
+        &ltap_ringy Z     &ltap_ringy COMMA &ltap_ringy DOT   &ltap_ringy P     &ltap_ringy Y         &trans            &trans            &trans            &trans            &trans
+        &LeftRingyPinky   &none             &LeftRingyMiddy   &LeftRingyIndex   &ltap_ringy I         &trans            &kp H             &kp T             &kp N             &kp S
+        &none             &ltap_ringy Q     &ltap_ringy J     &ltap_ringy K     &ltap_ringy X         &trans            &trans            &trans            &trans            &trans
+   // ╰───────────────────────────────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────────────────────────────╯
+                                                              &trans            &trans                &trans            &trans
+   //                                                       ╰─────────────────────────────────────╯ ╰─────────────────────────────────────╯
       >;
     };
 
     layer_LeftMiddy {
       bindings = <
-   /* ╭──────────────────────────────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────────────────────────────╮ */
-        &ltap_middy Z     &ltap_middy COMMA &ltap_middy DOT   &ltap_middy P     &ltap_middy Y        &trans            &trans            &trans            &trans            &trans
-        &LeftMiddyPinky   &LeftMiddyRingy   &none             &LeftMiddyIndex   &ltap_middy I        &trans            &kp H             &kp T             &kp N             &kp S
-        &none             &ltap_middy Q     &ltap_middy J     &ltap_middy K     &ltap_middy X        &trans            &trans            &trans            &trans            &trans
-   /* ╰──────────────────────────────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────────────────────────────╯ */
-                                                              &trans            &trans               &trans            &trans
-   /*                                                       ╰────────────────────────────────────╯ ╰────────────────────────────────────╯                                                       */
+   // ╭───────────────────────────────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────────────────────────────╮
+        &ltap_middy Z     &ltap_middy COMMA &ltap_middy DOT   &ltap_middy P     &ltap_middy Y         &trans            &trans            &trans            &trans            &trans
+        &LeftMiddyPinky   &LeftMiddyRingy   &none             &LeftMiddyIndex   &ltap_middy I         &trans            &kp H             &kp T             &kp N             &kp S
+        &none             &ltap_middy Q     &ltap_middy J     &ltap_middy K     &ltap_middy X         &trans            &trans            &trans            &trans            &trans
+   // ╰───────────────────────────────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────────────────────────────╯
+                                                              &trans            &trans                &trans            &trans
+   //                                                       ╰─────────────────────────────────────╯ ╰─────────────────────────────────────╯
       >;
     };
 
     layer_LeftIndex {
       bindings = <
-   /* ╭──────────────────────────────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────────────────────────────╮ */
-        &ltap_index Z     &ltap_index COMMA &ltap_index DOT   &ltap_index P     &ltap_index Y        &trans            &trans            &trans            &trans            &trans
-        &LeftIndexPinky   &LeftIndexRingy   &LeftIndexMiddy   &none             &ltap_index I        &trans            &kp H             &kp T             &kp N             &kp S
-        &none             &ltap_index Q     &ltap_index J     &ltap_index K     &ltap_index X        &trans            &trans            &trans            &trans            &trans
-   /* ╰──────────────────────────────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────────────────────────────╯ */
-                                                              &trans            &trans               &trans            &trans
-   /*                                                       ╰────────────────────────────────────╯ ╰────────────────────────────────────╯                                                       */
+   // ╭───────────────────────────────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────────────────────────────╮
+        &ltap_index Z     &ltap_index COMMA &ltap_index DOT   &ltap_index P     &ltap_index Y         &trans            &trans            &trans            &trans            &trans
+        &LeftIndexPinky   &LeftIndexRingy   &LeftIndexMiddy   &none             &ltap_index I         &trans            &kp H             &kp T             &kp N             &kp S
+        &none             &ltap_index Q     &ltap_index J     &ltap_index K     &ltap_index X         &trans            &trans            &trans            &trans            &trans
+   // ╰───────────────────────────────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────────────────────────────╯
+                                                              &trans            &trans                &trans            &trans
+   //                                                       ╰─────────────────────────────────────╯ ╰─────────────────────────────────────╯
       >;
     };
 
     layer_RightPinky {
       bindings = <
-   /* ╭──────────────────────────────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────────────────────────────╮ */
-        &trans            &trans            &trans            &trans            &trans               &rtap_pinky F     &rtap_pinky G     &rtap_pinky C     &rtap_pinky R     &rtap_pinky L
-        &kp A             &kp O             &kp E             &kp U             &trans               &rtap_pinky D     &rtap_pinky H     &RightPinkyMiddy  &RightPinkyRingy  &none
-        &none             &trans            &trans            &trans            &trans               &rtap_pinky B     &rtap_pinky M     &rtap_pinky W     &rtap_pinky V     &none
-   /* ╰──────────────────────────────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────────────────────────────╯ */
-                                                              &trans            &trans               &trans            &trans
-   /*                                                       ╰────────────────────────────────────╯ ╰────────────────────────────────────╯                                                       */
+   // ╭───────────────────────────────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────────────────────────────╮
+        &trans            &trans            &trans            &trans            &trans                &rtap_pinky F     &rtap_pinky G     &rtap_pinky C     &rtap_pinky R     &rtap_pinky L
+        &kp A             &kp O             &kp E             &kp U             &trans                &rtap_pinky D     &rtap_pinky H     &RightPinkyMiddy  &RightPinkyRingy  &none
+        &none             &trans            &trans            &trans            &trans                &rtap_pinky B     &rtap_pinky M     &rtap_pinky W     &rtap_pinky V     &none
+   // ╰───────────────────────────────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────────────────────────────╯
+                                                              &trans            &trans                &trans            &trans
+   //                                                       ╰─────────────────────────────────────╯ ╰─────────────────────────────────────╯
       >;
     };
 
     layer_RightRingy {
       bindings = <
-   /* ╭──────────────────────────────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────────────────────────────╮ */
-        &trans            &trans            &trans            &trans            &trans               &rtap_ringy F     &rtap_ringy G     &rtap_ringy C     &rtap_ringy R     &rtap_ringy L
-        &kp A             &kp O             &kp E             &kp U             &trans               &rtap_ringy D     &rtap_ringy H     &RightRingyMiddy  &none             &RightRingyPinky
-        &none             &trans            &trans            &trans            &trans               &rtap_ringy B     &rtap_ringy M     &rtap_ringy W     &rtap_ringy V     &none
-   /* ╰──────────────────────────────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────────────────────────────╯ */
-                                                              &trans            &trans               &trans            &trans
-   /*                                                       ╰────────────────────────────────────╯ ╰────────────────────────────────────╯                                                       */
+   // ╭───────────────────────────────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────────────────────────────╮
+        &trans            &trans            &trans            &trans            &trans                &rtap_ringy F     &rtap_ringy G     &rtap_ringy C     &rtap_ringy R     &rtap_ringy L
+        &kp A             &kp O             &kp E             &kp U             &trans                &rtap_ringy D     &rtap_ringy H     &RightRingyMiddy  &none             &RightRingyPinky
+        &none             &trans            &trans            &trans            &trans                &rtap_ringy B     &rtap_ringy M     &rtap_ringy W     &rtap_ringy V     &none
+   // ╰───────────────────────────────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────────────────────────────╯
+                                                              &trans            &trans                &trans            &trans
+   //                                                       ╰─────────────────────────────────────╯ ╰─────────────────────────────────────╯
       >;
     };
 
     layer_RightMiddy {
       bindings = <
-   /* ╭──────────────────────────────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────────────────────────────╮ */
-        &trans            &trans            &trans            &trans            &trans               &rtap_middy F     &rtap_middy G     &rtap_middy C     &rtap_middy R     &rtap_middy L
-        &kp A             &kp O             &kp E             &kp U             &trans               &rtap_middy D     &rtap_middy H     &none             &RightMiddyRingy  &RightMiddyPinky
-        &none             &trans            &trans            &trans            &trans               &rtap_middy B     &rtap_middy M     &rtap_middy W     &rtap_middy V     &none
-   /* ╰──────────────────────────────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────────────────────────────╯ */
-                                                              &trans            &trans               &trans            &trans
-   /*                                                       ╰────────────────────────────────────╯ ╰────────────────────────────────────╯                                                       */
+   // ╭───────────────────────────────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────────────────────────────╮
+        &trans            &trans            &trans            &trans            &trans                &rtap_middy F     &rtap_middy G     &rtap_middy C     &rtap_middy R     &rtap_middy L
+        &kp A             &kp O             &kp E             &kp U             &trans                &rtap_middy D     &rtap_middy H     &none             &RightMiddyRingy  &RightMiddyPinky
+        &none             &trans            &trans            &trans            &trans                &rtap_middy B     &rtap_middy M     &rtap_middy W     &rtap_middy V     &none
+   // ╰───────────────────────────────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────────────────────────────╯
+                                                              &trans            &trans                &trans            &trans
+   //                                                       ╰─────────────────────────────────────╯ ╰─────────────────────────────────────╯
       >;
     };
 
     /**
-     * Navigation layer.
+     * Navigation layer. Can be activated from any hand.
      *
      * Navigation and symbols.
      *
-     *   - Primary hand (left):
-     *     - Home-row sticky mods.
-     *     - Direct access to desktop shortcuts.
-     *   - Secondary hand (right):
-     *     - Inverted T arrow cluster.
+     *   - Home-row sticky mods.
+     *   - Direct access to desktop shortcuts.
+     *   - Zellij tabs navigation.
      */
     nav {
       bindings = <
-   /* ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮ */
-        &kp LA(N1)   &kp LA(N2)   &kp LA(N3)   &kp LA(N4)   &kp LA(N5)       &none        &kp LS(TAB)  &kp UP       &kp BSPC     &kp TAB
-        &sk LALT     &sk LGUI     &sk LCTRL    &sk LSHIFT   &kp LAUNCHER     &none        &kp LEFT     &kp DOWN     &kp RIGHT    &none
+   // ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮
+        &kp LA(N1)   &kp LA(N2)   &kp LA(N3)   &kp LA(N4)   &kp LA(N5)       &kp LA(N6)   &kp LA(N7)   &kp LA(N8)   &kp LA(N9)   &kp LA(N0)
+        &sk LALT     &sk LGUI     &sk LCTRL    &sk LSHIFT   &kp LAUNCHER     &sshift      &none        &none        &none        &none
         &none        &kp RCS_TAB  &kp LG(C)    &kp CTL_TAB  &styled_paste    &mul_swap    &mul_tab N1  &mul_tab N2  &mul_tab N3  &mul_tab N4
-   /* ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯ */
-                                  &none        &trans /*↓*/                               &kp ENTER    &trans
-   /*                           ╰────────────────────────────────────────╯ ╰────────────────────────────────────────╯                           */
+   // ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯
+                                               &none        &trans /*↓*/     &kp ENTER    &trans
+   //                                        ╰───────────────────────────╯ ╰───────────────────────────╯
       >;
     };
 
@@ -300,21 +311,21 @@
      *   - Primary hand (left):
      *     - Home-row sticky mods.
      *     - Brackets.
-     *     - Hash and exclamation mark for Gmail shortcuts, and with synergy with right-side brackets.
+     *     - Hash and exclamation mark for Gmail shortcuts, and with synergy right-side brackets.
      *   - Secondary hand (right):
      *     - Parenthesis.
+     *     - Inverted T arrow cluster.
      *     - Semi-colon for synergy with parenthesis.
-     *     - Modal editors escape+colon roll for command mode.
      */
     lower {
       bindings = <
-   /* ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮ */
-        &none        &kp HASH     &kp EXCL     &none        &none            &none        &kp LS(TAB)  &none        &kp BSPC     &kp TAB
-        &sk LALT     &sk LGUI     &sk LCTRL    &sk LSHIFT   &none            &none        &kp COLON    &kp ESCAPE   &none        &none
-        &none        &kp LBRC     &kp APOS     &kp RBRC     &none            &none        &kp LPAR     &kp SEMI     &kp RPAR     &none
-   /* ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯ */
-                                  &trans /*↓*/ &none                                      &kp ENTER    &trans
-   /*                           ╰────────────────────────────────────────╯ ╰────────────────────────────────────────╯                           */
+   // ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮
+        &none        &kp HASH     &kp EXCL     &none        &none            &none        &none        &kp UP       &kp BSPC     &kp LS(TAB)
+        &sk RALT     &sk LGUI     &sk LCTRL    &sk LSHIFT   &none            &none        &kp LEFT     &kp DOWN     &kp RIGHT    &kp TAB
+        &none        &kp LBRC     &none        &kp RBRC     &none            &none        &kp LPAR     &kp SEMI     &kp RPAR     &none
+   // ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯
+                                               &trans /*↓*/ &none            &kp ENTER    &trans
+   //                                        ╰───────────────────────────╯ ╰───────────────────────────╯
       >;
     };
 
@@ -330,16 +341,17 @@
      *     - Double quotes for modal editors registry.
      *   - Secondary hand (left):
      *     - Most common operators.
+     *     - Modal editors escape+colon roll for command mode.
      */
     upper {
       bindings = <
-   /* ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮ */
-        &kp PERCENT  &kp PLUS     &kp EXCL     &kp EQUAL    &none            &none        &kp CARET    &kp QMARK    &kp DOLLAR   &kp BSLH
-        &kp GRAVE    &kp AMPS     &kp MINUS    &kp PIPE     &none            &none        &kp LT       &kp UNDER    &kp GT       &kp AT
-        &none        &kp TILDE    &kp ASTERISK &kp SLASH    &none            &none        &kp LBKT     &kp DQT      &kp RBKT     &none
-   /* ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯ */
-                                  &trans       &trans                                     &none        &trans /*↓*/
-   /*                           ╰────────────────────────────────────────╯ ╰────────────────────────────────────────╯                           */
+   // ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮
+        &kp APOS     &kp PLUS     &kp EXCL     &kp EQUAL    &kp PERCENT      &none        &kp CARET    &kp QMARK    &kp DOLLAR   &kp BSLH
+        &kp GRAVE    &kp ESCAPE   &kp MINUS    &kp COLON    &kp PIPE         &none        &kp LT       &kp UNDER    &kp GT       &kp AT
+        &none        &kp TILDE    &kp ASTERISK &kp SLASH    &kp AMPS         &none        &kp LBKT     &kp DQT      &kp RBKT     &none
+   // ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯
+                                               &trans       &trans           &none        &trans /*↓*/
+   //                                        ╰───────────────────────────╯ ╰───────────────────────────╯
       >;
     };
 
@@ -349,41 +361,44 @@
      * Numbers and some symbols.
      *
      *   - Optimized numrow.
-     *   - Direct access to extended desktop shortcuts.
+     *   - Arithmetic operators and date-time symbols.
      */
     extend {
       bindings = <
-   /* ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮ */
-        &none        &kp COMMA    &kp DOT      &none        &none            &kp COLON    &none        &none        &none        &none
-        &kp N7       &kp N5       &kp N1       &kp N3       &frarrow         &kp MINUS    &kp N2       &kp N0       &kp N4       &kp N6
-        &none        &none        &none        &kp N9       &rarrow          &kp SLASH    &kp N8       &none        &none        &none
-   /* ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯ */
-                                  &trans /*↓*/ &none                                      &none        &trans /*↓*/
-   /*                           ╰────────────────────────────────────────╯ ╰────────────────────────────────────────╯                           */
+   // ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮
+        &none        &kp COMMA    &kp DOT      &none        &kp PERCENT      &kp COLON    &none        &rarrow      &frarrow     &none
+        &kp N7       &kp N5       &kp N1       &kp N3       &kp PLUS         &kp MINUS    &kp N2       &kp N0       &kp N4       &kp N6
+        &none        &none        &none        &kp N9       &kp ASTERISK     &kp SLASH    &kp N8       &none        &none        &none
+   // ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯
+                                               &trans /*↓*/ &none            &none        &trans /*↓*/
+   //                                        ╰───────────────────────────╯ ╰───────────────────────────╯
       >;
     };
 
     /**
      * Extended navigation layer.
      *
-     * More desktop shortcuts and navigation.
+     * More desktop shortcuts and navigation, and lesser used keys.
+     *
+     *   - Home-row sticky mods.
+     *   - Direct access to extended desktop shortcuts.
+     *   - Cut/paste w/o styles.
+     *   - F-keys.
      */
-    extend_nav {
+    f-row {
       bindings = <
-   /* ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮ */
-        &kp LA(N6)   &kp LA(N7)   &kp LA(N8)   &kp LA(N9)   &kp LA(N0)       &none        &none        &none        &none        &none
-        &none        &none        &none        &none        &sshift          &none        &none        &none        &none        &none
-        &none        &none        &kp LG(X)    &none        &kp LG(LS(V))    &none        &none        &none        &none        &none
-   /* ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯ */
-                                  &none        &trans /*↓*/                               &trans       &trans /*↓*/
-   /*                           ╰────────────────────────────────────────╯ ╰────────────────────────────────────────╯                           */
+   // ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮
+        &none        &none        &none        &none        &none            &none        &kp F7       &kp F8       &kp F9       &kp F12
+        &sk LALT     &sk LGUI     &sk LCTRL    &sk LSHIFT   &none            &none        &kp F4       &kp F5       &kp F6       &kp F11
+        &none        &none        &none        &none        &none            &none        &kp F1       &kp F2       &kp F3       &kp F10
+   // ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯
+                                               &none        &trans /*↓*/     &none        &trans /*↓*/
+   //                                        ╰───────────────────────────╯ ╰───────────────────────────╯
       >;
     };
 
    /**
     * System layer for hardware controls.
-    *
-    * Available as a sticky-layer with a hard-to-mistap thumb cluster tap dance.
     *
     *   - Bluetooth channels (if wireless).
     *   - Reset/bootloader.
@@ -391,7 +406,7 @@
     */
     system {
       bindings = <
-   /* ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮ */
+   // ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮
 #ifdef CONFIG_WIRELESS
         EXTPOW_TOG   &bt BT_SEL 3 &bt BT_SEL 2 &bt BT_SEL 1 &bt BT_SEL 0     &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 EXTPOW_TOG
         RGB_UG_TOG   &none        &none        &none        &bt BT_CLR       &bt BT_CLR   &none        &none        &none        RGB_UG_TOG
@@ -401,9 +416,9 @@
         RGB_UG_TOG   &none        &none        &none        &none            &none        &none        &none        &none        RGB_UG_TOG
         &none        &sys_reset   &none        &none        &bootloader      &bootloader  &none        &none        &sys_reset   &none
 #endif  // CONFIG_WIRELESS
-   /* ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯ */
-                                  &none        &none                                      &none        &none
-   /*                           ╰────────────────────────────────────────╯ ╰────────────────────────────────────────╯                           */
+   // ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯
+                                               &none        &none            &none        &none
+   //                                        ╰───────────────────────────╯ ╰───────────────────────────╯
       >;
     };
   };
