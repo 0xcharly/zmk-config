@@ -284,7 +284,7 @@
         &none        &none        &none        &none        &none            &none        &kp F4       &kp F5       &kp F6       &kp F11
         &none        &none        &none        &none        &none            &none        &kp F1       &kp F2       &kp F3       &kp F10
    // ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯
-                                               &none        &none            &none        &none
+                                               &none        &kp LCTL         &kp LSHIFT   &kp LALT
    //                                        ╰───────────────────────────╯ ╰───────────────────────────╯
       >;
     };
