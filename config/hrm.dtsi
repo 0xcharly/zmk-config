@@ -118,26 +118,16 @@
 
     //
     // The *_FINGER_MOD specify which modifiers are used by home row mod keys.
-    // Here, we use Miryoku's "GACS" (Win, Alt, Ctrl, Shift) order by default,
-    // unless OPERATING_SYSTEM is macOS, in which case Win & Ctrl are swapped,
-    // unless MACOS_USE_GACS is also defined to suppress that Win & Ctrl swap.
+    // Here, we use Miryoku's "AGCS" (Alt, Win, Ctrl, Shift) order by default.
     //
     #ifndef PINKY_FINGER_MOD
-      #if OPERATING_SYSTEM == 'M' && !defined(MACOS_USE_GACS)
-        #define PINKY_FINGER_MOD LCTL
-      #else
-        #define PINKY_FINGER_MOD LGUI
-      #endif
+    #define PINKY_FINGER_MOD LALT
     #endif
     #ifndef RINGY_FINGER_MOD
-    #define RINGY_FINGER_MOD LALT
+    #define RINGY_FINGER_MOD LGUI
     #endif
     #ifndef MIDDY_FINGER_MOD
-      #if OPERATING_SYSTEM == 'M' && !defined(MACOS_USE_GACS)
-        #define MIDDY_FINGER_MOD LGUI
-      #else
-        #define MIDDY_FINGER_MOD LCTL
-      #endif
+    #define MIDDY_FINGER_MOD LCTL
     #endif
     #ifndef INDEX_FINGER_MOD
     #define INDEX_FINGER_MOD LSFT
