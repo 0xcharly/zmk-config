@@ -200,7 +200,7 @@
         &sk LALT     &sk LGUI     &sk LCTRL    &sk LSHIFT   &kp LAUNCHER     &none        &kp LEFT     &kp DOWN     &kp RIGHT    &kp ENTER
         &sk RALT     &kp LCS(TAB) &kp LG(C)    &kp LC(TAB)  &kp LG(V)        &none        &kp LPAR     &kp SEMI     &kp RPAR     &none
    // ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯
-                                               &trans /*↓*/ &none            &trans       &trans
+                                               &trans /*↓*/ &none            &kp ENTER    &trans
    //                                        ╰───────────────────────────╯ ╰───────────────────────────╯
       >;
     };
