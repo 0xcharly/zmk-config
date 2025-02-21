@@ -1,5 +1,2 @@
-/* source key position labels */
-#include "zmk-helpers/key-labels/34.h"
-
 /* source the main keymap */
 #include "base.keymap"
