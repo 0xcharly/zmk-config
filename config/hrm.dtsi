@@ -662,7 +662,7 @@
         #endif
         ;
     };
-    left_pinky_tap: homey_left_pinky_tap {
+    ltap_pinky: homey_left_pinky_tap {
       compatible = "zmk,behavior-macro-one-param";
       wait-ms = <0>;
       tap-ms = <0>;
@@ -750,7 +750,7 @@
         #endif
         ;
     };
-    right_pinky_tap: homey_right_pinky_tap {
+    rtap_pinky: homey_right_pinky_tap {
       compatible = "zmk,behavior-macro-one-param";
       wait-ms = <0>;
       tap-ms = <0>;
@@ -838,7 +838,7 @@
         #endif
         ;
     };
-    left_ringy_tap: homey_left_ringy_tap {
+    ltap_ringy: homey_left_ringy_tap {
       compatible = "zmk,behavior-macro-one-param";
       wait-ms = <0>;
       tap-ms = <0>;
@@ -926,7 +926,7 @@
         #endif
         ;
     };
-    right_ringy_tap: homey_right_ringy_tap {
+    rtap_ringy: homey_right_ringy_tap {
       compatible = "zmk,behavior-macro-one-param";
       wait-ms = <0>;
       tap-ms = <0>;
@@ -1014,7 +1014,7 @@
         #endif
         ;
     };
-    left_middy_tap: homey_left_middy_tap {
+    ltap_middy: homey_left_middy_tap {
       compatible = "zmk,behavior-macro-one-param";
       wait-ms = <0>;
       tap-ms = <0>;
@@ -1102,7 +1102,7 @@
         #endif
         ;
     };
-    right_middy_tap: homey_right_middy_tap {
+    rtap_middy: homey_right_middy_tap {
       compatible = "zmk,behavior-macro-one-param";
       wait-ms = <0>;
       tap-ms = <0>;
@@ -1190,7 +1190,7 @@
         #endif
         ;
     };
-    left_index_tap: homey_left_index_tap {
+    ltap_index: homey_left_index_tap {
       compatible = "zmk,behavior-macro-one-param";
       wait-ms = <0>;
       tap-ms = <0>;
@@ -1333,7 +1333,7 @@
       quick-tap-ms = <LEFT_RINGY_REPEAT_DECAY>;
       require-prior-idle-ms = <LEFT_RINGY_STREAK_DECAY>;
       #binding-cells = <2>;
-      bindings = <&kp>, <&left_ringy_tap>;
+      bindings = <&kp>, <&ltap_ringy>;
     };
     #define LeftRingyPinky left_ringy_pinky_bilateral LEFT_PINKY_MOD LEFT_PINKY_KEY
     #ifndef LEFT_MIDDY_PINKY_HOLDING_TYPE
@@ -1368,7 +1368,7 @@
       quick-tap-ms = <LEFT_MIDDY_REPEAT_DECAY>;
       require-prior-idle-ms = <LEFT_MIDDY_STREAK_DECAY>;
       #binding-cells = <2>;
-      bindings = <&kp>, <&left_middy_tap>;
+      bindings = <&kp>, <&ltap_middy>;
     };
     #define LeftMiddyPinky left_middy_pinky_bilateral LEFT_PINKY_MOD LEFT_PINKY_KEY
     #ifndef LEFT_INDEX_PINKY_HOLDING_TYPE
@@ -1403,7 +1403,7 @@
       quick-tap-ms = <LEFT_INDEX_REPEAT_DECAY>;
       require-prior-idle-ms = <LEFT_INDEX_STREAK_DECAY>;
       #binding-cells = <2>;
-      bindings = <&kp>, <&left_index_tap>;
+      bindings = <&kp>, <&ltap_index>;
     };
     #define LeftIndexPinky left_index_pinky_bilateral LEFT_PINKY_MOD LEFT_PINKY_KEY
     #ifndef RIGHT_RINGY_PINKY_HOLDING_TYPE
@@ -1438,7 +1438,7 @@
       quick-tap-ms = <RIGHT_RINGY_REPEAT_DECAY>;
       require-prior-idle-ms = <RIGHT_RINGY_STREAK_DECAY>;
       #binding-cells = <2>;
-      bindings = <&kp>, <&right_ringy_tap>;
+      bindings = <&kp>, <&rtap_ringy>;
     };
     #define RightRingyPinky right_ringy_pinky_bilateral RIGHT_PINKY_MOD RIGHT_PINKY_KEY
     #ifndef RIGHT_MIDDY_PINKY_HOLDING_TYPE
@@ -1473,7 +1473,7 @@
       quick-tap-ms = <RIGHT_MIDDY_REPEAT_DECAY>;
       require-prior-idle-ms = <RIGHT_MIDDY_STREAK_DECAY>;
       #binding-cells = <2>;
-      bindings = <&kp>, <&right_middy_tap>;
+      bindings = <&kp>, <&rtap_middy>;
     };
     #define RightMiddyPinky right_middy_pinky_bilateral RIGHT_PINKY_MOD RIGHT_PINKY_KEY
     #ifndef RIGHT_INDEX_PINKY_HOLDING_TYPE
@@ -1543,7 +1543,7 @@
       quick-tap-ms = <LEFT_PINKY_REPEAT_DECAY>;
       require-prior-idle-ms = <LEFT_PINKY_STREAK_DECAY>;
       #binding-cells = <2>;
-      bindings = <&kp>, <&left_pinky_tap>;
+      bindings = <&kp>, <&ltap_pinky>;
     };
     #define LeftPinkyRingy left_pinky_ringy_bilateral LEFT_RINGY_MOD LEFT_RINGY_KEY
     #ifndef LEFT_MIDDY_RINGY_HOLDING_TYPE
@@ -1578,7 +1578,7 @@
       quick-tap-ms = <LEFT_MIDDY_REPEAT_DECAY>;
       require-prior-idle-ms = <LEFT_MIDDY_STREAK_DECAY>;
       #binding-cells = <2>;
-      bindings = <&kp>, <&left_middy_tap>;
+      bindings = <&kp>, <&ltap_middy>;
     };
     #define LeftMiddyRingy left_middy_ringy_bilateral LEFT_RINGY_MOD LEFT_RINGY_KEY
     #ifndef LEFT_INDEX_RINGY_HOLDING_TYPE
@@ -1613,7 +1613,7 @@
       quick-tap-ms = <LEFT_INDEX_REPEAT_DECAY>;
       require-prior-idle-ms = <LEFT_INDEX_STREAK_DECAY>;
       #binding-cells = <2>;
-      bindings = <&kp>, <&left_index_tap>;
+      bindings = <&kp>, <&ltap_index>;
     };
     #define LeftIndexRingy left_index_ringy_bilateral LEFT_RINGY_MOD LEFT_RINGY_KEY
     #ifndef RIGHT_PINKY_RINGY_HOLDING_TYPE
@@ -1648,7 +1648,7 @@
       quick-tap-ms = <RIGHT_PINKY_REPEAT_DECAY>;
       require-prior-idle-ms = <RIGHT_PINKY_STREAK_DECAY>;
       #binding-cells = <2>;
-      bindings = <&kp>, <&right_pinky_tap>;
+      bindings = <&kp>, <&rtap_pinky>;
     };
     #define RightPinkyRingy right_pinky_ringy_bilateral RIGHT_RINGY_MOD RIGHT_RINGY_KEY
     #ifndef RIGHT_MIDDY_RINGY_HOLDING_TYPE
@@ -1683,7 +1683,7 @@
       quick-tap-ms = <RIGHT_MIDDY_REPEAT_DECAY>;
       require-prior-idle-ms = <RIGHT_MIDDY_STREAK_DECAY>;
       #binding-cells = <2>;
-      bindings = <&kp>, <&right_middy_tap>;
+      bindings = <&kp>, <&rtap_middy>;
     };
     #define RightMiddyRingy right_middy_ringy_bilateral RIGHT_RINGY_MOD RIGHT_RINGY_KEY
     #ifndef RIGHT_INDEX_RINGY_HOLDING_TYPE
@@ -1753,7 +1753,7 @@
       quick-tap-ms = <LEFT_PINKY_REPEAT_DECAY>;
       require-prior-idle-ms = <LEFT_PINKY_STREAK_DECAY>;
       #binding-cells = <2>;
-      bindings = <&kp>, <&left_pinky_tap>;
+      bindings = <&kp>, <&ltap_pinky>;
     };
     #define LeftPinkyMiddy left_pinky_middy_bilateral LEFT_MIDDY_MOD LEFT_MIDDY_KEY
     #ifndef LEFT_RINGY_MIDDY_HOLDING_TYPE
@@ -1788,7 +1788,7 @@
       quick-tap-ms = <LEFT_RINGY_REPEAT_DECAY>;
       require-prior-idle-ms = <LEFT_RINGY_STREAK_DECAY>;
       #binding-cells = <2>;
-      bindings = <&kp>, <&left_ringy_tap>;
+      bindings = <&kp>, <&ltap_ringy>;
     };
     #define LeftRingyMiddy left_ringy_middy_bilateral LEFT_MIDDY_MOD LEFT_MIDDY_KEY
     #ifndef LEFT_INDEX_MIDDY_HOLDING_TYPE
@@ -1823,7 +1823,7 @@
       quick-tap-ms = <LEFT_INDEX_REPEAT_DECAY>;
       require-prior-idle-ms = <LEFT_INDEX_STREAK_DECAY>;
       #binding-cells = <2>;
-      bindings = <&kp>, <&left_index_tap>;
+      bindings = <&kp>, <&ltap_index>;
     };
     #define LeftIndexMiddy left_index_middy_bilateral LEFT_MIDDY_MOD LEFT_MIDDY_KEY
     #ifndef RIGHT_PINKY_MIDDY_HOLDING_TYPE
@@ -1858,7 +1858,7 @@
       quick-tap-ms = <RIGHT_PINKY_REPEAT_DECAY>;
       require-prior-idle-ms = <RIGHT_PINKY_STREAK_DECAY>;
       #binding-cells = <2>;
-      bindings = <&kp>, <&right_pinky_tap>;
+      bindings = <&kp>, <&rtap_pinky>;
     };
     #define RightPinkyMiddy right_pinky_middy_bilateral RIGHT_MIDDY_MOD RIGHT_MIDDY_KEY
     #ifndef RIGHT_RINGY_MIDDY_HOLDING_TYPE
@@ -1893,7 +1893,7 @@
       quick-tap-ms = <RIGHT_RINGY_REPEAT_DECAY>;
       require-prior-idle-ms = <RIGHT_RINGY_STREAK_DECAY>;
       #binding-cells = <2>;
-      bindings = <&kp>, <&right_ringy_tap>;
+      bindings = <&kp>, <&rtap_ringy>;
     };
     #define RightRingyMiddy right_ringy_middy_bilateral RIGHT_MIDDY_MOD RIGHT_MIDDY_KEY
     #ifndef RIGHT_INDEX_MIDDY_HOLDING_TYPE
@@ -1963,7 +1963,7 @@
       quick-tap-ms = <LEFT_PINKY_REPEAT_DECAY>;
       require-prior-idle-ms = <LEFT_PINKY_STREAK_DECAY>;
       #binding-cells = <2>;
-      bindings = <&kp>, <&left_pinky_tap>;
+      bindings = <&kp>, <&ltap_pinky>;
     };
     #define LeftPinkyIndex left_pinky_index_bilateral LEFT_INDEX_MOD LEFT_INDEX_KEY
     #ifndef LEFT_RINGY_INDEX_HOLDING_TYPE
@@ -1998,7 +1998,7 @@
       quick-tap-ms = <LEFT_RINGY_REPEAT_DECAY>;
       require-prior-idle-ms = <LEFT_RINGY_STREAK_DECAY>;
       #binding-cells = <2>;
-      bindings = <&kp>, <&left_ringy_tap>;
+      bindings = <&kp>, <&ltap_ringy>;
     };
     #define LeftRingyIndex left_ringy_index_bilateral LEFT_INDEX_MOD LEFT_INDEX_KEY
     #ifndef LEFT_MIDDY_INDEX_HOLDING_TYPE
@@ -2033,7 +2033,7 @@
       quick-tap-ms = <LEFT_MIDDY_REPEAT_DECAY>;
       require-prior-idle-ms = <LEFT_MIDDY_STREAK_DECAY>;
       #binding-cells = <2>;
-      bindings = <&kp>, <&left_middy_tap>;
+      bindings = <&kp>, <&ltap_middy>;
     };
     #define LeftMiddyIndex left_middy_index_bilateral LEFT_INDEX_MOD LEFT_INDEX_KEY
     #ifndef RIGHT_PINKY_INDEX_HOLDING_TYPE
@@ -2068,7 +2068,7 @@
       quick-tap-ms = <RIGHT_PINKY_REPEAT_DECAY>;
       require-prior-idle-ms = <RIGHT_PINKY_STREAK_DECAY>;
       #binding-cells = <2>;
-      bindings = <&kp>, <&right_pinky_tap>;
+      bindings = <&kp>, <&rtap_pinky>;
     };
     #define RightPinkyIndex right_pinky_index_bilateral RIGHT_INDEX_MOD RIGHT_INDEX_KEY
     #ifndef RIGHT_RINGY_INDEX_HOLDING_TYPE
@@ -2103,7 +2103,7 @@
       quick-tap-ms = <RIGHT_RINGY_REPEAT_DECAY>;
       require-prior-idle-ms = <RIGHT_RINGY_STREAK_DECAY>;
       #binding-cells = <2>;
-      bindings = <&kp>, <&right_ringy_tap>;
+      bindings = <&kp>, <&rtap_ringy>;
     };
     #define RightRingyIndex right_ringy_index_bilateral RIGHT_INDEX_MOD RIGHT_INDEX_KEY
     #ifndef RIGHT_MIDDY_INDEX_HOLDING_TYPE
@@ -2138,7 +2138,7 @@
       quick-tap-ms = <RIGHT_MIDDY_REPEAT_DECAY>;
       require-prior-idle-ms = <RIGHT_MIDDY_STREAK_DECAY>;
       #binding-cells = <2>;
-      bindings = <&kp>, <&right_middy_tap>;
+      bindings = <&kp>, <&rtap_middy>;
     };
     #define RightMiddyIndex right_middy_index_bilateral RIGHT_INDEX_MOD RIGHT_INDEX_KEY
   };
