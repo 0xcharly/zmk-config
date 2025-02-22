@@ -176,7 +176,7 @@
     dvorak {
       bindings = <
    /* ╭───────────────────────────────────────────────────────────────────────╮ ╭────────────────────────────────────────────────────────────────────────────╮ */
-        &kp APOS      &kp COMMA     &kp DOT       &kp P         &kp Y             &kp F         &kp G         &kp C           &kp R           &kp L
+        &kp Z         &kp COMMA     &kp DOT       &kp P         &kp Y             &kp F         &kp G         &kp C           &kp R           &kp L
         &LeftPinky(A) &LeftRingy(O) &LeftMiddy(E) &LeftIndex(U) &kp I             &kp D         &kp H         &RightMiddy(T)  &RightRingy(N)  &RightPinky(S)
         &none         &kp Q         &kp J         &kp K         &kp X             &kp B         &kp M         &kp W           &kp V           &kp Z
    /* ╰───────────────────────────────────────────────────────────────────────┤ ├────────────────────────────────────────────────────────────────────────────╯ */
@@ -188,7 +188,7 @@
     layer_LeftPinky {
       bindings = <
    /* ╭──────────────────────────────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────────────────────────────╮ */
-        &ltap_pinky APOS  &ltap_pinky COMMA &ltap_pinky DOT   &ltap_pinky P     &ltap_pinky Y        &trans            &trans            &trans            &trans            &trans
+        &ltap_pinky Z     &ltap_pinky COMMA &ltap_pinky DOT   &ltap_pinky P     &ltap_pinky Y        &trans            &trans            &trans            &trans            &trans
         &none             &LeftPinkyRingy   &LeftPinkyMiddy   &LeftPinkyIndex   &ltap_pinky I        &trans            &kp H             &kp T             &kp N             &kp S
         &none             &ltap_pinky Q     &ltap_pinky J     &ltap_pinky K     &ltap_pinky X        &trans            &trans            &trans            &trans            &trans
    /* ╰──────────────────────────────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────────────────────────────╯ */
@@ -200,7 +200,7 @@
     layer_LeftRingy {
       bindings = <
    /* ╭──────────────────────────────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────────────────────────────╮ */
-        &ltap_ringy APOS  &ltap_ringy COMMA &ltap_ringy DOT   &ltap_ringy P     &ltap_ringy Y        &trans            &trans            &trans            &trans            &trans
+        &ltap_ringy Z     &ltap_ringy COMMA &ltap_ringy DOT   &ltap_ringy P     &ltap_ringy Y        &trans            &trans            &trans            &trans            &trans
         &LeftRingyPinky   &none             &LeftRingyMiddy   &LeftRingyIndex   &ltap_ringy I        &trans            &kp H             &kp T             &kp N             &kp S
         &none             &ltap_ringy Q     &ltap_ringy J     &ltap_ringy K     &ltap_ringy X        &trans            &trans            &trans            &trans            &trans
    /* ╰──────────────────────────────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────────────────────────────╯ */
@@ -212,7 +212,7 @@
     layer_LeftMiddy {
       bindings = <
    /* ╭──────────────────────────────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────────────────────────────╮ */
-        &ltap_middy APOS  &ltap_middy COMMA &ltap_middy DOT   &ltap_middy P     &ltap_middy Y        &trans            &trans            &trans            &trans            &trans
+        &ltap_middy Z     &ltap_middy COMMA &ltap_middy DOT   &ltap_middy P     &ltap_middy Y        &trans            &trans            &trans            &trans            &trans
         &LeftMiddyPinky   &LeftMiddyRingy   &none             &LeftMiddyIndex   &ltap_middy I        &trans            &kp H             &kp T             &kp N             &kp S
         &none             &ltap_middy Q     &ltap_middy J     &ltap_middy K     &ltap_middy X        &trans            &trans            &trans            &trans            &trans
    /* ╰──────────────────────────────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────────────────────────────╯ */
@@ -224,7 +224,7 @@
     layer_LeftIndex {
       bindings = <
    /* ╭──────────────────────────────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────────────────────────────╮ */
-        &ltap_index APOS  &ltap_index COMMA &ltap_index DOT   &ltap_index P     &ltap_index Y        &trans            &trans            &trans            &trans            &trans
+        &ltap_index Z     &ltap_index COMMA &ltap_index DOT   &ltap_index P     &ltap_index Y        &trans            &trans            &trans            &trans            &trans
         &LeftIndexPinky   &LeftIndexRingy   &LeftIndexMiddy   &none             &ltap_index I        &trans            &kp H             &kp T             &kp N             &kp S
         &none             &ltap_index Q     &ltap_index J     &ltap_index K     &ltap_index X        &trans            &trans            &trans            &trans            &trans
    /* ╰──────────────────────────────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────────────────────────────╯ */
