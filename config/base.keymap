@@ -178,7 +178,7 @@
    /* ╭───────────────────────────────────────────────────────────────────────╮ ╭────────────────────────────────────────────────────────────────────────────╮ */
         &kp Z         &kp COMMA     &kp DOT       &kp P         &kp Y             &kp F         &kp G         &kp C           &kp R           &kp L
         &LeftPinky(A) &LeftRingy(O) &LeftMiddy(E) &LeftIndex(U) &kp I             &kp D         &kp H         &RightMiddy(T)  &RightRingy(N)  &RightPinky(S)
-        &none         &kp Q         &kp J         &kp K         &kp X             &kp B         &kp M         &kp W           &kp V           &kp Z
+        &none         &kp Q         &kp J         &kp K         &kp X             &kp B         &kp M         &kp W           &kp V           &none
    /* ╰───────────────────────────────────────────────────────────────────────┤ ├────────────────────────────────────────────────────────────────────────────╯ */
                                                   &mo LOWER     &lt NAV SPACE     &smart_shft  &mo UPPER
    /*                                           ╰─────────────────────────────╯ ╰────────────────────────────╯                                                 */
@@ -238,7 +238,7 @@
    /* ╭──────────────────────────────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────────────────────────────╮ */
         &trans            &trans            &trans            &trans            &trans               &rtap_pinky F     &rtap_pinky G     &rtap_pinky C     &rtap_pinky R     &rtap_pinky L
         &kp A             &kp O             &kp E             &kp U             &trans               &rtap_pinky D     &rtap_pinky H     &RightPinkyMiddy  &RightPinkyRingy  &none
-        &none             &trans            &trans            &trans            &trans               &rtap_pinky B     &rtap_pinky M     &rtap_pinky W     &rtap_pinky V     &rtap_pinky Z
+        &none             &trans            &trans            &trans            &trans               &rtap_pinky B     &rtap_pinky M     &rtap_pinky W     &rtap_pinky V     &none
    /* ╰──────────────────────────────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────────────────────────────╯ */
                                                               &trans            &trans               &trans            &trans
    /*                                                       ╰────────────────────────────────────╯ ╰────────────────────────────────────╯                                                       */
@@ -250,7 +250,7 @@
    /* ╭──────────────────────────────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────────────────────────────╮ */
         &trans            &trans            &trans            &trans            &trans               &rtap_ringy F     &rtap_ringy G     &rtap_ringy C     &rtap_ringy R     &rtap_ringy L
         &kp A             &kp O             &kp E             &kp U             &trans               &rtap_ringy D     &rtap_ringy H     &RightRingyMiddy  &none             &RightRingyPinky
-        &none             &trans            &trans            &trans            &trans               &rtap_ringy B     &rtap_ringy M     &rtap_ringy W     &rtap_ringy V     &rtap_ringy Z
+        &none             &trans            &trans            &trans            &trans               &rtap_ringy B     &rtap_ringy M     &rtap_ringy W     &rtap_ringy V     &none
    /* ╰──────────────────────────────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────────────────────────────╯ */
                                                               &trans            &trans               &trans            &trans
    /*                                                       ╰────────────────────────────────────╯ ╰────────────────────────────────────╯                                                       */
@@ -262,7 +262,7 @@
    /* ╭──────────────────────────────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────────────────────────────╮ */
         &trans            &trans            &trans            &trans            &trans               &rtap_middy F     &rtap_middy G     &rtap_middy C     &rtap_middy R     &rtap_middy L
         &kp A             &kp O             &kp E             &kp U             &trans               &rtap_middy D     &rtap_middy H     &none             &RightMiddyRingy  &RightMiddyPinky
-        &none             &trans            &trans            &trans            &trans               &rtap_middy B     &rtap_middy M     &rtap_middy W     &rtap_middy V     &rtap_middy Z
+        &none             &trans            &trans            &trans            &trans               &rtap_middy B     &rtap_middy M     &rtap_middy W     &rtap_middy V     &none
    /* ╰──────────────────────────────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────────────────────────────╯ */
                                                               &trans            &trans               &trans            &trans
    /*                                                       ╰────────────────────────────────────╯ ╰────────────────────────────────────╯                                                       */
