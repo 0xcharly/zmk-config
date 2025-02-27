@@ -47,11 +47,8 @@
 };
 
 // Adjust Caps Word configuration.
-// Use right shift so that it doesn't trigger the `comma_escape` and `dot_colon`
-// behaviors.
 &caps_word {
   continue-list = <UNDERSCORE MINUS BACKSPACE DELETE>;
-  mods = <(MOD_RSFT)>;
 };
 
 // Custom behaviors.
@@ -63,22 +60,6 @@
       #binding-cells = <0>;
       bindings = <&sk LSHFT>, <&caps_word>;
       mods = <(MOD_LSFT|MOD_RSFT)>;
-    };
-
-    // tap: comma | shift + tap: escape.
-    comma_escape: comma_escape {
-      compatible = "zmk,behavior-mod-morph";
-      #binding-cells = <0>;
-      bindings = <&kp COMMA>, <&kp ESCAPE>;
-      mods = <(MOD_LSFT)>;
-    };
-
-    // tap: dot | shift + tap: colon.
-    dot_colon: dot_colon {
-      compatible = "zmk,behavior-mod-morph";
-      #binding-cells = <0>;
-      bindings = <&kp DOT>, <&kp COLON>;
-      mods = <(MOD_LSFT)>;
     };
   };
 };
@@ -122,7 +103,7 @@
     dvorak {
       bindings = <
    // ╭───────────────────────────────────────────────────────────────────────╮ ╭────────────────────────────────────────────────────────────────────────────╮
-        &kp APOS      &comma_escape &dot_colon    &kp P         &kp Y             &kp F         &kp G         &kp C           &kp R           &kp L
+        &kp APOS      &kp COMMA     &kp DOT       &kp P         &kp Y             &kp F         &kp G         &kp C           &kp R           &kp L
         &LeftPinky(A) &LeftRingy(O) &LeftMiddy(E) &LeftIndex(U) &kp I             &kp D         &kp H         &RightMiddy(T)  &RightRingy(N)  &RightPinky(S)
         &mo SPECIAL   &kp Q         &kp J         &kp K         &kp X             &kp B         &kp M         &kp W           &kp V           &kp Z
    // ╰───────────────────────────────────────────────────────────────────────┤ ├────────────────────────────────────────────────────────────────────────────╯
@@ -260,8 +241,8 @@
     upper {
       bindings = <
    // ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮
-        &kp PERCENT  &kp HASH     &kp EXCL     &kp EQUAL    &none            &none        &kp CARET    &kp QMARK    &kp DOLLAR   &kp BSLH
-        &kp GRAVE    &none        &kp MINUS    &none        &kp PIPE         &kp AMPS     &kp LBRC     &kp UNDER    &kp RBRC     &kp AT
+        &kp HASH     &kp ESCAPE   &kp EXCL     &kp EQUAL    &none            &none        &kp CARET    &kp QMARK    &kp DOLLAR   &kp BSLH
+        &kp GRAVE    &none        &kp MINUS    &kp COLON    &kp PIPE         &kp AMPS     &kp LBRC     &kp UNDER    &kp RBRC     &kp AT
         &kp TILDE    &kp PLUS     &kp ASTERISK &kp SLASH    &kp LT           &kp GT       &kp LBKT     &kp DQT      &kp RBKT     &kp PERCENT
    // ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯
                                                &trans       &trans           &none        &trans /*↓*/
