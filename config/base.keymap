@@ -24,12 +24,11 @@
 #define LAYER_RightRingy 5
 #define LAYER_RightMiddy 6
 #define LAYER_RightIndex 7
-#define NAV 8
-#define LOWER 9
-#define UPPER 10
-#define EXTEND 11
-#define F_ROW 12
-#define SYSTEM 13
+#define LOWER 8
+#define UPPER 9
+#define EXTEND 10
+#define F_ROW 11
+#define SYSTEM 12
 
 #include "hrm.dtsi"
 
@@ -55,41 +54,12 @@
 // Custom behaviors.
 / {
   behaviors {
-    // A reimplementation of layer-tap (`lt`) for which the key-press (`kp`) can
-    // be repeated. It's essentially the same as customizing the `lt` behavior
-    // (`&lt { ... }`) but only applying the `quick-tap-ms` property locally.
-    rlt: repeatable_lt {
-      compatible = "zmk,behavior-hold-tap";
-      #binding-cells = <2>;
-      tapping-term-ms = <200>;
-      quick-tap-ms = <150>; // Enable repeat on double tap.
-      flavor = "tap-preferred";
-      bindings = <&mo>, <&kp>;
-    };
-    // A reimplementation of mod-tap (`mt`) with a sticky-key (`sk`) instead
-    // of a key-press (`kp`).
-    mo_sk: momentary_stickykey {
-      compatible = "zmk,behavior-hold-tap";
-      #binding-cells = <2>;
-      tapping-term-ms = <200>;
-      flavor = "tap-preferred";
-      bindings = <&mo>, <&sk>;
-    };
-
     // tap: sticky-shift | shift + tap/ double-tap: caps-word | hold: nav layer.
     smart_shift: smart_shift {
       compatible = "zmk,behavior-mod-morph";
       #binding-cells = <0>;
       mods = <(MOD_LSFT)>;
-      bindings = <&mo_sk NAV LSHFT>, <&caps_word>;
-    };
-
-    // tap: paste | double-tap: paste w/o styles
-    styled_paste: styled_paste {
-      compatible = "zmk,behavior-tap-dance";
-      #binding-cells = <0>;
-      tapping-term-ms = <200>;
-      bindings = <&kp LG(V)>, <&kp LG(LS(V))>;
+      bindings = <&sk LSHFT>, <&caps_word>;
     };
   };
 };
@@ -103,65 +73,12 @@
       if-layers = <LOWER UPPER>;
       then-layer = <EXTEND>;
     };
-
-    // NAV + UPPER -> F_ROW
-    tri_layers_nav_extend {
-      if-layers = <NAV UPPER>;
-      then-layer = <F_ROW>;
-    };
-  };
-};
-
-// Quick navigation to Zellij tabs.
-/ {
-  macros {
-    // Switch to the specified tab number (use `N1`, `N2`, …).
-    mul_tab: multiplexer_switch_to_tab_ {
-      compatible = "zmk,behavior-macro-one-param";
-      #binding-cells = <1>;
-      bindings
-          = <&macro_press &kp LCTRL>
-          , <&macro_tap &kp B>
-          , <&macro_release &kp LCTRL>
-          , <&macro_pause_for_release>
-          , <&macro_tap &kp T>
-          , <&macro_param_1to1>
-          , <&macro_tap &kp MACRO_PLACEHOLDER>
-          ;
-    };
-
-    // Quick swap between the 2 most recent tabs.
-    mul_swap: multiplexer_quick_swap {
-      compatible = "zmk,behavior-macro";
-      #binding-cells = <0>;
-      bindings
-          = <&macro_press &kp LCTRL>
-          , <&macro_tap &kp B>
-          , <&macro_tap &kp B>
-          , <&macro_release &kp LCTRL>
-          , <&macro_pause_for_release>
-          ;
-    };
   };
 };
 
 // Custom character sequences.
 / {
   macros {
-    // Right arrow macro: ->
-    rarrow: right_arrow {
-      compatible = "zmk,behavior-macro";
-      #binding-cells = <0>;
-      bindings = <&macro_tap &kp MINUS &kp GT>;
-    };
-
-    // Fat right arrow macro: =>
-    frarrow: fat_right_arrow {
-      compatible = "zmk,behavior-macro";
-      #binding-cells = <0>;
-      bindings = <&macro_tap &kp EQUAL &kp GT>;
-    };
-
     // Double shift (⇧⇧) for opening the menu in IntelliJ's IDE.
     sshift: double_shift {
       compatible = "zmk,behavior-macro";
@@ -178,20 +95,19 @@
 
 // Layout.
 / {
-  // 34-key (in practice, 32-key) keymap, using a Dvorak base layer.
+  // 34-key keymap, using a Dvorak base layer.
   keymap {
     compatible = "zmk,keymap";
 
-    // Dvorak layout with `Z` moved to the `APOS` position (to fit on a 32-key,
-    // 23333+2 keyboard).
+    // Traditional Dvorak layout.
     dvorak {
       bindings = <
    // ╭───────────────────────────────────────────────────────────────────────╮ ╭────────────────────────────────────────────────────────────────────────────╮
-        &kp Z         &kp COMMA     &kp DOT       &kp P         &kp Y             &kp F         &kp G         &kp C           &kp R           &kp L
+        &kp APOS      &kp COMMA     &kp DOT       &kp P         &kp Y             &kp F         &kp G         &kp C           &kp R           &kp L
         &LeftPinky(A) &LeftRingy(O) &LeftMiddy(E) &LeftIndex(U) &kp I             &kp D         &kp H         &RightMiddy(T)  &RightRingy(N)  &RightPinky(S)
-        &mo SYSTEM    &kp Q         &kp J         &kp K         &kp X             &kp B         &kp M         &kp W           &kp V           &mo SYSTEM
+        &mo F_ROW     &kp Q         &kp J         &kp K         &kp X             &kp B         &kp M         &kp W           &kp V           &kp Z
    // ╰───────────────────────────────────────────────────────────────────────┤ ├────────────────────────────────────────────────────────────────────────────╯
-                                                  &mo LOWER     &rlt NAV SPACE    &smart_shift  &mo UPPER
+                                                  &mo LOWER     &kp SPACE         &smart_shift  &mo UPPER
    //                                           ╰─────────────────────────────╯ ╰─────────────────────────────╯
       >;
     };
@@ -283,27 +199,6 @@
     };
 
     /**
-     * Navigation layer. Can be activated from any hand.
-     *
-     * Navigation and symbols.
-     *
-     *   - Home-row sticky mods.
-     *   - Direct access to desktop shortcuts.
-     *   - Zellij tabs navigation.
-     */
-    nav {
-      bindings = <
-   // ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮
-        &kp LA(N1)   &kp LA(N2)   &kp LA(N3)   &kp LA(N4)   &kp LA(N5)       &kp LA(N6)   &kp LA(N7)   &kp LA(N8)   &kp LA(N9)   &kp LA(N0)
-        &sk LALT     &sk LGUI     &sk LCTRL    &sk LSHIFT   &kp LAUNCHER     &sshift      &none        &none        &none        &none
-        &none        &kp RCS_TAB  &kp LG(C)    &kp CTL_TAB  &styled_paste    &mul_swap    &mul_tab N1  &mul_tab N2  &mul_tab N3  &mul_tab N4
-   // ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯
-                                               &none        &trans /*↓*/     &kp ENTER    &trans
-   //                                        ╰───────────────────────────╯ ╰───────────────────────────╯
-      >;
-    };
-
-    /**
      * Lower layer. Left thumb down.
      *
      * Symbols.
@@ -320,9 +215,9 @@
     lower {
       bindings = <
    // ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮
-        &none        &kp HASH     &kp EXCL     &none        &none            &none        &none        &kp UP       &kp BSPC     &kp LS(TAB)
-        &sk RALT     &sk LGUI     &sk LCTRL    &sk LSHIFT   &none            &none        &kp LEFT     &kp DOWN     &kp RIGHT    &kp TAB
-        &none        &kp LBRC     &none        &kp RBRC     &none            &none        &kp LPAR     &kp SEMI     &kp RPAR     &none
+        &kp LA(N1)   &kp LA(N2)   &kp LA(N3)   &kp LA(N4)   &kp LA(N5)       &kp LS(TAB)  &none        &kp UP       &kp BSPC     &kp TAB
+        &sk RALT     &sk LGUI     &sk LCTRL    &sk LSHIFT   &kp LAUNCHER     &sshift      &kp LEFT     &kp DOWN     &kp RIGHT    &none
+        &none        &kp RCS_TAB  &kp LG(C)    &kp CTL_TAB  &kp LG(V)        &none        &kp LPAR     &kp SEMI     &kp RPAR     &none
    // ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯
                                                &trans /*↓*/ &none            &kp ENTER    &trans
    //                                        ╰───────────────────────────╯ ╰───────────────────────────╯
@@ -346,9 +241,9 @@
     upper {
       bindings = <
    // ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮
-        &kp APOS     &kp PLUS     &kp EXCL     &kp EQUAL    &kp PERCENT      &none        &kp CARET    &kp QMARK    &kp DOLLAR   &kp BSLH
-        &kp GRAVE    &kp ESCAPE   &kp MINUS    &kp COLON    &kp PIPE         &none        &kp LT       &kp UNDER    &kp GT       &kp AT
-        &none        &kp TILDE    &kp ASTERISK &kp SLASH    &kp AMPS         &none        &kp LBKT     &kp DQT      &kp RBKT     &none
+        &kp PERCENT  &kp HASH     &kp EXCL     &kp EQUAL    &none            &none        &kp CARET    &kp QMARK    &kp DOLLAR   &kp BSLH
+        &kp GRAVE    &kp ESCAPE   &kp MINUS    &kp COLON    &kp PIPE         &none        &kp LBRC     &kp UNDER    &kp RBRC     &kp AT
+        &kp TILDE    &kp PLUS     &kp ASTERISK &kp SLASH    &kp AMPS         &kp LT       &kp LBKT     &kp DQT      &kp RBKT     &kp GT
    // ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯
                                                &trans       &trans           &none        &trans /*↓*/
    //                                        ╰───────────────────────────╯ ╰───────────────────────────╯
@@ -361,14 +256,14 @@
      * Numbers and some symbols.
      *
      *   - Optimized numrow.
-     *   - Arithmetic operators and date-time symbols.
+     *   - Base-layer symbols so that every symbol is accessible by moving at most one finger.
      */
     extend {
       bindings = <
    // ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮
-        &none        &kp COMMA    &kp DOT      &none        &kp PERCENT      &kp COLON    &none        &rarrow      &frarrow     &none
-        &kp N7       &kp N5       &kp N1       &kp N3       &kp PLUS         &kp MINUS    &kp N2       &kp N0       &kp N4       &kp N6
-        &none        &none        &none        &kp N9       &kp ASTERISK     &kp SLASH    &kp N8       &none        &none        &none
+        &kp APOS     &kp COMMA    &kp DOT      &none        &none            &kp LA(N6)   &kp LA(N7)   &kp LA(N8)   &kp LA(N9)   &kp LA(N0)
+        &kp N7       &kp N5       &kp N1       &kp N3       &none            &none        &kp N2       &kp N0       &kp N4       &kp N6
+        &none        &none        &none        &kp N9       &none            &none        &kp N8       &none        &none        &none
    // ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯
                                                &trans /*↓*/ &none            &none        &trans /*↓*/
    //                                        ╰───────────────────────────╯ ╰───────────────────────────╯
@@ -376,23 +271,20 @@
     };
 
     /**
-     * Extended navigation layer.
+     * F-row layer.
      *
      * More desktop shortcuts and navigation, and lesser used keys.
      *
-     *   - Home-row sticky mods.
-     *   - Direct access to extended desktop shortcuts.
-     *   - Cut/paste w/o styles.
      *   - F-keys.
      */
     f-row {
       bindings = <
    // ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮
         &none        &none        &none        &none        &none            &none        &kp F7       &kp F8       &kp F9       &kp F12
-        &sk LALT     &sk LGUI     &sk LCTRL    &sk LSHIFT   &none            &none        &kp F4       &kp F5       &kp F6       &kp F11
+        &none        &none        &none        &none        &none            &none        &kp F4       &kp F5       &kp F6       &kp F11
         &none        &none        &none        &none        &none            &none        &kp F1       &kp F2       &kp F3       &kp F10
    // ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯
-                                               &none        &trans /*↓*/     &none        &trans /*↓*/
+                                               &none        &none            &none        &none
    //                                        ╰───────────────────────────╯ ╰───────────────────────────╯
       >;
     };
