@@ -6,16 +6,16 @@
             bias-pull-up;
         };
         tx_pins {
-            pinmux = <PIO0_P14>;
+            // pinmux = <PIO0_P14>;
             // NOTE: for Splinky v2
-            // pinmux = <PIO0_P12>;
+            pinmux = <PIO0_P12>;
         };
     };
     pio0_uart0_right: pio0_uart0_right {
         rx_pins {
-            pinmux = <PIO0_P14>;
+            // pinmux = <PIO0_P14>;
             // NOTE: for Splinky v2
-            // pinmux = <PIO0_P12>;
+            pinmux = <PIO0_P12>;
             input-enable;
             bias-pull-up;
         };

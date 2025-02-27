@@ -28,8 +28,8 @@
 		gpio-map
 			= <1 0 &gpio0 28 0> /* RP2040 gpio28 */
       // NOTE: for splinky v2
-			// , <2 0 &gpio0 15 0> /* RP2040 gpio15 */
-			, <2 0 &gpio0 21 0> /* RP2040 gpio21 */
+			, <2 0 &gpio0 15 0> /* RP2040 gpio15 */
+			//, <2 0 &gpio0 21 0> /* RP2040 gpio21 */
 			, <3 0 &gpio0  6 0> /* RP2040 gpio6 */
 			, <4 0 &gpio0  7 0> /* RP2040 gpio7 */
 			, <5 0 &gpio0  8 0> /* RP2040 gpio8 */
