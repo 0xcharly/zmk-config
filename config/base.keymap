@@ -27,7 +27,7 @@
 #define LOWER 8
 #define UPPER 9
 #define EXTEND 10
-#define F_ROW 11
+#define SPECIAL 11
 #define SYSTEM 12
 
 #include "hrm.dtsi"
@@ -47,8 +47,11 @@
 };
 
 // Adjust Caps Word configuration.
+// Use right shift so that it doesn't trigger the `comma_escape` and `dot_colon`
+// behaviors.
 &caps_word {
   continue-list = <UNDERSCORE MINUS BACKSPACE DELETE>;
+  mods = <(MOD_RSFT)>;
 };
 
 // Custom behaviors.
@@ -58,8 +61,24 @@
     smart_shift: smart_shift {
       compatible = "zmk,behavior-mod-morph";
       #binding-cells = <0>;
-      mods = <(MOD_LSFT)>;
       bindings = <&sk LSHFT>, <&caps_word>;
+      mods = <(MOD_LSFT|MOD_RSFT)>;
+    };
+
+    // tap: comma | shift + tap: escape.
+    comma_escape: comma_escape {
+      compatible = "zmk,behavior-mod-morph";
+      #binding-cells = <0>;
+      bindings = <&kp COMMA>, <&kp ESCAPE>;
+      mods = <(MOD_LSFT)>;
+    };
+
+    // tap: dot | shift + tap: colon.
+    dot_colon: dot_colon {
+      compatible = "zmk,behavior-mod-morph";
+      #binding-cells = <0>;
+      bindings = <&kp DOT>, <&kp COLON>;
+      mods = <(MOD_LSFT)>;
     };
   };
 };
@@ -103,9 +122,9 @@
     dvorak {
       bindings = <
    // ╭───────────────────────────────────────────────────────────────────────╮ ╭────────────────────────────────────────────────────────────────────────────╮
-        &kp APOS      &kp COMMA     &kp DOT       &kp P         &kp Y             &kp F         &kp G         &kp C           &kp R           &kp L
+        &kp APOS      &comma_escape &dot_colon    &kp P         &kp Y             &kp F         &kp G         &kp C           &kp R           &kp L
         &LeftPinky(A) &LeftRingy(O) &LeftMiddy(E) &LeftIndex(U) &kp I             &kp D         &kp H         &RightMiddy(T)  &RightRingy(N)  &RightPinky(S)
-        &mo F_ROW     &kp Q         &kp J         &kp K         &kp X             &kp B         &kp M         &kp W           &kp V           &kp Z
+        &mo SPECIAL   &kp Q         &kp J         &kp K         &kp X             &kp B         &kp M         &kp W           &kp V           &kp Z
    // ╰───────────────────────────────────────────────────────────────────────┤ ├────────────────────────────────────────────────────────────────────────────╯
                                                   &mo LOWER     &kp SPACE         &smart_shift  &mo UPPER
    //                                           ╰─────────────────────────────╯ ╰─────────────────────────────╯
@@ -216,8 +235,8 @@
       bindings = <
    // ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮
         &kp LA(N1)   &kp LA(N2)   &kp LA(N3)   &kp LA(N4)   &kp LA(N5)       &kp LS(TAB)  &none        &kp UP       &kp BSPC     &kp TAB
-        &sk RALT     &sk LGUI     &sk LCTRL    &sk LSHIFT   &kp LAUNCHER     &sshift      &kp LEFT     &kp DOWN     &kp RIGHT    &none
-        &none        &kp RCS_TAB  &kp LG(C)    &kp CTL_TAB  &kp LG(V)        &none        &kp LPAR     &kp SEMI     &kp RPAR     &none
+        &sk LALT     &sk LGUI     &sk LCTRL    &sk LSHIFT   &kp LAUNCHER     &sshift      &kp LEFT     &kp DOWN     &kp RIGHT    &none
+        &sk RALT     &kp RCS_TAB  &kp LG(C)    &kp CTL_TAB  &kp LG(V)        &none        &kp LPAR     &kp SEMI     &kp RPAR     &none
    // ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯
                                                &trans /*↓*/ &none            &kp ENTER    &trans
    //                                        ╰───────────────────────────╯ ╰───────────────────────────╯
@@ -242,8 +261,8 @@
       bindings = <
    // ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮
         &kp PERCENT  &kp HASH     &kp EXCL     &kp EQUAL    &none            &none        &kp CARET    &kp QMARK    &kp DOLLAR   &kp BSLH
-        &kp GRAVE    &kp ESCAPE   &kp MINUS    &kp COLON    &kp PIPE         &none        &kp LBRC     &kp UNDER    &kp RBRC     &kp AT
-        &kp TILDE    &kp PLUS     &kp ASTERISK &kp SLASH    &kp AMPS         &kp LT       &kp LBKT     &kp DQT      &kp RBKT     &kp GT
+        &kp GRAVE    &none        &kp MINUS    &none        &kp PIPE         &kp AMPS     &kp LBRC     &kp UNDER    &kp RBRC     &kp AT
+        &kp TILDE    &kp PLUS     &kp ASTERISK &kp SLASH    &kp LT           &kp GT       &kp LBKT     &kp DQT      &kp RBKT     &kp PERCENT
    // ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯
                                                &trans       &trans           &none        &trans /*↓*/
    //                                        ╰───────────────────────────╯ ╰───────────────────────────╯
@@ -277,7 +296,7 @@
      *
      *   - F-keys.
      */
-    f-row {
+    special {
       bindings = <
    // ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮
         &none        &none        &none        &none        &none            &none        &kp F7       &kp F8       &kp F9       &kp F12
