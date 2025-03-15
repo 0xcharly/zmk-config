@@ -241,9 +241,9 @@
     upper {
       bindings = <
    // ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮
-        &kp HASH     &kp HASH     &kp EXCL     &kp EQUAL    &none            &none        &kp CARET    &kp QMARK    &kp DOLLAR   &kp BSLH
+        &kp PERCENT  &kp HASH     &kp EXCL     &kp EQUAL    &none            &none        &kp CARET    &kp QMARK    &kp DOLLAR   &kp BSLH
         &kp GRAVE    &kp ESCAPE   &kp MINUS    &kp COLON    &kp PIPE         &kp AMPS     &kp LBRC     &kp UNDER    &kp RBRC     &kp AT
-        &kp TILDE    &kp PLUS     &kp ASTERISK &kp SLASH    &kp LT           &kp GT       &kp LBKT     &kp DQT      &kp RBKT     &kp PERCENT
+        &kp TILDE    &kp PLUS     &kp ASTERISK &kp SLASH    &none            &kp LT       &kp LBKT     &kp DQT      &kp RBKT     &kp GT
    // ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯
                                                &trans       &trans           &none        &trans /*↓*/
    //                                        ╰───────────────────────────╯ ╰───────────────────────────╯
