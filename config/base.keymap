@@ -34,8 +34,7 @@
 
 // Custom keycodes.
 #define LAUNCHER (LG(SPACE))
-#define CTL_TAB (LC(TAB))
-#define RCS_TAB (LC(LS(TAB)))
+#define LCS(kp) (LC(LS(kp)))
 
 #define EXTPOW_TOG &ext_power EXT_POWER_TOGGLE_CMD
 #define RGB_UG_TOG &rgb_ug RGB_TOG
@@ -205,10 +204,9 @@
      *
      *   - Primary hand (left):
      *     - Home-row sticky mods.
-     *     - Brackets.
-     *     - Hash and exclamation mark for Gmail shortcuts, and with synergy right-side brackets.
+     *     - Desktop navigation.
      *   - Secondary hand (right):
-     *     - Parenthesis.
+     *     - Tab, Shift-Tab, backspace, delete.
      *     - Inverted T arrow cluster.
      *     - Semi-colon for synergy with parenthesis.
      */
@@ -216,8 +214,8 @@
       bindings = <
    // ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮
         &kp LA(N1)   &kp LA(N2)   &kp LA(N3)   &kp LA(N4)   &kp LA(N5)       &kp LS(TAB)  &kp DEL      &kp UP       &kp BSPC     &kp TAB
-        &sk LALT     &sk LGUI     &sk LCTRL    &sk LSHIFT   &kp LAUNCHER     &sshift      &kp LEFT     &kp DOWN     &kp RIGHT    &none
-        &sk RALT     &kp RCS_TAB  &kp LG(C)    &kp CTL_TAB  &kp LG(V)        &none        &kp LPAR     &kp SEMI     &kp RPAR     &none
+        &sk LALT     &sk LGUI     &sk LCTRL    &sk LSHIFT   &kp LAUNCHER     &none        &kp LEFT     &kp DOWN     &kp RIGHT    &none
+        &sk RALT     &kp LCS(TAB) &kp LG(C)    &kp LC(TAB)  &kp LG(V)        &none        &kp LPAR     &kp SEMI     &kp RPAR     &none
    // ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯
                                                &trans /*↓*/ &none            &kp ENTER    &trans
    //                                        ╰───────────────────────────╯ ╰───────────────────────────╯
@@ -237,13 +235,14 @@
      *   - Secondary hand (left):
      *     - Most common operators.
      *     - Modal editors escape+colon roll for command mode.
+     *     - Hash and exclamation mark for Gmail shortcuts, and with synergy right-side brackets.
      */
     upper {
       bindings = <
    // ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮
         &kp PERCENT  &kp HASH     &kp EXCL     &kp EQUAL    &none            &none        &kp CARET    &kp QMARK    &kp DOLLAR   &kp BSLH
-        &kp GRAVE    &kp ESCAPE   &kp MINUS    &kp COLON    &kp PIPE         &kp AMPS     &kp LBRC     &kp UNDER    &kp RBRC     &kp AT
-        &kp TILDE    &kp PLUS     &kp ASTERISK &kp SLASH    &none            &kp LT       &kp LBKT     &kp DQT      &kp RBKT     &kp GT
+        &kp GRAVE    &kp ESCAPE   &kp MINUS    &kp COLON    &sshift          &none        &kp LBRC     &kp UNDER    &kp RBRC     &kp AT
+        &kp TILDE    &kp PLUS     &kp ASTERISK &kp SLASH    &none            &none        &kp LBKT     &kp DQT      &kp RBKT     &none
    // ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯
                                                &trans       &trans           &none        &trans /*↓*/
    //                                        ╰───────────────────────────╯ ╰───────────────────────────╯
@@ -263,7 +262,7 @@
    // ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮
         &kp APOS     &kp COMMA    &kp DOT      &none        &none            &kp LA(N6)   &kp LA(N7)   &kp LA(N8)   &kp LA(N9)   &kp LA(N0)
         &kp N7       &kp N5       &kp N1       &kp N3       &none            &none        &kp N2       &kp N0       &kp N4       &kp N6
-        &none        &none        &none        &kp N9       &none            &none        &kp N8       &none        &none        &none
+        &none        &kp LT       &kp AMPS     &kp N9       &none            &none        &kp N8       &kp PIPE     &kp GT       &none
    // ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯
                                                &trans /*↓*/ &none            &none        &trans /*↓*/
    //                                        ╰───────────────────────────╯ ╰───────────────────────────╯
@@ -282,7 +281,7 @@
    // ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮
         &none        &none        &none        &none        &none            &none        &kp F7       &kp F8       &kp F9       &kp F12
         &none        &none        &none        &none        &none            &none        &kp F4       &kp F5       &kp F6       &kp F11
-        &none        &none        &none        &none        &none            &none        &kp F1       &kp F2       &kp F3       &kp F10
+        &trans /*↓*/ &none        &none        &none        &none            &none        &kp F1       &kp F2       &kp F3       &kp F10
    // ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯
                                                &none        &kp LCTL         &kp LSHIFT   &kp LALT
    //                                        ╰───────────────────────────╯ ╰───────────────────────────╯
