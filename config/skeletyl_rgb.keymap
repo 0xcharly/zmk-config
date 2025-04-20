@@ -1,0 +1,8 @@
+/* activate bluetooth */
+#define CONFIG_WIRELESS
+
+/* full board */
+#define CONFIG_36_KEYS
+
+/* source the main keymap */
+#include "base.keymap"

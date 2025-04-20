@@ -5,10 +5,20 @@ include:
   - board: nice_nano_v2
     shield: skeletyl_34_right
 
+  # Skeletyl with dongle.
+  - board: seeeduino_xiao_ble
+    shield: skeletyl_dongle
   - board: nice_nano_v2
     shield: skeletyl_left
+    cmake-args: -DCONFIG_ZMK_SPLIT=y -DCONFIG_ZMK_SPLIT_ROLE_CENTRAL=n
   - board: nice_nano_v2
     shield: skeletyl_right
+    cmake-args: -DCONFIG_ZMK_SPLIT=y -DCONFIG_ZMK_SPLIT_ROLE_CENTRAL=n
+
+  - board: nice_nano_v2
+    shield: skeletyl_rgb_left
+  - board: nice_nano_v2
+    shield: skeletyl_rgb_right
 
   - board: nice_nano_v2
     shield: dilemma_left
@@ -16,4 +26,6 @@ include:
     shield: dilemma_right
 
   - board: nice_nano_v2
+    shield: settings_reset
+  - board: seeeduino_xiao_ble
     shield: settings_reset
