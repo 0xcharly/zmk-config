@@ -4,12 +4,18 @@ manifest:
       url-base: https://github.com/zmkfirmware
     - name: urob
       url-base: https://github.com/urob
+    - name: 0xcharly
+      url-base: https://github.com/0xcharly
 
   projects:
     - name: zmk-auto-layer
       remote: urob
       revision: main
       path: modules/auto-layer
+    - name: zmk-keyboards-delay
+      remote: 0xcharly
+      revision: main
+      path: modules/zmk-keyboards-delay
 
     # ZMK with Zephyr namespaced under /zmk. This requires that ZMK imports
     # Zephyr with a path other than `zephyr` (as in `going-modular`).

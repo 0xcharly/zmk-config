@@ -1,9 +1,0 @@
-file_format: "1"
-id: rp2040_ce
-name: RP2040 Community Edition
-type: board
-arch: arm
-outputs:
-  - usb
-url: https://docs.bastardkb.com/hw/rp2040-community.html
-exposes: [pro_micro]
