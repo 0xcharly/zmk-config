@@ -89,7 +89,11 @@
         &LeftPinky(A) &LeftRingy(O) &LeftMiddy(E) &LeftIndex(U) &kp I             &kp D         &kp H         &RightMiddy(T)  &RightRingy(N)  &RightPinky(S)
         &mo SPECIAL   &kp Q         &kp J         &kp K         &kp X             &kp B         &kp M         &kp W           &kp V           &kp Z
    // ╰───────────────────────────────────────────────────────────────────────┤ ├────────────────────────────────────────────────────────────────────────────╯
-                                                  &mo LOWER     &kp SPACE         &smart_shift  &mo UPPER
+#ifdef CONFIG_36_KEYS
+                                    &mo LOWER     &kp SPACE     &kp LGUI          &kp LCTRL     &smart_shift  &mo UPPER
+#else
+                                    &mo LOWER     &kp SPACE                                     &smart_shift  &mo UPPER
+#endif // CONFIG_36_KEYS
    //                                           ╰─────────────────────────────╯ ╰─────────────────────────────╯
       >;
     };
@@ -103,7 +107,11 @@
         &none             &LeftPinkyRingy   &LeftPinkyMiddy   &LeftPinkyIndex   &ltap_pinky I         &trans            &kp H             &kp T             &kp N             &kp S
         &none             &ltap_pinky Q     &ltap_pinky J     &ltap_pinky K     &ltap_pinky X         &trans            &trans            &trans            &trans            &trans
    // ╰───────────────────────────────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────────────────────────────╯
-                                                              &trans            &trans                &trans            &trans
+#ifdef CONFIG_36_KEYS
+                                            &trans            &trans            &trans                &trans            &trans            &trans
+#else
+                                            &trans            &trans                                                    &trans            &trans
+#endif // CONFIG_36_KEYS
    //                                                       ╰─────────────────────────────────────╯ ╰─────────────────────────────────────╯
       >;
     };
@@ -115,7 +123,11 @@
         &LeftRingyPinky   &none             &LeftRingyMiddy   &LeftRingyIndex   &ltap_ringy I         &trans            &kp H             &kp T             &kp N             &kp S
         &none             &ltap_ringy Q     &ltap_ringy J     &ltap_ringy K     &ltap_ringy X         &trans            &trans            &trans            &trans            &trans
    // ╰───────────────────────────────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────────────────────────────╯
-                                                              &trans            &trans                &trans            &trans
+#ifdef CONFIG_36_KEYS
+                                            &trans            &trans            &trans                &trans            &trans            &trans
+#else
+                                            &trans            &trans                                                    &trans            &trans
+#endif // CONFIG_36_KEYS
    //                                                       ╰─────────────────────────────────────╯ ╰─────────────────────────────────────╯
       >;
     };
@@ -127,7 +139,11 @@
         &LeftMiddyPinky   &LeftMiddyRingy   &none             &LeftMiddyIndex   &ltap_middy I         &trans            &kp H             &kp T             &kp N             &kp S
         &none             &ltap_middy Q     &ltap_middy J     &ltap_middy K     &ltap_middy X         &trans            &trans            &trans            &trans            &trans
    // ╰───────────────────────────────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────────────────────────────╯
-                                                              &trans            &trans                &trans            &trans
+#ifdef CONFIG_36_KEYS
+                                            &trans            &trans            &trans                &trans            &trans            &trans
+#else
+                                            &trans            &trans                                                    &trans            &trans
+#endif // CONFIG_36_KEYS
    //                                                       ╰─────────────────────────────────────╯ ╰─────────────────────────────────────╯
       >;
     };
@@ -139,7 +155,11 @@
         &LeftIndexPinky   &LeftIndexRingy   &LeftIndexMiddy   &none             &ltap_index I         &trans            &kp H             &kp T             &kp N             &kp S
         &none             &ltap_index Q     &ltap_index J     &ltap_index K     &ltap_index X         &trans            &trans            &trans            &trans            &trans
    // ╰───────────────────────────────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────────────────────────────╯
-                                                              &trans            &trans                &trans            &trans
+#ifdef CONFIG_36_KEYS
+                                            &trans            &trans            &trans                &trans            &trans            &trans
+#else
+                                            &trans            &trans                                                    &trans            &trans
+#endif // CONFIG_36_KEYS
    //                                                       ╰─────────────────────────────────────╯ ╰─────────────────────────────────────╯
       >;
     };
@@ -151,7 +171,11 @@
         &kp A             &kp O             &kp E             &kp U             &trans                &rtap_pinky D     &rtap_pinky H     &RightPinkyMiddy  &RightPinkyRingy  &none
         &none             &trans            &trans            &trans            &trans                &rtap_pinky B     &rtap_pinky M     &rtap_pinky W     &rtap_pinky V     &none
    // ╰───────────────────────────────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────────────────────────────╯
-                                                              &trans            &trans                &trans            &trans
+#ifdef CONFIG_36_KEYS
+                                            &trans            &trans            &trans                &trans            &trans            &trans
+#else
+                                            &trans            &trans                                                    &trans            &trans
+#endif // CONFIG_36_KEYS
    //                                                       ╰─────────────────────────────────────╯ ╰─────────────────────────────────────╯
       >;
     };
@@ -163,7 +187,11 @@
         &kp A             &kp O             &kp E             &kp U             &trans                &rtap_ringy D     &rtap_ringy H     &RightRingyMiddy  &none             &RightRingyPinky
         &none             &trans            &trans            &trans            &trans                &rtap_ringy B     &rtap_ringy M     &rtap_ringy W     &rtap_ringy V     &none
    // ╰───────────────────────────────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────────────────────────────╯
-                                                              &trans            &trans                &trans            &trans
+#ifdef CONFIG_36_KEYS
+                                            &trans            &trans            &trans                &trans            &trans            &trans
+#else
+                                            &trans            &trans                                                    &trans            &trans
+#endif // CONFIG_36_KEYS
    //                                                       ╰─────────────────────────────────────╯ ╰─────────────────────────────────────╯
       >;
     };
@@ -175,7 +203,11 @@
         &kp A             &kp O             &kp E             &kp U             &trans                &rtap_middy D     &rtap_middy H     &none             &RightMiddyRingy  &RightMiddyPinky
         &none             &trans            &trans            &trans            &trans                &rtap_middy B     &rtap_middy M     &rtap_middy W     &rtap_middy V     &none
    // ╰───────────────────────────────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────────────────────────────╯
-                                                              &trans            &trans                &trans            &trans
+#ifdef CONFIG_36_KEYS
+                                            &trans            &trans            &trans                &trans            &trans            &trans
+#else
+                                            &trans            &trans                                                    &trans            &trans
+#endif // CONFIG_36_KEYS
    //                                                       ╰─────────────────────────────────────╯ ╰─────────────────────────────────────╯
       >;
     };
@@ -200,7 +232,11 @@
         &sk LALT     &sk LGUI     &sk LCTRL    &sk LSHIFT   &kp LAUNCHER     &none        &kp LEFT     &kp DOWN     &kp RIGHT    &kp ENTER
         &sk RALT     &kp LCS(TAB) &kp LG(C)    &kp LC(TAB)  &kp LG(V)        &none        &kp LPAR     &kp SEMI     &kp RPAR     &none
    // ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯
-                                               &trans /*↓*/ &none            &kp ENTER    &trans
+#ifdef CONFIG_36_KEYS
+                                  &trans /*↓*/ &none        &none            &none        &kp ENTER    &trans
+#else
+                                  &trans /*↓*/ &none                                      &kp ENTER    &trans
+#endif // CONFIG_36_KEYS
    //                                        ╰───────────────────────────╯ ╰───────────────────────────╯
       >;
     };
@@ -225,7 +261,11 @@
         &kp GRAVE    &kp ESCAPE   &kp MINUS    &kp COLON    &none            &none        &kp LBRC     &kp UNDER    &kp RBRC     &kp AT
         &kp TILDE    &kp PLUS     &kp ASTERISK &kp SLASH    &none            &none        &kp LBKT     &trans /*W*/ &kp RBKT     &kp BSLH
    // ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯
-                                               &trans       &trans           &none        &trans /*↓*/
+#ifdef CONFIG_36_KEYS
+                                  &trans       &trans       &none            &none        &none        &trans /*↓*/
+#else
+                                  &trans       &trans                                     &none        &trans /*↓*/
+#endif // CONFIG_36_KEYS
    //                                        ╰───────────────────────────╯ ╰───────────────────────────╯
       >;
     };
@@ -245,7 +285,11 @@
         &kp N7       &kp N5       &kp N1       &kp N3       &none            &none        &kp N2       &kp N0       &kp N4       &kp N6
         &kp PIPE     &kp EQUAL    &kp MINUS    &kp N9       &kp SLASH        &kp ASTERISK &kp N8       &kp LT       &kp GT       &kp AMPS
    // ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯
-                                               &trans /*↓*/ &none            &none        &trans /*↓*/
+#ifdef CONFIG_36_KEYS
+                                  &trans /*↓*/ &none        &none            &none        &none        &trans /*↓*/
+#else
+                                  &trans /*↓*/ &none                                      &none        &trans /*↓*/
+#endif // CONFIG_36_KEYS
    //                                        ╰───────────────────────────╯ ╰───────────────────────────╯
       >;
     };
@@ -264,7 +308,11 @@
         &none        &none        &none        &none        &none            &none        &kp F4       &kp F5       &kp F6       &kp F11
         &trans /*↓*/ &none        &none        &none        &none            &none        &kp F1       &kp F2       &kp F3       &kp F10
    // ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯
-                                               &none        &kp LCTL         &kp LSHIFT   &kp LALT
+#ifdef CONFIG_36_KEYS
+                                  &none        &kp LCTL     &none            &none        &kp LSHIFT   &kp LALT
+#else
+                                  &none        &kp LCTL                                   &kp LSHIFT   &kp LALT
+#endif // CONFIG_36_KEYS
    //                                        ╰───────────────────────────╯ ╰───────────────────────────╯
       >;
     };
@@ -289,7 +337,11 @@
         &none        &sys_reset   &none        &none        &bootloader      &bootloader  &none        &none        &sys_reset   &none
 #endif  // CONFIG_WIRELESS
    // ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯
-                                               &none        &none            &none        &none
+#ifdef CONFIG_36_KEYS
+                                  &none        &none        &none            &none        &none        &none
+#else
+                                  &none        &none                                      &none        &none
+#endif // CONFIG_36_KEYS
    //                                        ╰───────────────────────────╯ ╰───────────────────────────╯
       >;
     };
