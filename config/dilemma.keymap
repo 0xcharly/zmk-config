@@ -51,7 +51,7 @@
   macros {
     // Cancel sticky mods.
     cancel: cancel_queued_sticky_mods {
-      label = "Cancel sticky mods";
+      display-name = "Cancel sticky mods";
       compatible = "zmk,behavior-macro";
       #binding-cells = <0>;
       bindings = <&macro_tap &kp K_CANCEL>, <&macro_pause_for_release>;
@@ -59,7 +59,7 @@
 
     // Right arrow macro: ->
     rarrow: right_arrow {
-      label = "Right Arrow";
+      display-name = "Right Arrow";
       compatible = "zmk,behavior-macro";
       #binding-cells = <0>;
       bindings = <&macro_tap &kp MINUS &kp GT>;
@@ -67,7 +67,7 @@
 
     // Fat right arrow macro: =>
     frarrow: fat_right_arrow {
-      label = "Fat Right Arrow";
+      display-name = "Fat Right Arrow";
       compatible = "zmk,behavior-macro";
       #binding-cells = <0>;
       bindings = <&macro_tap &kp EQUAL &kp GT>;
@@ -75,7 +75,7 @@
 
     // ^C (Ctrl+c).
     ctrl_c: ctrl_c {
-      label = "Ctrl+c";
+      display-name = "Ctrl+c";
       compatible = "zmk,behavior-macro";
       #binding-cells = <0>;
       bindings
@@ -87,7 +87,7 @@
 
     // ^D (Ctrl+d).
     ctrl_d: ctrl_d {
-      label = "Ctrl+d";
+      display-name = "Ctrl+d";
       compatible = "zmk,behavior-macro";
       #binding-cells = <0>;
       bindings
@@ -99,7 +99,7 @@
 
     // Dead key acute.
     dk_acute: dead_key_ecute {
-      label = "Acute dead key";
+      display-name = "Acute dead key";
       compatible = "zmk,behavior-macro";
       #binding-cells = <0>;
       bindings
@@ -111,7 +111,7 @@
 
     // Dead key grave.
     dk_grave: dead_key_grave {
-      label = "Grave dead key";
+      display-name = "Grave dead key";
       compatible = "zmk,behavior-macro";
       #binding-cells = <0>;
       bindings
@@ -123,7 +123,7 @@
 
     // Dead key circumflex.
     dk_circ: dead_key_circumflex {
-      label = "Circumflex dead key";
+      display-name = "Circumflex dead key";
       compatible = "zmk,behavior-macro";
       #binding-cells = <0>;
       bindings
@@ -135,7 +135,7 @@
 
     // Dead key acute.
     dk_trema: dead_key_trema {
-      label = "Trema dead key";
+      display-name = "Trema dead key";
       compatible = "zmk,behavior-macro";
       #binding-cells = <0>;
       bindings
@@ -205,16 +205,16 @@
     // Comma -> Control+d.
     comma_c_d: comma_ctrl_d {
       compatible = "zmk,behavior-mod-morph";
-      label = "COMMA_QUESTION";
+      display-name = "COMMA_QUESTION";
       #binding-cells = <0>;
       bindings = <&kp COMMA>, <&ctrl_d>;
       mods = <(MOD_LSFT|MOD_RSFT)>;
     };
-  
+
     // Period -> Control+c.
     dot_c_c: period_ctrl_c {
       compatible = "zmk,behavior-mod-morph";
-      label = "PERIOD_EXCLAMATION";
+      display-name = "PERIOD_EXCLAMATION";
       #binding-cells = <0>;
       bindings = <&kp PERIOD>, <&ctrl_c>;
       mods = <(MOD_LSFT|MOD_RSFT)>;
@@ -260,7 +260,7 @@
 
     /** Traditional Dvorak layout. */
     dvorak {
-      label = "Dvorak";
+      display-name = "Dvorak";
       bindings = <
   /* ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮ */
        &kp APOS     &comma_c_d   &dot_c_c     &kp P        &kp Y            &kp F        &kp G        &kp C        &kp R        &kp L
@@ -286,7 +286,7 @@
      *     - Semi-colon for synergy with parenthesis and alt mod.
      */
     lower {
-      label = "Lower";
+      display-name = "Lower";
       bindings = <
   /* ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮ */
        &kp LA(N1)   &kp LA(N2)   &kp LA(N3)   &kp LA(N4)   &kp LA(N5)       &kp DEL      &kp LS(TAB)  &kp UP       &kp BSPC     &kp TAB
@@ -314,7 +314,7 @@
      *     - Modal editors escape+colon roll for command mode.
      */
     upper {
-      label = "Upper";
+      display-name = "Upper";
       bindings = <
   /* ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮ */
        &kp PERCENT  &kp HASH     &kp EXCL     &kp EQUAL    &none            &none        &kp CARET    &kp QMARK    &kp DOLLAR   &kp BSLH
@@ -332,10 +332,10 @@
      * Numbers and symbols.
      *
      *   - Optimized numrow, and balanced operators.
-     *   - Tilde and forward-slash synergy for paths. 
+     *   - Tilde and forward-slash synergy for paths.
      */
     extend {
-      label = "Extend";
+      display-name = "Extend";
       bindings = <
   /* ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮ */
        &none        &kp COMMA    &kp DOT      &none        &none            &none        &none        &none        &none        &none
@@ -349,7 +349,7 @@
 
    /**
     * System layer for hardware controls.
-    * 
+    *
     * Available as a sticky-layer with a hard-to-mistap thumb cluster tap dance.
     *
     *   - Bluetooth channels.
@@ -358,7 +358,7 @@
     *   - Ext power/RGB.
     */
     system {
-      label = "System";
+      display-name = "System";
       bindings = <
   /* ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮ */
        EXTPOW_TOG   &bt BT_SEL 3 &bt BT_SEL 2 &bt BT_SEL 1 &bt BT_SEL 0     &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 EXTPOW_TOG
