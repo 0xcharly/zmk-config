@@ -154,11 +154,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1737561151,
-        "narHash": "sha256-2Yjeqfr/LDGQ/t7mI7LwiQsNlWxpN1VeaY3urTjxy3Q=",
+        "lastModified": 1743611519,
+        "narHash": "sha256-K9cA1igLWVnqM703cM5lEXoGSgKBAaPUnnfFsJo+XLM=",
         "owner": "urob",
         "repo": "zephyr-nix",
-        "rev": "54958dd5d2316db475d57277150972dccd0ca888",
+        "rev": "3069faffa3692fc54a555c986c3a0d647bf5d7d0",
         "type": "github"
       },
       "original": {
@@ -179,11 +179,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1737561151,
-        "narHash": "sha256-2Yjeqfr/LDGQ/t7mI7LwiQsNlWxpN1VeaY3urTjxy3Q=",
+        "lastModified": 1743611519,
+        "narHash": "sha256-K9cA1igLWVnqM703cM5lEXoGSgKBAaPUnnfFsJo+XLM=",
         "owner": "urob",
         "repo": "zephyr-nix",
-        "rev": "54958dd5d2316db475d57277150972dccd0ca888",
+        "rev": "3069faffa3692fc54a555c986c3a0d647bf5d7d0",
         "type": "github"
       },
       "original": {
