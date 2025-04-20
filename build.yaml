@@ -13,11 +13,6 @@
 #
 ---
 include:
-  # - board: rp2040_ce
-  #   shield: skeletyl_wired_left
-  # - board: rp2040_ce
-  #   shield: skeletyl_wired_right
-
   - board: nice_nano_v2
     shield: skeletyl_34_left
   - board: nice_nano_v2
