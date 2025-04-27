@@ -17,20 +17,11 @@
 
 // Layers & HRM config.
 #define DVORAK 0
-#define LAYER_LeftPinky 1
-#define LAYER_LeftRingy 2
-#define LAYER_LeftMiddy 3
-#define LAYER_RightPinky 4
-#define LAYER_RightRingy 5
-#define LAYER_RightMiddy 6
-#define LAYER_RightIndex 7
-#define LOWER 8
-#define UPPER 9
-#define EXTEND 10
-#define SPECIAL 11
-#define SYSTEM 12
-
-#include "hrm.dtsi"
+#define LOWER 1
+#define UPPER 2
+#define EXTEND 3
+#define SPECIAL 4
+#define SYSTEM 5
 
 // Custom keycodes.
 #define LAUNCHER (LG(SPACE))
@@ -84,131 +75,17 @@
     // Traditional Dvorak layout.
     dvorak {
       bindings = <
-   // ╭───────────────────────────────────────────────────────────────────────╮ ╭────────────────────────────────────────────────────────────────────────────╮
-        &kp APOS      &kp COMMA     &kp DOT       &kp P         &kp Y             &kp F         &kp G         &kp C           &kp R           &kp L
-        &LeftPinky(A) &LeftRingy(O) &LeftMiddy(E) &LeftIndex(U) &kp I             &kp D         &kp H         &RightMiddy(T)  &RightRingy(N)  &RightPinky(S)
-        &mo SPECIAL   &kp Q         &kp J         &kp K         &kp X             &kp B         &kp M         &kp W           &kp V           &kp Z
-   // ╰───────────────────────────────────────────────────────────────────────┤ ├────────────────────────────────────────────────────────────────────────────╯
+   // ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮
+        &kp APOS     &kp COMMA    &kp DOT      &kp P        &kp Y            &kp F        &kp G        &kp C        &kp R        &kp L
+        &kp A        &kp O        &kp E        &kp U        &kp I            &kp D        &kp H        &kp T        &kp N        &kp S
+        &mo SPECIAL  &kp Q        &kp J        &kp K        &kp X            &kp B        &kp M        &kp W        &kp V        &kp Z
+   // ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯
 #ifdef CONFIG_36_KEYS
-                                    &mo LOWER     &kp SPACE     &kp LGUI          &kp LCTRL     &smart_shift  &mo UPPER
+                                  &mo LOWER    &kp SPACE    &kp LALT         &kp LCTRL    &smart_shift &mo UPPER
 #else
-                                    &mo LOWER     &kp SPACE                                     &smart_shift  &mo UPPER
+                                  &mo LOWER    &kp SPACE                                  &smart_shift &mo UPPER
 #endif // CONFIG_36_KEYS
-   //                                           ╰─────────────────────────────╯ ╰─────────────────────────────╯
-      >;
-    };
-
-    // Layers involved in the bilateral home row mod (HRM) implementation
-    // (adapted from Sunaku's implementation).
-    layer_LeftPinky {
-      bindings = <
-   // ╭───────────────────────────────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────────────────────────────╮
-        &ltap_pinky Z     &ltap_pinky COMMA &ltap_pinky DOT   &ltap_pinky P     &ltap_pinky Y         &trans            &trans            &trans            &trans            &trans
-        &none             &LeftPinkyRingy   &LeftPinkyMiddy   &LeftPinkyIndex   &ltap_pinky I         &trans            &kp H             &kp T             &kp N             &kp S
-        &none             &ltap_pinky Q     &ltap_pinky J     &ltap_pinky K     &ltap_pinky X         &trans            &trans            &trans            &trans            &trans
-   // ╰───────────────────────────────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────────────────────────────╯
-#ifdef CONFIG_36_KEYS
-                                            &trans            &trans            &trans                &trans            &trans            &trans
-#else
-                                            &trans            &trans                                                    &trans            &trans
-#endif // CONFIG_36_KEYS
-   //                                                       ╰─────────────────────────────────────╯ ╰─────────────────────────────────────╯
-      >;
-    };
-
-    layer_LeftRingy {
-      bindings = <
-   // ╭───────────────────────────────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────────────────────────────╮
-        &ltap_ringy Z     &ltap_ringy COMMA &ltap_ringy DOT   &ltap_ringy P     &ltap_ringy Y         &trans            &trans            &trans            &trans            &trans
-        &LeftRingyPinky   &none             &LeftRingyMiddy   &LeftRingyIndex   &ltap_ringy I         &trans            &kp H             &kp T             &kp N             &kp S
-        &none             &ltap_ringy Q     &ltap_ringy J     &ltap_ringy K     &ltap_ringy X         &trans            &trans            &trans            &trans            &trans
-   // ╰───────────────────────────────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────────────────────────────╯
-#ifdef CONFIG_36_KEYS
-                                            &trans            &trans            &trans                &trans            &trans            &trans
-#else
-                                            &trans            &trans                                                    &trans            &trans
-#endif // CONFIG_36_KEYS
-   //                                                       ╰─────────────────────────────────────╯ ╰─────────────────────────────────────╯
-      >;
-    };
-
-    layer_LeftMiddy {
-      bindings = <
-   // ╭───────────────────────────────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────────────────────────────╮
-        &ltap_middy Z     &ltap_middy COMMA &ltap_middy DOT   &ltap_middy P     &ltap_middy Y         &trans            &trans            &trans            &trans            &trans
-        &LeftMiddyPinky   &LeftMiddyRingy   &none             &LeftMiddyIndex   &ltap_middy I         &trans            &kp H             &kp T             &kp N             &kp S
-        &none             &ltap_middy Q     &ltap_middy J     &ltap_middy K     &ltap_middy X         &trans            &trans            &trans            &trans            &trans
-   // ╰───────────────────────────────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────────────────────────────╯
-#ifdef CONFIG_36_KEYS
-                                            &trans            &trans            &trans                &trans            &trans            &trans
-#else
-                                            &trans            &trans                                                    &trans            &trans
-#endif // CONFIG_36_KEYS
-   //                                                       ╰─────────────────────────────────────╯ ╰─────────────────────────────────────╯
-      >;
-    };
-
-    layer_LeftIndex {
-      bindings = <
-   // ╭───────────────────────────────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────────────────────────────╮
-        &ltap_index Z     &ltap_index COMMA &ltap_index DOT   &ltap_index P     &ltap_index Y         &trans            &trans            &trans            &trans            &trans
-        &LeftIndexPinky   &LeftIndexRingy   &LeftIndexMiddy   &none             &ltap_index I         &trans            &kp H             &kp T             &kp N             &kp S
-        &none             &ltap_index Q     &ltap_index J     &ltap_index K     &ltap_index X         &trans            &trans            &trans            &trans            &trans
-   // ╰───────────────────────────────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────────────────────────────╯
-#ifdef CONFIG_36_KEYS
-                                            &trans            &trans            &trans                &trans            &trans            &trans
-#else
-                                            &trans            &trans                                                    &trans            &trans
-#endif // CONFIG_36_KEYS
-   //                                                       ╰─────────────────────────────────────╯ ╰─────────────────────────────────────╯
-      >;
-    };
-
-    layer_RightPinky {
-      bindings = <
-   // ╭───────────────────────────────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────────────────────────────╮
-        &trans            &trans            &trans            &trans            &trans                &rtap_pinky F     &rtap_pinky G     &rtap_pinky C     &rtap_pinky R     &rtap_pinky L
-        &kp A             &kp O             &kp E             &kp U             &trans                &rtap_pinky D     &rtap_pinky H     &RightPinkyMiddy  &RightPinkyRingy  &none
-        &none             &trans            &trans            &trans            &trans                &rtap_pinky B     &rtap_pinky M     &rtap_pinky W     &rtap_pinky V     &none
-   // ╰───────────────────────────────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────────────────────────────╯
-#ifdef CONFIG_36_KEYS
-                                            &trans            &trans            &trans                &trans            &trans            &trans
-#else
-                                            &trans            &trans                                                    &trans            &trans
-#endif // CONFIG_36_KEYS
-   //                                                       ╰─────────────────────────────────────╯ ╰─────────────────────────────────────╯
-      >;
-    };
-
-    layer_RightRingy {
-      bindings = <
-   // ╭───────────────────────────────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────────────────────────────╮
-        &trans            &trans            &trans            &trans            &trans                &rtap_ringy F     &rtap_ringy G     &rtap_ringy C     &rtap_ringy R     &rtap_ringy L
-        &kp A             &kp O             &kp E             &kp U             &trans                &rtap_ringy D     &rtap_ringy H     &RightRingyMiddy  &none             &RightRingyPinky
-        &none             &trans            &trans            &trans            &trans                &rtap_ringy B     &rtap_ringy M     &rtap_ringy W     &rtap_ringy V     &none
-   // ╰───────────────────────────────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────────────────────────────╯
-#ifdef CONFIG_36_KEYS
-                                            &trans            &trans            &trans                &trans            &trans            &trans
-#else
-                                            &trans            &trans                                                    &trans            &trans
-#endif // CONFIG_36_KEYS
-   //                                                       ╰─────────────────────────────────────╯ ╰─────────────────────────────────────╯
-      >;
-    };
-
-    layer_RightMiddy {
-      bindings = <
-   // ╭───────────────────────────────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────────────────────────────╮
-        &trans            &trans            &trans            &trans            &trans                &rtap_middy F     &rtap_middy G     &rtap_middy C     &rtap_middy R     &rtap_middy L
-        &kp A             &kp O             &kp E             &kp U             &trans                &rtap_middy D     &rtap_middy H     &none             &RightMiddyRingy  &RightMiddyPinky
-        &none             &trans            &trans            &trans            &trans                &rtap_middy B     &rtap_middy M     &rtap_middy W     &rtap_middy V     &none
-   // ╰───────────────────────────────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────────────────────────────╯
-#ifdef CONFIG_36_KEYS
-                                            &trans            &trans            &trans                &trans            &trans            &trans
-#else
-                                            &trans            &trans                                                    &trans            &trans
-#endif // CONFIG_36_KEYS
-   //                                                       ╰─────────────────────────────────────╯ ╰─────────────────────────────────────╯
+   //                                        ╰───────────────────────────╯ ╰───────────────────────────╯
       >;
     };
 
