@@ -105,9 +105,9 @@
     lower {
       bindings = <
    // ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮
-        &kp LA(N1)   &kp LA(N2)   &kp LA(N3)   &kp LA(N4)   &kp LA(N5)       &kp LS(TAB)  &kp DEL      &kp UP       &kp BSPC     &kp TAB
-        &sk LALT     &sk LGUI     &sk LCTRL    &sk LSHIFT   &kp LAUNCHER     &none        &kp LEFT     &kp DOWN     &kp RIGHT    &kp ENTER
-        &sk RALT     &kp LCS(TAB) &kp LG(C)    &kp LC(TAB)  &kp LG(V)        &none        &kp LPAR     &kp SEMI     &kp RPAR     &none
+        &kp LG(N1)   &kp LG(N2)   &kp LG(N3)   &kp LG(N4)   &kp LG(N5)       &kp LS(TAB)  &kp DEL      &kp UP       &kp BSPC     &kp TAB
+        &sk LALT     &sk LGUI     &sk LCTRL    &sk LSHIFT   &none            &none        &kp LEFT     &kp DOWN     &kp RIGHT    &kp ENTER
+        &sk RALT     &kp LCS(TAB) &kp LAUNCHER &kp LC(TAB)  &none            &none        &kp LPAR     &kp SEMI     &kp RPAR     &none
    // ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯
 #ifdef CONFIG_36_KEYS
                                   &trans /*↓*/ &none        &none            &none        &kp ENTER    &trans
@@ -134,9 +134,9 @@
     upper {
       bindings = <
    // ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮
-        &kp PERCENT  &kp HASH     &kp EXCL     &kp EQUAL    &none            &none        &kp CARET    &kp QMARK    &kp DOLLAR   &kp DQT
+        &kp PERCENT  &kp HASH     &kp EXCL     &kp EQUAL    &none            &kp LA(N1)   &kp LA(N2)   &kp LA(N3)   &kp LA(N4)   &kp LA(N5)
         &kp GRAVE    &kp ESCAPE   &kp MINUS    &kp COLON    &none            &none        &kp LBRC     &kp UNDER    &kp RBRC     &kp AT
-        &kp TILDE    &kp PLUS     &kp ASTERISK &kp SLASH    &none            &none        &kp LBKT     &trans /*W*/ &kp RBKT     &kp BSLH
+        &kp TILDE    &kp PLUS     &kp ASTERISK &kp SLASH    &none            &none        &kp LBKT     &kp DQT      &kp RBKT     &kp BSLH
    // ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯
 #ifdef CONFIG_36_KEYS
                                   &trans       &trans       &none            &none        &none        &trans /*↓*/
@@ -158,9 +158,9 @@
     extend {
       bindings = <
    // ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮
-        &none        &kp COMMA    &kp DOT      &none        &none            &kp LA(N6)   &kp LA(N7)   &kp LA(N8)   &kp LA(N9)   &kp LA(N0)
+        &none        &kp CARET    &kp QMARK    &kp DOLLAR   &none            &kp LG(N6)   &kp LG(N7)   &kp LG(N8)   &kp LG(N9)   &kp LG(N0)
         &kp N7       &kp N5       &kp N1       &kp N3       &none            &none        &kp N2       &kp N0       &kp N4       &kp N6
-        &kp PIPE     &kp EQUAL    &kp MINUS    &kp N9       &kp SLASH        &kp ASTERISK &kp N8       &kp LT       &kp GT       &kp AMPS
+        &kp PIPE     &kp EQUAL    &kp MINUS    &kp N9       &none            &none        &kp N8       &kp LT       &kp GT       &kp AMPS
    // ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯
 #ifdef CONFIG_36_KEYS
                                   &trans /*↓*/ &none        &none            &none        &none        &trans /*↓*/
