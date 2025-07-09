@@ -158,7 +158,7 @@
     extend {
       bindings = <
    // ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮
-        &none        &kp CARET    &kp QMARK    &kp DOLLAR   &none            &kp LG(N6)   &kp LG(N7)   &kp LG(N8)   &kp LG(N9)   &kp LG(N0)
+        &kp LG(N6)   &kp LG(N7)   &kp LG(N8)   &kp LG(N9)   &kp LG(N0)       &none        &kp CARET    &kp QMARK    &kp DOLLAR   &none
         &kp N7       &kp N5       &kp N1       &kp N3       &none            &none        &kp N2       &kp N0       &kp N4       &kp N6
         &kp PIPE     &kp EQUAL    &kp MINUS    &kp N9       &none            &none        &kp N8       &kp LT       &kp GT       &kp AMPS
    // ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯
