@@ -106,7 +106,7 @@
       bindings = <
    // ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮
         &kp LG(N1)   &kp LG(N2)   &kp LG(N3)   &kp LG(N4)   &kp LG(N5)       &kp LS(TAB)  &kp DEL      &kp UP       &kp BSPC     &kp TAB
-        &sk LALT     &sk LGUI     &sk LCTRL    &sk LSHIFT   &none            &none        &kp LEFT     &kp DOWN     &kp RIGHT    &kp ENTER
+        &sk LALT     &sk LGUI     &sk LCTRL    &sk LSHIFT   &none            &none        &kp LEFT     &kp DOWN     &kp RIGHT    &none
         &sk RALT     &kp LCS(TAB) &kp LAUNCHER &kp LC(TAB)  &none            &none        &kp LPAR     &kp SEMI     &kp RPAR     &none
    // ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯
 #ifdef CONFIG_36_KEYS
