@@ -1,14 +1,17 @@
-.build/
-.direnv/
-.venv/
-.west/
-modules/
-firmware/
-zephyr/
-zmk/
+.DS_Store
+/.direnv/
+/target/
+/result
+
 # Ignore keymap-drawer output for now
 draw/skeletyl.svg
 draw/skeletyl.yaml
-.DS_Store
 draw/base.svg
 draw/base.yaml
+
+# Devenv
+.devenv*
+devenv.local.nix
+
+# pre-commit
+.pre-commit-config.yaml
