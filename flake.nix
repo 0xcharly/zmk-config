@@ -69,7 +69,7 @@
             ;
           src = ./.;
           config = "config";
-          zephyrDepsHash = "sha256-25Nc40hEI+yOkPmf14pypVu/WWbnlAnds6wZ7Nvcw88=";
+          zephyrDepsHash = "sha256-otsUf6aEeOmAUOV76YNXaYANAIhDWX+mm4ye8GoJ7WM=";
           meta = with lib; {
             description = "ZMK firmware for ${name}";
             license = licenses.mit;
