@@ -8,11 +8,6 @@
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/ext_power.h>
 #include <dt-bindings/zmk/keys.h>
-#include <dt-bindings/zmk/rgb.h>
-
-#ifdef CONFIG_WIRELESS
-    #include <dt-bindings/zmk/bt.h>
-#endif
 
 // Layers & HRM config.
 #define DVORAK 0
@@ -169,31 +164,6 @@
         &trans /*↓*/ &none        &none        &none        &none            &none        &kp F1       &kp F2       &kp F3       &kp F10
    // ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯
                                   &none        &kp LSHIFT   &kp LCTL         &kp LALT     &kp LSHIFT   &none
-   //                           ╰────────────────────────────────────────╯ ╰────────────────────────────────────────╯
-      >;
-    };
-
-   /**
-    * System layer for hardware controls.
-    *
-    *   - Bluetooth channels (if wireless).
-    *   - Reset/bootloader.
-    *   - Ext power/RGB.
-    */
-    system {
-      bindings = <
-   // ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮
-#ifdef CONFIG_WIRELESS
-        EXTPOW_TOG   &bt BT_SEL 3 &bt BT_SEL 2 &bt BT_SEL 1 &bt BT_SEL 0     &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 EXTPOW_TOG
-        RGB_UG_TOG   &none        &none        &none        &bt BT_CLR       &bt BT_CLR   &none        &none        &none        RGB_UG_TOG
-        &none        &sys_reset   &bt BT_PRV   &bt BT_NXT   &bootloader      &bootloader  &bt BT_NXT   &bt BT_PRV   &sys_reset   &none
-#else
-        EXTPOW_TOG   &none        &none        &none        &none            &none        &none        &none        &none        EXTPOW_TOG
-        RGB_UG_TOG   &none        &none        &none        &none            &none        &none        &none        &none        RGB_UG_TOG
-        &none        &sys_reset   &none        &none        &bootloader      &bootloader  &none        &none        &sys_reset   &none
-#endif  // CONFIG_WIRELESS
-   // ╰──────────────────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────────────────╯
-                                  &none        &none        &none            &none        &none        &none
    //                           ╰────────────────────────────────────────╯ ╰────────────────────────────────────────╯
       >;
     };
