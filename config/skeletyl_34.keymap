@@ -1,8 +1,0 @@
-/* activate bluetooth */
-#define CONFIG_WIRELESS
-
-/* reduced key count */
-#define CONFIG_34_KEYS
-
-/* source the main keymap */
-#include "base.keymap"
