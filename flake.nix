@@ -15,6 +15,14 @@
       inherit (nixpkgs) lib;
 
       keyboards = {
+        reset-xiao_ble = {
+          board = "xiao_ble";
+          shield = "settings_reset";
+        };
+        reset-nice_nano = {
+          board = "nice_nano";
+          shield = "settings_reset";
+        };
         skeletyl-dongle = {
           board = "xiao_ble";
           shield = "skeletyl_dongle";

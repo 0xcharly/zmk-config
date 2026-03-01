@@ -15,7 +15,6 @@
 #define UPPER 2
 #define EXTEND 3
 #define SPECIAL 4
-#define SYSTEM 5
 
 // Custom keycodes.
 #define LAUNCHER (LG(SPACE))
