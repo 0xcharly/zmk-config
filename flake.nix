@@ -35,22 +35,19 @@
             CONFIG_ZMK_SPLIT_ROLE_CENTRAL = false;
           };
         };
-        # skeletyl_left = {
-        #   board = "nice_nano";
-        #   shield = "skeletyl_left";
-        #   flags = {
-        #     CONFIG_ZMK_SPLIT = true;
-        #     CONFIG_ZMK_SPLIT_ROLE_CENTRAL = false;
-        #   };
-        # };
-        # skeletyl_right = {
-        #   board = "nice_nano";
-        #   shield = "skeletyl_right";
-        #   flags = {
-        #     CONFIG_ZMK_SPLIT = true;
-        #     CONFIG_ZMK_SPLIT_ROLE_CENTRAL = false;
-        #   };
-        # };
+        cygnus-dongle = {
+          board = "xiao_ble";
+          shield = "cygnus_studio_dongle";
+          studio = true;
+        };
+        cygnus = {
+          board = "xiao_ble";
+          shield = "cygnus_studio";
+          split = true;
+          flags = {
+            CONFIG_ZMK_SPLIT_ROLE_CENTRAL = false;
+          };
+        };
       };
 
       mkKeyboardFirmware =
@@ -59,6 +56,7 @@
           board,
           shield,
           split ? false,
+          studio ? false,
           flags ? { },
           ...
         }@args:
@@ -66,6 +64,7 @@
           builders = zmk-nix.legacyPackages.x86_64-linux;
           builder = if split then builders.buildSplitKeyboard else builders.buildKeyboard;
           shield = if split then "${args.shield}_%PART%" else args.shield;
+          enableZmkStudio = studio;
           extraCmakeFlags = lib.mapAttrsToList (key: value: "-D${key}=${if value then "y" else "n"}") flags;
         in
         builder {
@@ -73,11 +72,12 @@
             name
             board
             shield
+            enableZmkStudio
             extraCmakeFlags
             ;
           src = ./.;
           config = "config";
-          zephyrDepsHash = "sha256-otsUf6aEeOmAUOV76YNXaYANAIhDWX+mm4ye8GoJ7WM=";
+          zephyrDepsHash = "sha256-8iYdgXbqtg/Gy5LsyEuTjqZ8kzVjnzkLSv4Z/iP2utU=";
           meta = with lib; {
             description = "ZMK firmware for ${name}";
             license = licenses.mit;
@@ -94,12 +94,10 @@
           ) firmwarePackages;
         in
         {
-          default = firmwarePackages.skeletyl_dongle;
-          firmware = firmwarePackages.skeletyl_dongle;
-
-          keyboards = firmwarePackages;
+          default = firmwarePackages.cygnus-dongle;
+          firmware = firmwarePackages;
           flash = flashPackages;
-          update = zmk-nix.packages.update.x86_64-linux.update;
+          update = zmk-nix.packages.x86_64-linux.update;
         };
 
       devShells.x86_64-linux.default = zmk-nix.devShells.x86_64-linux.default.overrideAttrs (old: {

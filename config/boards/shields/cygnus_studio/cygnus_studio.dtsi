@@ -1,0 +1,13 @@
+/*
+ * Copyright (c) 2026 Charly Delay
+ *
+ * SPDX-License-Identifier: MIT
+ */
+
+#include "cygnus_studio-layouts.dtsi"
+
+/ {
+    chosen {
+        zmk,physical-layout = &cygnus_layout;
+    };
+};

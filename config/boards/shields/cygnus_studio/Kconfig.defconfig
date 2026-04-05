@@ -1,0 +1,34 @@
+# Copyright (c) 2026 Charly Delay
+# SPDX-License-Identifier: MIT
+
+if SHIELD_CYGNUS_DONGLE
+
+# Max 16 characters in keyboard name
+config ZMK_KEYBOARD_NAME
+    default "Cygnus"
+
+config ZMK_SPLIT_ROLE_CENTRAL
+    default y
+
+endif
+
+if SHIELD_CYGNUS_LEFT
+
+config ZMK_KEYBOARD_NAME
+	default "Cygnus L"
+
+endif
+
+if SHIELD_CYGNUS_RIGHT
+
+config ZMK_KEYBOARD_NAME
+	default "Cygnus R"
+
+endif
+
+if SHIELD_CYGNUS_DONGLE || SHIELD_CYGNUS_LEFT || SHIELD_CYGNUS_RIGHT
+
+config ZMK_SPLIT
+	default y
+
+endif

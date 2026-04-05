@@ -2,15 +2,8 @@ manifest:
   remotes:
     - name: upstream
       url-base: https://github.com/zmkfirmware
-    - name: 0xcharly
-      url-base: https://github.com/0xcharly
 
   projects:
-    - name: zmk-keyboards-delay
-      remote: 0xcharly
-      revision: main
-      path: modules/zmk-keyboards-delay
-
     - name: zmk
       remote: upstream
       revision: ac7f75b8591d39aaf3b66b9d26f26c9ed921a009

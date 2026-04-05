@@ -1,0 +1,13 @@
+file_format: "1"
+id: cygnus
+name: Cygnus
+type: shield
+url: https://github.com/0xcharly/zmk-keyboards-delay
+requires:
+  - xiao_ble
+exposes:
+features:
+  - keys
+siblings:
+  - cygnus_left
+  - cygnus_right

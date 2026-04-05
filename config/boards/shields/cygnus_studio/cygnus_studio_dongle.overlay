@@ -1,0 +1,20 @@
+/*
+ * Copyright (c) 2026 Charly Delay
+ *
+ * SPDX-License-Identifier: MIT
+ */
+
+#include "cygnus_studio.dtsi"
+
+/ {
+    chosen {
+        zmk,kscan = &mock_kscan;
+    };
+
+    mock_kscan: mock_kscan_0 {
+        compatible = "zmk,kscan-mock";
+        columns = <0>;
+        rows = <0>;
+        events = <0>;
+    };
+};

@@ -1,0 +1,25 @@
+/*
+ * Copyright (c) 2026 Charly Delay
+ *
+ * SPDX-License-Identifier: MIT
+ */
+
+#include "cygnus_studio.dtsi"
+#include "cygnus_studio-layouts.dtsi"
+
+/ {
+    chosen {
+        zmk,kscan = &default_kscan;
+    };
+
+    default_kscan: kscan {
+        compatible = "zmk,kscan-gpio-matrix";
+        diode-direction = "col2row";
+        row-gpios
+            = <&gpio0 2  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>    //Row0
+            , <&gpio0 3  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>    //Row1
+            , <&gpio0 28 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>    //Row2
+            , <&gpio0 29 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>    //Row3
+            ;
+    };
+};
