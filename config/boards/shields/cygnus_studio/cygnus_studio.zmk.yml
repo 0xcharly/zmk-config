@@ -4,6 +4,7 @@ name: Cygnus
 type: shield
 url: https://github.com/0xcharly/zmk-keyboards-delay
 requires:
+  - nice_nano
   - xiao_ble
 exposes:
 features:

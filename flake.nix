@@ -37,11 +37,11 @@
         };
         cygnus-dongle = {
           board = "xiao_ble";
-          shield = "cygnus_studio_dongle";
+          shield = "cygnus_studio";
           studio = true;
         };
         cygnus = {
-          board = "xiao_ble";
+          board = "nice_nano";
           shield = "cygnus_studio";
           split = true;
           flags = {
@@ -59,22 +59,17 @@
           studio ? false,
           flags ? { },
           ...
-        }@args:
+        }:
         let
           builders = zmk-nix.legacyPackages.x86_64-linux;
           builder = if split then builders.buildSplitKeyboard else builders.buildKeyboard;
-          shield = if split then "${args.shield}_%PART%" else args.shield;
-          enableZmkStudio = studio;
-          extraCmakeFlags = lib.mapAttrsToList (key: value: "-D${key}=${if value then "y" else "n"}") flags;
         in
         builder {
-          inherit
-            name
-            board
-            shield
-            enableZmkStudio
-            extraCmakeFlags
-            ;
+          inherit name board;
+          shield = if split then "${shield}_%PART%" else shield;
+          enableZmkStudio = studio;
+          extraCmakeFlags = lib.mapAttrsToList (key: value: "-D${key}=${if value then "y" else "n"}") flags;
+
           src = ./.;
           config = "config";
           zephyrDepsHash = "sha256-8iYdgXbqtg/Gy5LsyEuTjqZ8kzVjnzkLSv4Z/iP2utU=";

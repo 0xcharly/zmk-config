@@ -8,6 +8,6 @@
 
 / {
     chosen {
-        zmk,physical-layout = &cygnus_layout;
+        zmk,physical-layout = &physical_layout;
     };
 };

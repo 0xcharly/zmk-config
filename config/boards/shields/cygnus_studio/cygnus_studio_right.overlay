@@ -12,10 +12,10 @@
 
 &default_kscan {
     col-gpios
-        = <&gpio1 11 GPIO_ACTIVE_HIGH>	//Col0
-        , <&gpio1 12 GPIO_ACTIVE_HIGH>  //Col1
-        , <&gpio1 13 GPIO_ACTIVE_HIGH>  //Col2
-        , <&gpio1 14 GPIO_ACTIVE_HIGH>  //Col3
-        , <&gpio1 15 GPIO_ACTIVE_HIGH>  //Col4
+        = <&pro_micro 5 GPIO_ACTIVE_HIGH> // Col0
+        , <&pro_micro 6 GPIO_ACTIVE_HIGH> // Col1
+        , <&pro_micro 7 GPIO_ACTIVE_HIGH> // Col2
+        , <&pro_micro 8 GPIO_ACTIVE_HIGH> // Col3
+        , <&pro_micro 9 GPIO_ACTIVE_HIGH> // Col4
         ;
 };

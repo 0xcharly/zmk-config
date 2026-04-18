@@ -8,7 +8,7 @@
 #include <physical_layouts.dtsi>
 
 / {
-    cygnus_layout: cygnus_layout {
+    physical_layout: physical_layout_0 {
         compatible = "zmk,physical-layout";
         display-name = "Layout";
         transform = <&default_transform>;
