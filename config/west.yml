@@ -1,13 +1,18 @@
 manifest:
   remotes:
-    - name: upstream
+    - name: zmkfirmware
       url-base: https://github.com/zmkfirmware
+    - name: carrefinho
+      url-base: https://github.com/carrefinho
 
   projects:
     - name: zmk
-      remote: upstream
-      revision: ac7f75b8591d39aaf3b66b9d26f26c9ed921a009
+      remote: zmkfirmware
+      revision: main
       import: app/west.yml
+    - name: prospector-zmk-module
+      remote: carrefinho
+      revision: feat/new-status-screens
 
   self:
     path: config

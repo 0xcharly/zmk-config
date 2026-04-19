@@ -16,37 +16,33 @@
 
       keyboards = {
         reset-xiao_ble = {
-          board = "xiao_ble";
+          board = "xiao_ble//zmk";
           shield = "settings_reset";
         };
         reset-nice_nano = {
-          board = "nice_nano";
+          board = "nice_nano//zmk";
           shield = "settings_reset";
         };
         skeletyl-dongle = {
-          board = "xiao_ble";
-          shield = "skeletyl_dongle";
+          board = "xiao_ble//zmk";
+          shield = "skeletyl_dongle prospector_adapter";
         };
         skeletyl = {
-          board = "nice_nano";
+          board = "nice_nano//zmk";
           shield = "skeletyl";
           split = true;
-          flags = {
-            CONFIG_ZMK_SPLIT_ROLE_CENTRAL = false;
-          };
+          flags.CONFIG_ZMK_SPLIT_ROLE_CENTRAL = false;
         };
         cygnus-dongle = {
-          board = "xiao_ble";
-          shield = "cygnus_studio";
+          board = "xiao_ble//zmk";
+          shield = "cygnus_studio prospector_adapter";
           studio = true;
         };
         cygnus = {
-          board = "nice_nano";
+          board = "nice_nano//zmk";
           shield = "cygnus_studio";
           split = true;
-          flags = {
-            CONFIG_ZMK_SPLIT_ROLE_CENTRAL = false;
-          };
+          flags.CONFIG_ZMK_SPLIT_ROLE_CENTRAL = false;
         };
       };
 
@@ -72,7 +68,7 @@
 
           src = ./.;
           config = "config";
-          zephyrDepsHash = "sha256-8iYdgXbqtg/Gy5LsyEuTjqZ8kzVjnzkLSv4Z/iP2utU=";
+          zephyrDepsHash = "sha256-74BIbxnUW7qZqug3hLfg7+wD8vRs39mnE6ER9mZWuAI=";
           meta = with lib; {
             description = "ZMK firmware for ${name}";
             license = licenses.mit;

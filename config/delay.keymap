@@ -64,6 +64,7 @@
 
     // Traditional Dvorak layout.
     dvorak {
+      display-name = "Base";
       bindings = <
    // ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮
         &kp APOS     &kp COMMA    &kp DOT      &kp P        &kp Y            &kp F        &kp G        &kp C        &kp R        &kp L
@@ -89,6 +90,7 @@
      *     - Semi-colon for synergy with parenthesis.
      */
     lower {
+      display-name = "Lower";
       bindings = <
    // ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮
         &kp LG(N1)   &kp LG(N2)   &kp LG(N3)   &kp LG(N4)   &kp LG(N5)       &kp LS(TAB)  &kp DEL      &kp UP       &kp BSPC     &kp TAB
@@ -114,6 +116,7 @@
      *     - Most common operators.
      */
     upper {
+      display-name = "Upper";
       bindings = <
    // ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮
         &kp PERCENT  &kp HASH     &kp EXCL     &kp EQUAL    &none            &none        &kp CARET    &kp QMARK    &kp DOLLAR   &none
@@ -134,6 +137,7 @@
      *   - Base-layer symbols so that every symbol is accessible by moving at most one finger.
      */
     extend {
+      display-name = "Extend";
       bindings = <
    // ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮
         &kp LG(N6)   &kp LG(N7)   &kp LG(N8)   &kp LG(N9)   &kp LG(N0)       &kp LA(N1)   &kp LA(N2)   &kp LA(N3)   &kp LA(N4)   &kp LA(N5)
@@ -153,6 +157,7 @@
      *   - F-keys.
      */
     special {
+      display-name = "Special";
       bindings = <
    // ╭──────────────────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────────────────╮
         &none        &none        &none        &none        &none            &none        &kp F7       &kp F8       &kp F9       &kp F12

@@ -11,3 +11,7 @@ nix build .#firmware.<keyboard>
 ```sh
 nix run .#flash.<keyboard>
 ```
+
+# Troubleshooting
+
+To force refetch the Zephyr dependencies, clear out `zephyrDepsHash`.
