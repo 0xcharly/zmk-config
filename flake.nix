@@ -1,19 +1,25 @@
 {
-  inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
-
-    zmk-nix = {
-      url = "github:lilyinstarlight/zmk-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-  };
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
 
   outputs =
-    { nixpkgs, zmk-nix, ... }:
+    { self, nixpkgs, ... }:
     let
-      pkgs = nixpkgs.legacyPackages.x86_64-linux;
+      system = "x86_64-linux";
+      pkgs = nixpkgs.legacyPackages.${system};
       inherit (nixpkgs) lib;
 
+      zmk = import ./nix { inherit pkgs; };
+
+      configSrc = lib.fileset.toSource {
+        root = ./.;
+        fileset = ./config;
+      };
+
+      # A keyboard is either a single image { board, shield, ... } or a set of
+      # parts { parts.<part> = { board, shield, ... }; }. Each part of a
+      # multi-part keyboard declares its split role with exactly one of
+      # `central = true` / `peripheral = true` (validated below); the role is
+      # compiled as CONFIG_ZMK_SPLIT_ROLE_CENTRAL=y/n.
       keyboards = {
         reset-xiao_ble = {
           board = "xiao_ble//zmk";
@@ -23,81 +29,129 @@
           board = "nice_nano//zmk";
           shield = "settings_reset";
         };
-        skeletyl-dongle = {
-          board = "xiao_ble//zmk";
-          shield = "skeletyl_dongle prospector_adapter";
+        skeletyl.parts = {
+          dongle = {
+            board = "xiao_ble//zmk";
+            shield = "skeletyl_dongle prospector_adapter";
+            central = true;
+          };
+          left = {
+            board = "nice_nano//zmk";
+            shield = "skeletyl_left";
+            peripheral = true;
+          };
+          right = {
+            board = "nice_nano//zmk";
+            shield = "skeletyl_right";
+            peripheral = true;
+          };
         };
-        skeletyl = {
-          board = "nice_nano//zmk";
-          shield = "skeletyl";
-          split = true;
-          flags.CONFIG_ZMK_SPLIT_ROLE_CENTRAL = false;
-        };
-        cygnus-dongle = {
-          board = "xiao_ble//zmk";
-          shield = "cygnus_studio prospector_adapter";
-          studio = true;
-        };
-        cygnus = {
-          board = "nice_nano//zmk";
-          shield = "cygnus_studio";
-          split = true;
-          flags.CONFIG_ZMK_SPLIT_ROLE_CENTRAL = false;
+        cygnus.parts = {
+          dongle = {
+            board = "xiao_ble//zmk";
+            shield = "cygnus_studio prospector_adapter";
+            central = true;
+            studio = true;
+          };
+          left = {
+            board = "nice_nano//zmk";
+            shield = "cygnus_studio_left";
+            peripheral = true;
+          };
+          right = {
+            board = "nice_nano//zmk";
+            shield = "cygnus_studio_right";
+            peripheral = true;
+          };
         };
       };
 
-      mkKeyboardFirmware =
-        name:
-        {
-          board,
-          shield,
-          split ? false,
-          studio ? false,
-          flags ? { },
-          ...
-        }:
-        let
-          builders = zmk-nix.legacyPackages.x86_64-linux;
-          builder = if split then builders.buildSplitKeyboard else builders.buildKeyboard;
-        in
-        builder {
-          inherit name board;
-          shield = if split then "${shield}_%PART%" else shield;
-          enableZmkStudio = studio;
-          extraCmakeFlags = lib.mapAttrsToList (key: value: "-D${key}=${if value then "y" else "n"}") flags;
+      mkFirmware =
+        name: spec:
+        if spec ? parts then
+          let
+            # Role validation: each part sets exactly one of central/peripheral;
+            # the role key CONFIG_ZMK_SPLIT_ROLE_CENTRAL must not be set by
+            # hand; exactly one central part per keyboard.
+            checkedParts = lib.mapAttrs (
+              part: pspec:
+              let
+                central = pspec.central or false;
+                peripheral = pspec.peripheral or false;
+              in
+              assert lib.assertMsg (
+                central != peripheral
+              ) "keyboard '${name}': part '${part}' must set exactly one of central = true / peripheral = true";
+              assert lib.assertMsg (!((pspec.flags or { }) ? CONFIG_ZMK_SPLIT_ROLE_CENTRAL))
+                "keyboard '${name}': part '${part}' sets flags.CONFIG_ZMK_SPLIT_ROLE_CENTRAL directly; use central/peripheral instead";
+              (removeAttrs pspec [
+                "central"
+                "peripheral"
+              ])
+              // {
+                flags = (pspec.flags or { }) // {
+                  CONFIG_ZMK_SPLIT_ROLE_CENTRAL = central;
+                };
+              }
+            ) spec.parts;
+            centralParts = lib.attrNames (lib.filterAttrs (_: p: p.central or false) spec.parts);
+            parts =
+              assert lib.assertMsg (lib.length centralParts == 1)
+                "keyboard '${name}': exactly one part must set central = true (found: ${
+                  if centralParts == [ ] then "none" else lib.concatStringsSep ", " centralParts
+                })";
+              lib.mapAttrs (
+                part: pspec:
+                zmk.buildFirmware (
+                  pspec
+                  // {
+                    name = "${name}-${part}";
+                    src = configSrc;
+                  }
+                )
+              ) checkedParts;
+          in
+          pkgs.runCommand name
+            {
+              passthru = parts // {
+                inherit parts;
+              };
+            }
+            ''
+              mkdir $out
+              ${lib.concatStrings (
+                lib.mapAttrsToList (part: drv: "ln -s ${drv}/zmk.uf2 $out/${name}-${part}.uf2\n") parts
+              )}
+            ''
+        else
+          assert lib.assertMsg (
+            !(spec ? central) && !(spec ? peripheral)
+          ) "keyboard '${name}': central/peripheral only apply to parts of a multi-part keyboard";
+          zmk.buildFirmware (
+            spec
+            // {
+              inherit name;
+              src = configSrc;
+            }
+          );
 
-          src = ./.;
-          config = "config";
-          zephyrDepsHash = "sha256-74BIbxnUW7qZqug3hLfg7+wD8vRs39mnE6ER9mZWuAI=";
-          meta = with lib; {
-            description = "ZMK firmware for ${name}";
-            license = licenses.mit;
-            platforms = platforms.all;
-          };
+      mkFlash =
+        name: firmware:
+        zmk.mkFlash {
+          inherit name;
+          parts = firmware.parts or { "" = firmware; };
         };
+
+      firmwarePackages = lib.mapAttrs mkFirmware keyboards;
     in
     {
-      packages.x86_64-linux =
-        let
-          firmwarePackages = lib.mapAttrs mkKeyboardFirmware keyboards;
-          flashPackages = lib.mapAttrs (
-            _: firmware: zmk-nix.packages.x86_64-linux.flash.override { inherit firmware; }
-          ) firmwarePackages;
-        in
-        {
-          default = firmwarePackages.cygnus-dongle;
-          firmware = firmwarePackages;
-          flash = flashPackages;
-          update = zmk-nix.packages.x86_64-linux.update;
-        };
+      packages.${system} = {
+        default = firmwarePackages.skeletyl;
+        firmware = firmwarePackages;
+        flash = lib.mapAttrs mkFlash firmwarePackages;
+        update = zmk.update;
+      };
 
-      devShells.x86_64-linux.default = zmk-nix.devShells.x86_64-linux.default.overrideAttrs (old: {
-        buildInputs = old.buildInputs ++ [
-          # Editing tools.
-          pkgs.nixd
-          pkgs.nixfmt
-          pkgs.prettierd
-        ];
-      });
+      devShells.${system}.default = zmk.shell;
     };
 }
