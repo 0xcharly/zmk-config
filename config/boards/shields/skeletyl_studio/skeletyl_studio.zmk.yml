@@ -1,6 +1,6 @@
 file_format: "1"
-id: cygnus_studio
-name: Cygnus
+id: skeletyl_studio
+name: Skeletyl
 type: shield
 url: https://github.com/0xcharly/zmk-keyboards-delay
 requires:
@@ -9,5 +9,5 @@ exposes:
 features:
   - keys
 siblings:
-  - cygnus_studio_left
-  - cygnus_studio_right
+  - skeletyl_studio_left
+  - skeletyl_studio_right

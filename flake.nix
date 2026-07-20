@@ -2,7 +2,7 @@
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
 
   outputs =
-    { self, nixpkgs, ... }:
+    { nixpkgs, ... }:
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
@@ -32,17 +32,18 @@
         skeletyl.parts = {
           dongle = {
             board = "xiao_ble//zmk";
-            shield = "skeletyl_dongle prospector_adapter";
+            shield = "skeletyl_studio prospector_adapter";
+            studio = true;
             central = true;
           };
           left = {
             board = "nice_nano//zmk";
-            shield = "skeletyl_left";
+            shield = "skeletyl_studio_left";
             peripheral = true;
           };
           right = {
             board = "nice_nano//zmk";
-            shield = "skeletyl_right";
+            shield = "skeletyl_studio_right";
             peripheral = true;
           };
         };

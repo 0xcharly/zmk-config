@@ -5,7 +5,6 @@
  */
 
 #include "cygnus_studio.dtsi"
-#include "cygnus_studio-layouts.dtsi"
 
 / {
     chosen {
