@@ -32,36 +32,62 @@
         skeletyl.parts = {
           dongle = {
             board = "xiao_ble//zmk";
-            shield = "skeletyl_studio prospector_adapter";
+            shield = "skeletyl";
             studio = true;
             central = true;
           };
           left = {
             board = "nice_nano//zmk";
-            shield = "skeletyl_studio_left";
+            shield = "skeletyl_left";
             peripheral = true;
           };
           right = {
             board = "nice_nano//zmk";
-            shield = "skeletyl_studio_right";
+            shield = "skeletyl_right";
+            peripheral = true;
+          };
+        };
+        # https://github.com/carrefinho/prospector-zmk-module/tree/feat/new-status-screens
+        skeletyl-prospector.parts = {
+          dongle = {
+            board = "xiao_ble//zmk";
+            shield = "skeletyl prospector_adapter";
+            studio = true;
+            central = true;
+            flags = {
+              # Operator screen.
+              CONFIG_PROSPECTOR_STATUS_SCREEN_OPERATOR = true;
+              # No ambient light sensor fitted.
+              CONFIG_PROSPECTOR_USE_AMBIENT_LIGHT_SENSOR = false;
+              CONFIG_PROSPECTOR_FIXED_BRIGHTNESS = "80";
+            };
+          };
+          left = {
+            board = "nice_nano//zmk";
+            shield = "skeletyl_left";
+            peripheral = true;
+          };
+          right = {
+            board = "nice_nano//zmk";
+            shield = "skeletyl_right";
             peripheral = true;
           };
         };
         cygnus.parts = {
           dongle = {
             board = "xiao_ble//zmk";
-            shield = "cygnus_studio prospector_adapter";
+            shield = "cygnus";
             central = true;
             studio = true;
           };
           left = {
             board = "nice_nano//zmk";
-            shield = "cygnus_studio_left";
+            shield = "cygnus_left";
             peripheral = true;
           };
           right = {
             board = "nice_nano//zmk";
-            shield = "cygnus_studio_right";
+            shield = "cygnus_right";
             peripheral = true;
           };
         };

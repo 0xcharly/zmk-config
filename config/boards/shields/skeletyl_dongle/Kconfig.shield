@@ -1,3 +1,0 @@
-# https://zmk.dev/docs/development/hardware-integration/dongle?studio-ready=nostudio
-config SHIELD_SKELETYL_DONGLE
-    def_bool $(shields_list_contains,skeletyl_dongle)

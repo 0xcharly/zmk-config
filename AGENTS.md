@@ -44,8 +44,9 @@ nix run .#update                     # regenerate nix/west.lock (network)
 nix develop                          # toolchain + nixd/nixfmt/prettierd/lsusb
 ```
 
-Keyboards: `skeletyl`, `cygnus` (parts `dongle`, `left`, `right`),
-`reset-xiao_ble`, `reset-nice_nano` (single-image settings_reset).
+Keyboards: `skeletyl`, `skeletyl-prospector` (skeletyl + prospector dongle
+screen), `cygnus` (parts `dongle`, `left`, `right`), `reset-xiao_ble`,
+`reset-nice_nano` (single-image settings_reset).
 
 ## Invariants — do not break
 

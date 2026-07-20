@@ -1,8 +1,11 @@
-# Copyright (c) 2020 ZMK Contributors
+# Copyright (c) 2026 Charly Delay
 # SPDX-License-Identifier: MIT
 
+config SHIELD_SKELETYL
+    def_bool $(shields_list_contains,skeletyl)
+
 config SHIELD_SKELETYL_LEFT
-	def_bool $(shields_list_contains,skeletyl_left)
+    def_bool $(shields_list_contains,skeletyl_left)
 
 config SHIELD_SKELETYL_RIGHT
-	def_bool $(shields_list_contains,skeletyl_right)
+    def_bool $(shields_list_contains,skeletyl_right)
